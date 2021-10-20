@@ -1,0 +1,17 @@
+// Remove Default Btn Style
+@mixin rm_btn_style {
+	border: none;
+	background-color: transparent;
+}
+
+@mixin rm_input_style {
+	outline: none;
+	border: none;
+	background-color: transparent;
+}
+
+@mixin flex_align_center {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+}

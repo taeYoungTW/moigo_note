@@ -1,0 +1,18 @@
+@use 'sass:math';
+
+// Header Sizes
+$header-height: 45px;
+
+// Main Sizes
+$main-min-height: calc(100vh - $header-height);
+
+// Create Note Sizes
+$create-note-height: 100px;
+$create-note-ctnr-height: 45px;
+$create-note-ctnr-width: 550px;
+
+// Create Note Form Margin Size
+$create-note-form-margin: math.div(
+	calc($create-note-height - $create-note-ctnr-height),
+	2
+);
