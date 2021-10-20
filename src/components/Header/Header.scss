@@ -1,0 +1,65 @@
+@import '../../styles/variables.scss';
+
+header {
+	background-color: $header-color;
+	height: $header-height;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.align_left {
+		display: flex;
+		align-items: center;
+
+		.title_ctnr {
+			display: flex;
+			align-items: center;
+			margin: 0 25px;
+			color: $header-logo-color;
+			.logo {
+				font-size: 1.1rem;
+				margin-right: 10px;
+			}
+			.title {
+				font-size: 0.8rem;
+				font-weight: 500;
+			}
+		}
+
+		.search_ctnr {
+			height: 30px;
+			width: 380px;
+			display: flex;
+			align-items: center;
+			background-color: $search-bg-color;
+			border-radius: 1rem;
+			padding: 0 10px;
+
+			.search_input {
+				color: $search-color;
+				font-size: 0.9rem;
+				flex-grow: 1;
+				@include rm_input_style;
+				&::placeholder {
+					color: black;
+					font-weight: bold;
+					font-size: 0.9rem;
+				}
+			}
+		}
+	}
+
+	.window_ctrl {
+		padding-right: 15px;
+		.ctrl_btn {
+			width: 27px;
+			@include rm_btn_style;
+			color: $search-color;
+			.ctrlBtn_icon:hover {
+				color: $header-ctrl-hover-color;
+				transition: 0.2s;
+			}
+		}
+	}
+}
