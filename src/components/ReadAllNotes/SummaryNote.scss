@@ -1,0 +1,76 @@
+@import '../../styles/_variables.scss';
+
+.summary_note {
+	width: $summary-note-width;
+	height: $summary-note-height;
+	background-color: $summary-note-ctnr-color;
+	border: solid 1px $summary-note-ctnr-border-color;
+	@include default_border_radius;
+	display: flex;
+	flex-direction: column;
+	padding: 0 20px;
+	position: relative;
+
+	.summary_area {
+		flex-grow: 1;
+
+		.summary_title {
+			margin-top: 30px;
+			font-size: 1.2rem;
+			font-weight: 400;
+			color: $black-text-color;
+		}
+	}
+
+	.ctrl_area {
+		height: 50px;
+		display: flex;
+		justify-content: flex-end;
+		.del_summary_note_btn {
+			display: none;
+		}
+
+		.select_summary_note_on_btn {
+			display: none;
+		}
+
+		.select_summary_note_off_btn {
+			@include rm_btn_style;
+			position: absolute;
+			right: -25px;
+			top: -15px;
+			display: block;
+			cursor: pointer;
+		}
+
+		.select_outline {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			@include default_border_radius;
+			border: 3px solid $summary-note-check-color;
+			width: $summary-note-width;
+			height: $summary-note-height;
+		}
+	}
+
+	&:hover {
+		.ctrl_area {
+			.del_summary_note_btn {
+				@include rm_btn_style;
+				display: block;
+				cursor: pointer;
+			}
+
+			.select_summary_note_on_btn {
+				@include rm_btn_style;
+				position: absolute;
+				right: -25px;
+				top: -15px;
+				display: block;
+				cursor: pointer;
+			}
+		}
+	}
+}
