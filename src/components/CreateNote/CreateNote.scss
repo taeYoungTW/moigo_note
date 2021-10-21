@@ -12,7 +12,7 @@
 		width: $create-note-ctnr-width;
 		background-color: $create-note-ctnr-color;
 		border: 1px solid $create-note-ctnr-border-color;
-		border-radius: 3px;
+		@include default_border_radius;
 		@include flex_align_center;
 		padding: 10px;
 
@@ -21,7 +21,7 @@
 			text-align: left;
 			flex-grow: 1;
 			font-size: 0.9rem;
-			font-weight: 600;
+			font-weight: 400;
 			color: #828482;
 			cursor: text;
 		}
