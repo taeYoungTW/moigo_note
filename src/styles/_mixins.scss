@@ -15,3 +15,7 @@
 	justify-items: center;
 	align-items: center;
 }
+
+@mixin default_border_radius {
+	border-radius: 3px;
+}
