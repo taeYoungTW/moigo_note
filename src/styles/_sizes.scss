@@ -1,9 +1,11 @@
 @use 'sass:math';
 
-// Header Sizes
+// Header Size
 $header-height: 45px;
+$search_cntr_height: 30px;
+$search_cntr_width: 380px;
 
-// Main Sizes
+// Main Size
 $main-min-height: calc(100vh - $header-height);
 
 // Create Note Sizes
@@ -16,3 +18,7 @@ $create-note-form-margin: math.div(
 	calc($create-note-height - $create-note-ctnr-height),
 	2
 );
+
+// Summary Note Sizes
+$summary-note-width: 260px;
+$summary-note-height: 330px;
