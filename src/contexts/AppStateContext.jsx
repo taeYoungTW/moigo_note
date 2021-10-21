@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import useCreateNote from '../hooks/useCreateNote';
+import useNote from '../hooks/useNote';
 
 const AppStateContext = createContext();
 
@@ -10,7 +10,7 @@ const useAppAction = () => useContext(AppStateContext);
 // Provider
 const AppstateProvider = ({ children }) => {
 	// Combine
-	const combine = { ...useCreateNote() };
+	const combine = { ...useNote() };
 
 	// Provider
 	return (
