@@ -4,27 +4,29 @@
 	width: $create-note-ctnr-width;
 	background-color: $create-note-ctnr-color;
 	border: 1px solid $create-note-ctnr-border-color;
-	border-radius: 3px;
+	@include default_border_radius;
 	margin: $create-note-form-margin;
 
 	.title {
 		height: $create-note-ctnr-height;
 		border-bottom: 1px solid $split-color;
-		padding: 10px;
+		padding: 10px 15px;
 
 		.title_input {
 			@include rm_input_style;
 			height: 25px;
 			width: 450px;
-			font-size: 1.2rem;
+			font-size: 1.1rem;
+			font-weight: 300;
+
 			/* 
       font-weight 더 얇게 지정 불가 -> font setting 해야함
       */
 			color: $input-value-default-color;
 			&::placeholder {
-				font-size: 1rem;
-				font-weight: 700;
-				color: black;
+				font-size: 1.1rem;
+				font-weight: 500;
+				color: $black-text-color;
 			}
 		}
 	}
