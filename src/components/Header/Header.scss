@@ -28,12 +28,12 @@ header {
 		}
 
 		.search_ctnr {
-			height: 30px;
-			width: 380px;
+			width: $search_cntr_width;
+			height: $search_cntr_height;
 			display: flex;
 			align-items: center;
 			background-color: $search-bg-color;
-			border-radius: 1rem;
+			border-radius: 15px;
 			padding: 0 10px;
 
 			.search_input {
@@ -43,7 +43,7 @@ header {
 				@include rm_input_style;
 				&::placeholder {
 					color: black;
-					font-weight: bold;
+					font-weight: 500;
 					font-size: 0.9rem;
 				}
 			}
