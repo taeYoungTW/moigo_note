@@ -10,6 +10,7 @@
 	flex-direction: column;
 	padding: 0 20px;
 	position: relative;
+	z-index: 2;
 
 	.summary_area {
 		flex-grow: 1;
@@ -50,8 +51,9 @@
 			top: 0;
 			@include default_border_radius;
 			border: 3px solid $summary-note-check-color;
-			width: $summary-note-width;
-			height: $summary-note-height;
+			width: $summary-note-width + 2px;
+			height: $summary-note-height + 2px;
+			z-index: 1;
 		}
 	}
 
