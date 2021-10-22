@@ -8,30 +8,39 @@
 	@include default_border_radius;
 	display: flex;
 	flex-direction: column;
-	padding: 0 20px;
+	padding: 0 0 0 20px;
 	position: relative;
 	z-index: 1;
 	user-select: none;
 
 	.summary_area {
 		flex-grow: 1;
+		overflow: scroll;
+		overflow-x: hidden;
+		&::-webkit-scrollbar {
+			width: $summary-note-scrollbar-width;
+			background-color: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: $scrollbar-thumb-color;
+		}
 
 		.summary_title {
 			margin-top: 30px;
 			font-size: 1.2rem;
-			font-weight: 400;
+			font-weight: 300;
 			color: $black-text-color;
+			@include newline;
+			width: $summary-block-width;
 		}
 	}
 
 	.ctrl_area {
-		height: 50px;
+		height: 70px;
 		display: flex;
 		justify-content: flex-end;
-		.del_summary_note_btn {
-			display: none;
-		}
 
+		.del_summary_note_btn,
 		.select_summary_note_on_btn {
 			display: none;
 		}
@@ -69,6 +78,8 @@
 				display: block;
 				cursor: pointer;
 				z-index: 3;
+				margin-right: 10px;
+				margin-top: 10px;
 			}
 			/* 
 			ON-Btn : from OFF to ON (Not ON State)
