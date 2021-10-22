@@ -27,3 +27,8 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 }
+
+@mixin newline {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
