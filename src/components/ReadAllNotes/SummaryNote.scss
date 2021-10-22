@@ -10,7 +10,8 @@
 	flex-direction: column;
 	padding: 0 20px;
 	position: relative;
-	z-index: 2;
+	z-index: 1;
+	user-select: none;
 
 	.summary_area {
 		flex-grow: 1;
@@ -45,7 +46,7 @@
 			top: -15px;
 			display: block;
 			cursor: pointer;
-			z-index: 2;
+			z-index: 3;
 		}
 
 		.select_outline {
@@ -57,7 +58,7 @@
 			border: 3px solid $summary-note-check-color;
 			width: $summary-note-width + 2px;
 			height: $summary-note-height + 2px;
-			z-index: 1;
+			z-index: 2;
 		}
 	}
 
@@ -67,6 +68,7 @@
 				@include rm_btn_style;
 				display: block;
 				cursor: pointer;
+				z-index: 3;
 			}
 			/* 
 			ON-Btn : from OFF to ON (Not ON State)
