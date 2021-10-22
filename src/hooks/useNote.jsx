@@ -41,6 +41,17 @@ const useNote = () => {
 		setAllNotes(tempAllNotes);
 	}, [allNotes, selectedNoteIds]);
 
+	// Update A Note
+	const updateNote = useCallback(
+		(newNote) => {
+			const newAllNotes = allNotes.filter((note) => note.id !== newNote.id);
+			newAllNotes.unshift(newNote);
+			setAllNotes(newAllNotes);
+			setDetailNote({});
+		},
+		[allNotes]
+	);
+
 	// About Selection
 	const selectNoteId = useCallback((id) => {
 		setSelectedNoteIds((ids) => [...ids, id]);
@@ -86,6 +97,7 @@ const useNote = () => {
 		cancelSelect,
 		onDetailNote,
 		offDetailNote,
+		updateNote,
 	};
 
 	return { ...combineStates, ...combineActions };
