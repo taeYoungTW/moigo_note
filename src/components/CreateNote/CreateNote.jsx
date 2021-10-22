@@ -2,7 +2,7 @@ import './CreateNote.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AddBtn from '../Common/AddBtn';
-import CreateNoteForm from '../CreateNoteForm/CreateNoteForm';
+import CreateNoteForm from './CreateNoteForm';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
 const CreateNote = () => {
@@ -17,12 +17,17 @@ const CreateNote = () => {
 			{isOnCreateNote ? (
 				<CreateNoteForm />
 			) : (
-				<div className="create_note_ctnr">
+				<div
+					className="create_note_ctnr"
+					onClick={(e) => {
+						e.stopPropagation();
+					}}
+				>
 					<button className="add_text_btn" onClick={handleAdd}>
 						노트 작성...
 					</button>
-					<AddBtn Icon={InsertPhotoIcon} onClick={handleAdd} />
-					<AddBtn Icon={FormatListBulletedIcon} onClick={handleAdd} />
+					<AddBtn Icon={InsertPhotoIcon} eventHandler={handleAdd} />
+					<AddBtn Icon={FormatListBulletedIcon} eventHandler={handleAdd} />
 				</div>
 			)}
 		</section>
