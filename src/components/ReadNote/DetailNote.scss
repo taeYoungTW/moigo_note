@@ -29,10 +29,13 @@
 
 			.title {
 				height: 25px;
+				width: 450px;
+				overflow: hidden;
 				margin: 0;
 				font-size: 1.1rem;
 				font-weight: 300;
 				color: $input-value-default-color;
+				line-height: 25px;
 			}
 
 			.close_btn {
