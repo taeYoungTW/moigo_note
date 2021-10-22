@@ -66,10 +66,14 @@ SummaryNote 선택에 따른 선택된 노트들을 제어하는 헤더를 구�
   - [x] 선택된 노트들 일괄 삭제 기능 작업
   - [x] 선택된 노트들 일괄 선택 취소 기능 작업
     - 선택 취소시, 헤더 변경과 선택되어 표시된 outline, select Off btn을 없애 Update 시켜주는 작업
+    ![select_header](https://user-images.githubusercontent.com/92776202/138415218-26192f53-06a3-449a-818c-4883aca3214b.png)
+
 - **DetailNote**
   - [x] DetailNote 컴포넌트 구성 및 스타일 작업 (모달 형식)
   - [x] SummaryNote 클릭시 DetailNote 보이기 (SummaryNote hover시 버튼과 배경 z-index 조정)
   - [x] DetailNote 안보기, 노트 삭제 구현
+  ![detailNote](https://user-images.githubusercontent.com/92776202/138415257-0572cc8f-143d-46af-8b8b-01d9c209aa5e.png)
+
 - **main 영역 클릭시 CreateNoteForm -> CreateNote 표시 상태 변경 구현**
   - Main에 이벤트를 걸어 내부 이벤트 버블링으로 구현
   - 이벤트 버블링으로 구현했기에, 내부적으로 다른 요소는 StopPropagation, onClickCapture 형태로 제어 구현
@@ -78,8 +82,12 @@ SummaryNote 선택에 따른 선택된 노트들을 제어하는 헤더를 구�
   - UpdateNote 컴포넌트 구성 및 스타일 작업
   - 일단, title input만 수정 구현
   - allNote 중에서 수정된 항목이 제일 앞에 위치 하게 구현
+  ![updateNote](https://user-images.githubusercontent.com/92776202/138415290-959035a6-d73b-4c2d-b8cb-2ff634811574.png)
+
 - **SummaryNote Custom Scrollbar 구현**
   - 제목이 자동으로 멀티라인 가질 수있도록 pre-wrap, break-all 설정
+  ![summary_note_scrollbar](https://user-images.githubusercontent.com/92776202/138415331-7932144b-ff6a-4186-ac72-33b6b927cd74.png)
+
 
 <br/>
 
