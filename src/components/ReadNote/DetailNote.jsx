@@ -2,14 +2,19 @@ import './DetailNote.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-
+import { useState } from 'react';
+import UpdateNote from '../UpdateNote/UpdateNote';
 const DetailNote = () => {
 	const {
 		detailNote: { title, id },
 	} = useAppState();
 	const { offDetailNote, deleteNote } = useAppAction();
 
-	return (
+	const [isEdit, setIsEdit] = useState(false);
+
+	return isEdit ? (
+		<UpdateNote />
+	) : (
 		<div className="detail_note_ctnr">
 			<div className="detail_note">
 				<div className="title_ctnr">
@@ -29,7 +34,14 @@ const DetailNote = () => {
 					>
 						<DeleteIcon sx={{ fontSize: 23, color: '#2a394b' }} />
 					</button>
-					<button className="edit_btn">수정</button>
+					<button
+						onClick={() => {
+							setIsEdit(true);
+						}}
+						className="edit_btn"
+					>
+						수정
+					</button>
 				</div>
 			</div>
 		</div>
