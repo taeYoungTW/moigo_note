@@ -20,3 +20,10 @@
 @mixin default_border_radius {
 	border-radius: 3px;
 }
+
+@mixin absoulte_center_wh {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
