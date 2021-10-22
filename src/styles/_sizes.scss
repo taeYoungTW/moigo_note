@@ -22,3 +22,7 @@ $create-note-form-margin: math.div(
 // Summary Note Sizes
 $summary-note-width: 260px;
 $summary-note-height: 330px;
+
+// Detail Note Sizes
+$detail-note-width: $create-note-ctnr-width; // 550px
+$detail-note-min-height: 150px;
