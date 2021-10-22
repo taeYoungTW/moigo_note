@@ -24,6 +24,8 @@ header {
 				align-items: center;
 				margin: 0 25px;
 				color: $header-logo-color;
+				user-select: none;
+
 				.logo {
 					font-size: 1.1rem;
 					margin-right: 10px;
