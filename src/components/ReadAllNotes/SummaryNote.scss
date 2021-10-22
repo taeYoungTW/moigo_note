@@ -35,6 +35,9 @@
 			display: none;
 		}
 
+		/* 
+		OFF-Btn : from ON to OFF (Not Off State)
+		*/
 		.select_summary_note_off_btn {
 			@include rm_btn_style;
 			position: absolute;
@@ -42,6 +45,7 @@
 			top: -15px;
 			display: block;
 			cursor: pointer;
+			z-index: 2;
 		}
 
 		.select_outline {
@@ -64,7 +68,9 @@
 				display: block;
 				cursor: pointer;
 			}
-
+			/* 
+			ON-Btn : from OFF to ON (Not ON State)
+			*/
 			.select_summary_note_on_btn {
 				@include rm_btn_style;
 				position: absolute;
