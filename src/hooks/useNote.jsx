@@ -6,6 +6,7 @@ const useNote = () => {
 	const [isOnCreateNote, setIsOnCreateNote] = useState(false);
 	const [selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [allNotes, setAllNotes] = useState([]);
+	const [detailNote, setDetailNote] = useState({});
 
 	// Actions: useCallback
 	// Change "isOn(focus)" State of CreateNote Area
@@ -59,8 +60,22 @@ const useNote = () => {
 		setSelectedNoteIds([]);
 	}, []);
 
+	// Detail Note
+	const onDetailNote = useCallback((note) => {
+		setDetailNote(note);
+	}, []);
+
+	const offDetailNote = useCallback(() => {
+		setDetailNote({});
+	}, []);
+
 	// Combine States & Actions
-	const combineStates = { allNotes, isOnCreateNote, selectedNoteIds };
+	const combineStates = {
+		allNotes,
+		isOnCreateNote,
+		selectedNoteIds,
+		detailNote,
+	};
 	const combineActions = {
 		addNote,
 		changeIsOnCreateNote,
@@ -69,6 +84,8 @@ const useNote = () => {
 		selectNoteId,
 		deleteNoteId,
 		cancelSelect,
+		onDetailNote,
+		offDetailNote,
 	};
 
 	return { ...combineStates, ...combineActions };
