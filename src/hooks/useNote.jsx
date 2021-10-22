@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+// Manage Global States & Actions
 const useNote = () => {
 	// Init State : useState
 	const [isOnCreateNote, setIsOnCreateNote] = useState(false);
@@ -7,8 +8,7 @@ const useNote = () => {
 	const [allNotes, setAllNotes] = useState([]);
 
 	// Actions: useCallback
-
-	// Change State
+	// Change "isOn(focus)" State of CreateNote Area
 	const changeIsOnCreateNote = useCallback((value) => {
 		setIsOnCreateNote(value);
 	}, []);
@@ -36,6 +36,7 @@ const useNote = () => {
 		selectedNoteIds.forEach((id) => {
 			tempAllNotes = tempAllNotes.filter((note) => note.id !== id);
 		});
+		setSelectedNoteIds([]); // Cancel Selected Notes
 		setAllNotes(tempAllNotes);
 	}, [allNotes, selectedNoteIds]);
 
@@ -54,7 +55,11 @@ const useNote = () => {
 		[selectedNoteIds]
 	);
 
-	// Combine
+	const cancelSelect = useCallback(() => {
+		setSelectedNoteIds([]);
+	}, []);
+
+	// Combine States & Actions
 	const combineStates = { allNotes, isOnCreateNote, selectedNoteIds };
 	const combineActions = {
 		addNote,
@@ -63,6 +68,7 @@ const useNote = () => {
 		deleteNotes,
 		selectNoteId,
 		deleteNoteId,
+		cancelSelect,
 	};
 
 	return { ...combineStates, ...combineActions };
