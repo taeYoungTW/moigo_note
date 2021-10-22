@@ -2,7 +2,7 @@ import './AddBtn.scss';
 
 const AddBtn = ({ Icon, onClick }) => {
 	return (
-		<button className="add_btn" onClick={onClick}>
+		<button className="add_btn" type="button">
 			<Icon
 				sx={{ fontSize: 22, cursor: 'pointer', color: '#2A394B' }}
 				className="addBtn_icon"
