@@ -3,14 +3,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SummaryNote = ({ note }) => {
+	// Global States
 	const { deleteNote, selectNoteId, deleteNoteId } = useAppAction();
 	const { selectedNoteIds } = useAppState();
 
-	const [isSelected, setIsSelected] = useState(false);
+	// Local States
+	const [isSelected, setIsSelected] = useState(
+		selectedNoteIds.includes(note.id)
+	); // false로 해야하나 고민
 
+	// Functions
 	// Delete Current Note
 	function delCurrentNote() {
 		deleteNote(note.id);
@@ -21,7 +26,7 @@ const SummaryNote = ({ note }) => {
 		}
 	}
 
-	// Selection
+	// Select A Note
 	function selectOnCurrentNoteId() {
 		setIsSelected(true);
 		selectNoteId(note.id);
@@ -31,6 +36,11 @@ const SummaryNote = ({ note }) => {
 		setIsSelected(false);
 		deleteNoteId(note.id);
 	}
+
+	// For Cancel Selection (Update Note Outline)
+	useEffect(() => {
+		setIsSelected(selectedNoteIds.includes(note.id));
+	}, [selectedNoteIds, note]);
 
 	return (
 		<article className="summary_note">
