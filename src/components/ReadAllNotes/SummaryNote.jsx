@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 
 const SummaryNote = ({ note }) => {
 	// Global States
-	const { deleteNote, selectNoteId, deleteNoteId } = useAppAction();
+	const { deleteNote, selectNoteId, deleteNoteId, onDetailNote } =
+		useAppAction();
 	const { selectedNoteIds } = useAppState();
 
 	// Local States
@@ -43,28 +44,41 @@ const SummaryNote = ({ note }) => {
 	}, [selectedNoteIds, note]);
 
 	return (
-		<article className="summary_note">
+		<article
+			className="summary_note"
+			onClick={() => {
+				onDetailNote(note);
+			}}
+		>
 			<div className="summary_area">
 				{note.title && <h1 className="summary_title">{note.title}</h1>}
 			</div>
 			<div className="ctrl_area">
-				<button className="del_summary_note_btn" onClick={delCurrentNote}>
+				<button
+					className="del_summary_note_btn"
+					onClickCapture={delCurrentNote}
+				>
 					<DeleteIcon sx={{ fontSize: 20 }} />
 				</button>
 				{isSelected ? (
 					<>
 						<button
 							className="select_summary_note_off_btn"
-							onClick={selectOffCurrentNoteId}
+							onClickCapture={selectOffCurrentNoteId}
 						>
 							<CheckCircleIcon sx={{ fontSize: 35, color: '#81C7E4' }} />
 						</button>
-						<div className="select_outline"></div>
+						<div
+							className="select_outline"
+							onClick={(e) => {
+								e.stopPropagation();
+							}}
+						></div>
 					</>
 				) : (
 					<button
 						className="select_summary_note_on_btn"
-						onClick={selectOnCurrentNoteId}
+						onClickCapture={selectOnCurrentNoteId}
 					>
 						<CheckCircleOutlineIcon sx={{ fontSize: 35, color: '#81C7E4' }} />
 					</button>
