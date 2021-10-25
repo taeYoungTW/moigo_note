@@ -8,7 +8,7 @@ const DetailNote = () => {
 	const {
 		detailNote: { title, id },
 	} = useAppState();
-	const { offDetailNote, deleteNote } = useAppAction();
+	const { offDetailNote, setConfirmNoteIdtoDelete } = useAppAction();
 
 	const [isEdit, setIsEdit] = useState(false);
 
@@ -28,8 +28,7 @@ const DetailNote = () => {
 					<button
 						className="delete_btn"
 						onClick={() => {
-							deleteNote(id);
-							offDetailNote();
+							setConfirmNoteIdtoDelete(id);
 						}}
 					>
 						<DeleteIcon sx={{ fontSize: 23, color: '#2a394b' }} />
