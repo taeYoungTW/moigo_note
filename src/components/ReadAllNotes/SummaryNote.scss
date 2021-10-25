@@ -17,13 +17,7 @@
 		flex-grow: 1;
 		overflow: scroll;
 		overflow-x: hidden;
-		&::-webkit-scrollbar {
-			width: $summary-note-scrollbar-width;
-			background-color: transparent;
-		}
-		&::-webkit-scrollbar-thumb {
-			background-color: $scrollbar-thumb-color;
-		}
+		@include default_scrollbar;
 
 		.summary_title {
 			margin-top: 30px;
