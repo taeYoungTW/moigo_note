@@ -7,50 +7,13 @@ const useNote = () => {
 	const [selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [allNotes, setAllNotes] = useState([]);
 	const [detailNote, setDetailNote] = useState({});
+	const [confirmNoteIdtoDelete, setConfirmNoteIdtoDelete] = useState(''); // string : Put a specific Note id to delete
 
 	// Actions: useCallback
 	// Change "isOn(focus)" State of CreateNote Area
 	const changeIsOnCreateNote = useCallback((value) => {
 		setIsOnCreateNote(value);
 	}, []);
-
-	// Create A Note
-	const addNote = useCallback(
-		(note) => {
-			setAllNotes([...allNotes, note]);
-		},
-		[allNotes]
-	);
-
-	// Delete A specific Note
-	const deleteNote = useCallback(
-		(id) => {
-			const newAllNotes = allNotes.filter((note) => note.id !== id);
-			setAllNotes(newAllNotes);
-		},
-		[allNotes]
-	);
-
-	// Delete specific Notes (Selected)
-	const deleteNotes = useCallback(() => {
-		let tempAllNotes = allNotes;
-		selectedNoteIds.forEach((id) => {
-			tempAllNotes = tempAllNotes.filter((note) => note.id !== id);
-		});
-		setSelectedNoteIds([]); // Cancel Selected Notes
-		setAllNotes(tempAllNotes);
-	}, [allNotes, selectedNoteIds]);
-
-	// Update A Note
-	const updateNote = useCallback(
-		(newNote) => {
-			const newAllNotes = allNotes.filter((note) => note.id !== newNote.id);
-			newAllNotes.unshift(newNote);
-			setAllNotes(newAllNotes);
-			setDetailNote({});
-		},
-		[allNotes]
-	);
 
 	// About Selection
 	const selectNoteId = useCallback((id) => {
@@ -80,12 +43,56 @@ const useNote = () => {
 		setDetailNote({});
 	}, []);
 
+	// Create A Note
+	const addNote = useCallback(
+		(note) => {
+			setAllNotes([...allNotes, note]);
+		},
+		[allNotes]
+	);
+
+	// Delete A specific Note
+	const deleteNote = useCallback(
+		(id) => {
+			const newAllNotes = allNotes.filter((note) => note.id !== id);
+			setAllNotes(newAllNotes);
+
+			const isSelected = selectedNoteIds.includes(id);
+			if (isSelected) {
+				deleteNoteId(id);
+			}
+		},
+		[allNotes, selectedNoteIds, deleteNoteId]
+	);
+
+	// Delete specific Notes (Selected)
+	const deleteNotes = useCallback(() => {
+		let tempAllNotes = allNotes;
+		selectedNoteIds.forEach((id) => {
+			tempAllNotes = tempAllNotes.filter((note) => note.id !== id);
+		});
+		setSelectedNoteIds([]); // Cancel Selected Notes
+		setAllNotes(tempAllNotes);
+	}, [allNotes, selectedNoteIds]);
+
+	// Update A Note
+	const updateNote = useCallback(
+		(newNote) => {
+			const newAllNotes = allNotes.filter((note) => note.id !== newNote.id);
+			newAllNotes.unshift(newNote);
+			setAllNotes(newAllNotes);
+			setDetailNote({});
+		},
+		[allNotes]
+	);
+
 	// Combine States & Actions
 	const combineStates = {
 		allNotes,
 		isOnCreateNote,
 		selectedNoteIds,
 		detailNote,
+		confirmNoteIdtoDelete,
 	};
 	const combineActions = {
 		addNote,
@@ -98,6 +105,7 @@ const useNote = () => {
 		onDetailNote,
 		offDetailNote,
 		updateNote,
+		setConfirmNoteIdtoDelete,
 	};
 
 	return { ...combineStates, ...combineActions };
