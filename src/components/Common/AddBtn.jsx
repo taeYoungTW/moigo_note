@@ -1,4 +1,5 @@
 import './AddBtn.scss';
+import PropTypes from 'prop-types';
 
 const AddBtn = ({ Icon, eventHandler }) => {
 	return (
@@ -9,6 +10,11 @@ const AddBtn = ({ Icon, eventHandler }) => {
 			/>
 		</button>
 	);
+};
+
+AddBtn.PropTyes = {
+	Icon: PropTypes.element,
+	// eventHandler: PropTypes.func.isRequired,
 };
 
 export default AddBtn;
