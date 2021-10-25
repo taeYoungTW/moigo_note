@@ -104,12 +104,18 @@ SummaryNote 선택에 따른 선택된 노트들을 제어하는 헤더를 구�
   - Confirm 컴포넌트 구성 및 스타일 구현
   - SummaryNote, DetailNote, NotesHeader 컴포넌트에 삭제 클릭시 모두 confirm component template를 사용하도록 하고 confirm에 대한 질문, 버튼, 특정 기능은 prop으로 연결
   - 모달 스크롤 방지 (overflow-y: hidden)
+  ![image](https://user-images.githubusercontent.com/92776202/138784125-7453a91f-41cc-48d7-aa75-f79b6538a766.png)
+
 - Scrollbar 설정
   - body height를 viewport에 맞게 설정하여 scroll이 발생하지 않게 하였으며, main 영역에서만 scroll이 발생하도록 main height를 viewport 사이즈에 맞게 설정하고 overflow scroll로 설정하였습니다.
+![main_slidebar](https://user-images.githubusercontent.com/92776202/138784328-0f65f8ac-8fc7-4fce-9c56-0208c5cf468d.png)
+
 - Block 만들기
   - Block 어떻게 표시할지 구상
   - CreateTextBlock 컴포넌트 스타일링
     - textarea 줄바꿈에 따른 크기 조정 문제 (커지는것은 해결했으나 줄어들지 않음)
+    ![create_text_block](https://user-images.githubusercontent.com/92776202/138784430-1ffb1eeb-1f54-478b-9717-26ec9bf1de14.png)
+
 
 <br/>
 
