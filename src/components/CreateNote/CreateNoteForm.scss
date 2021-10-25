@@ -32,7 +32,7 @@
 	}
 
 	.content {
-		height: $create-note-ctnr-height;
+		min-height: $create-note-ctnr-height;
 	}
 
 	.ctrl_bar {
