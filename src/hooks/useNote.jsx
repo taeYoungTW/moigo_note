@@ -46,7 +46,8 @@ const useNote = () => {
 	// ~~~~ Create A Note ~~~~
 	const addNote = useCallback(
 		(note) => {
-			setAllNotes([...allNotes, note]);
+			allNotes.unshift(note);
+			setAllNotes([...allNotes]);
 		},
 		[allNotes]
 	);
