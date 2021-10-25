@@ -1,0 +1,22 @@
+@import '../../styles/_variables.scss';
+
+.block {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: transparent;
+	padding: 10px;
+	height: fit-content;
+	.text_block_textarea {
+		width: 400px;
+		resize: none;
+		overflow: hidden;
+		@include rm_input_style;
+		font-size: 1rem;
+		line-height: 20px;
+	}
+
+	button {
+		@include rm_btn_style;
+	}
+}
