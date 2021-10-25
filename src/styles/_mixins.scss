@@ -32,3 +32,25 @@
 	white-space: pre-wrap;
 	word-break: break-all;
 }
+
+@mixin modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(245, 245, 245, 0.6);
+	z-index: 100;
+	overflow-y: hidden;
+}
+
+@mixin default_scrollbar {
+	&::-webkit-scrollbar {
+		width: $summary-note-scrollbar-width;
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: $scrollbar-thumb-color;
+	}
+}
