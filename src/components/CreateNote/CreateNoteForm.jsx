@@ -5,11 +5,13 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { useAppAction } from '../../contexts/AppStateContext';
+import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 
 const CreateNoteForm = () => {
 	// Request to add Note to global state
-	const { addNote, changeIsOnCreateNote } = useAppAction();
+	const { blocks } = useAppState();
+	const { addNote, changeIsOnCreateNote, addBlock } = useAppAction();
 
 	const [note, setNote] = useState({
 		title: '',
@@ -19,6 +21,10 @@ const CreateNoteForm = () => {
 		e.preventDefault();
 		addNote({ ...note, id: uuid() });
 		changeIsOnCreateNote(false);
+	}
+
+	function addTextBlock() {
+		addBlock({ id: uuid(), type: 'text', text: '' });
 	}
 
 	return (
@@ -41,12 +47,21 @@ const CreateNoteForm = () => {
 						value={note.title}
 					/>
 				</div>
-				<div className="content">Area for Block</div>
+				<div className="content">
+					{blocks.map((block) => {
+						switch (block.type) {
+							case 'text':
+								return <CreateTextBlock block={block} key={block.id} />;
+							default:
+								return <CreateTextBlock block={block} key={block.id} />;
+						}
+					})}
+				</div>
 				<div className="ctrl_bar">
 					<div className="add_btns">
 						<AddBtn Icon={InsertPhotoIcon} />
 						<AddBtn Icon={FormatListBulletedIcon} />
-						<AddBtn Icon={TextFieldsIcon} />
+						<AddBtn Icon={TextFieldsIcon} eventHandler={addTextBlock} />
 					</div>
 					<button type="submit" className="create_submit_btn">
 						완료
