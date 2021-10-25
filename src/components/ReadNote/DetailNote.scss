@@ -1,14 +1,7 @@
 @import '../../styles/_variables.scss';
 
 .detail_note_ctnr {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 100;
-	width: 100vw;
-	height: 100vh;
-	background: rgba(255, 255, 255, 0.4);
+	@include modal;
 
 	.detail_note {
 		@include absoulte_center_wh;
