@@ -4,6 +4,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const SummaryNote = ({ note }) => {
 	// ---- Global States ----
@@ -82,6 +83,10 @@ const SummaryNote = ({ note }) => {
 			</div>
 		</article>
 	);
+};
+
+SummaryNote.propTypes = {
+	note: PropTypes.object,
 };
 
 export default SummaryNote;
