@@ -6,27 +6,22 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useEffect, useState } from 'react';
 
 const SummaryNote = ({ note }) => {
-	// Global States
-	const { deleteNote, selectNoteId, deleteNoteId, onDetailNote } =
+	// ---- Global States ----
+	const { selectNoteId, deleteNoteId, onDetailNote, setConfirmNoteIdtoDelete } =
 		useAppAction();
 	const { selectedNoteIds } = useAppState();
 
-	// Local States
+	// ---- Local States ----
 	const [isSelected, setIsSelected] = useState(
 		selectedNoteIds.includes(note.id)
 	); // false로 해야하나 고민
 
-	// Functions
-	// Delete Current Note
-	function delCurrentNote() {
-		deleteNote(note.id);
-
-		const isSelected = selectedNoteIds.includes(note.id);
-		if (isSelected) {
-			deleteNoteId(note.id);
-		}
+	// ---- Functions ----
+	// On Delete-Note-Confirm
+	function onDelNoteConfirm(e) {
+		e.stopPropagation();
+		setConfirmNoteIdtoDelete(note.id);
 	}
-
 	// Select A Note
 	function selectOnCurrentNoteId() {
 		setIsSelected(true);
@@ -38,7 +33,7 @@ const SummaryNote = ({ note }) => {
 		deleteNoteId(note.id);
 	}
 
-	// For Cancel Selection (Update Note Outline)
+	//---- useEffect ---- For Cancel Selection (Update Note Outline)
 	useEffect(() => {
 		setIsSelected(selectedNoteIds.includes(note.id));
 	}, [selectedNoteIds, note]);
@@ -56,10 +51,11 @@ const SummaryNote = ({ note }) => {
 			<div className="ctrl_area">
 				<button
 					className="del_summary_note_btn"
-					onClickCapture={delCurrentNote}
+					onClickCapture={onDelNoteConfirm}
 				>
 					<DeleteIcon sx={{ fontSize: 20 }} />
 				</button>
+
 				{isSelected ? (
 					<>
 						<button
