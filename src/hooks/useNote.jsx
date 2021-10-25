@@ -2,20 +2,20 @@ import { useCallback, useState } from 'react';
 
 // Manage Global States & Actions
 const useNote = () => {
-	// Init State : useState
+	// ------ Init State : useState ------------------
 	const [isOnCreateNote, setIsOnCreateNote] = useState(false);
 	const [selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
-	const [allNotes, setAllNotes] = useState([]);
-	const [detailNote, setDetailNote] = useState({});
+	const [allNotes, setAllNotes] = useState([]); // ex. [{title, id}, {title, id}, {title, id}, ... ]
+	const [detailNote, setDetailNote] = useState({}); // ex. {title, id}
 	const [confirmNoteIdtoDelete, setConfirmNoteIdtoDelete] = useState(''); // string : Put a specific Note id to delete
 
-	// Actions: useCallback
-	// Change "isOn(focus)" State of CreateNote Area
+	// ------ Actions: useCallback -------------------
+	// ~~~~ Change "isOn(focus)" State of CreateNote Area ~~~~
 	const changeIsOnCreateNote = useCallback((value) => {
 		setIsOnCreateNote(value);
 	}, []);
 
-	// About Selection
+	// ~~~~ About Selection ~~~~
 	const selectNoteId = useCallback((id) => {
 		setSelectedNoteIds((ids) => [...ids, id]);
 	}, []);
@@ -34,7 +34,7 @@ const useNote = () => {
 		setSelectedNoteIds([]);
 	}, []);
 
-	// Detail Note
+	// ~~~~ Detail Note (ON/OFF) ~~~~
 	const onDetailNote = useCallback((note) => {
 		setDetailNote(note);
 	}, []);
@@ -43,7 +43,7 @@ const useNote = () => {
 		setDetailNote({});
 	}, []);
 
-	// Create A Note
+	// ~~~~ Create A Note ~~~~
 	const addNote = useCallback(
 		(note) => {
 			setAllNotes([...allNotes, note]);
@@ -51,7 +51,7 @@ const useNote = () => {
 		[allNotes]
 	);
 
-	// Delete A specific Note
+	// ~~~~ Delete A specific Note~~~~
 	const deleteNote = useCallback(
 		(id) => {
 			const newAllNotes = allNotes.filter((note) => note.id !== id);
@@ -65,7 +65,7 @@ const useNote = () => {
 		[allNotes, selectedNoteIds, deleteNoteId]
 	);
 
-	// Delete specific Notes (Selected)
+	// ~~~~ Delete specific Notes (Selected) ~~~~
 	const deleteNotes = useCallback(() => {
 		let tempAllNotes = allNotes;
 		selectedNoteIds.forEach((id) => {
@@ -75,7 +75,7 @@ const useNote = () => {
 		setAllNotes(tempAllNotes);
 	}, [allNotes, selectedNoteIds]);
 
-	// Update A Note
+	// ~~~~ Update A Note ~~~~
 	const updateNote = useCallback(
 		(newNote) => {
 			const newAllNotes = allNotes.filter((note) => note.id !== newNote.id);
@@ -86,7 +86,7 @@ const useNote = () => {
 		[allNotes]
 	);
 
-	// Combine States & Actions
+	// ------ Combine States & Actions ------
 	const combineStates = {
 		allNotes,
 		isOnCreateNote,
