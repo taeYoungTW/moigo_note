@@ -2,20 +2,26 @@ import { useEffect, useRef, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
+import { useAppAction } from '../../contexts/AppStateContext';
 
 const CreateTextBlock = ({ block }) => {
+	// Global State, Actions
+	const { deleteBlock, updateBlock } = useAppAction();
+
 	// Local State
 	const [textBlock, setTextBlock] = useState(block);
 	const textRef = useRef(null);
 
 	// Functions
+
+	// useEffect : textarea auto height
 	useEffect(() => {
-		console.log(textRef);
-		textRef.current.rows = Math.floor(textRef.current.scrollHeight / 20);
+		textRef.current.style.height = '';
+		textRef.current.style.height = textRef.current.scrollHeight + 'px';
 	}, [textBlock]);
 
 	return (
-		<div className="block">
+		<div className="create_block">
 			<textarea
 				className="text_block_textarea"
 				type="text"
@@ -24,13 +30,24 @@ const CreateTextBlock = ({ block }) => {
 					const {
 						target: { value },
 					} = e;
-					setTextBlock((block) => ({ ...block, text: value }));
+					updateBlock({ ...textBlock, text: value });
+					setTextBlock((block) => {
+						return { ...block, text: value };
+					});
 				}}
 				placeholder="노트 작성..."
+				rows={1}
 				ref={textRef}
+				spellCheck={false}
+				autoFocus={true}
 			/>
 			<div className="btns">
-				<button type="button">
+				<button
+					type="button"
+					onClick={() => {
+						deleteBlock(block.id);
+					}}
+				>
 					<DeleteIcon sx={{ fontSize: 18 }} />
 				</button>
 				<button type="button">
