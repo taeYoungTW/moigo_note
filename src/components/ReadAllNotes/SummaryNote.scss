@@ -21,8 +21,9 @@
 
 		.summary_title {
 			margin-top: 30px;
+			margin-bottom: 20px;
 			font-size: 1.2rem;
-			font-weight: 300;
+			font-weight: 400;
 			color: $black-text-color;
 			@include newline;
 			width: $summary-block-width;
