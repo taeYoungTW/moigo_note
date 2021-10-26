@@ -200,3 +200,9 @@ useEffect(() => {
 
   // 해당 부분에 있어서 많은 반복문이 필요합니다. note 개수 * block 개수 만큼 비교하기 때문에 개선이 필요합니다. O(n^2)
   ```
+  
+  <br/>
+  
+ - 구현된 SummaryNote
+  ![compare_web_real](https://user-images.githubusercontent.com/92776202/138836402-f03ebb0a-d751-4811-a54b-75ae893c41f9.png)
+
