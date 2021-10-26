@@ -5,7 +5,7 @@ const useNote = () => {
 	// ------ Init State : useState ------------------
 	const [isOnCreateNote, setIsOnCreateNote] = useState(false);
 	const [selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
-	const [allNotes, setAllNotes] = useState([]); // ex. [{title, id}, {title, id}, {title, id}, ... ]
+	const [allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
 	const [detailNote, setDetailNote] = useState({}); // ex. {title, id}
 	const [confirmNoteIdtoDelete, setConfirmNoteIdtoDelete] = useState(''); // string : Put a specific Note id to delete
 
@@ -87,6 +87,24 @@ const useNote = () => {
 		[allNotes]
 	);
 
+	// ~~~~~ Update specific Checklistblock of A Note
+	const updateNoteChecklist = useCallback((noteId, targetBlock) => {
+		setAllNotes((AllNotes) => {
+			return AllNotes.map((note) => {
+				if (note.id === noteId) {
+					const newBlocks = note.blocks.map((block) => {
+						if (block.id === targetBlock.id) {
+							return { ...targetBlock };
+						}
+						return { ...block };
+					});
+					return { ...note, blocks: newBlocks };
+				}
+				return { ...note };
+			});
+		});
+	}, []);
+
 	// ------ Combine States & Actions ------
 	const combineStates = {
 		allNotes,
@@ -107,6 +125,7 @@ const useNote = () => {
 		offDetailNote,
 		updateNote,
 		setConfirmNoteIdtoDelete,
+		updateNoteChecklist,
 	};
 
 	return { ...combineStates, ...combineActions };
