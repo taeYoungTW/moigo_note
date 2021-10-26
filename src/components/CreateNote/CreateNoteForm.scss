@@ -17,7 +17,7 @@
 			height: 25px;
 			width: 450px;
 			font-size: 1.1rem;
-			font-weight: 300;
+			font-weight: 400;
 
 			/* 
       font-weight 더 얇게 지정 불가 -> font setting 해야함
@@ -32,7 +32,8 @@
 	}
 
 	.content {
-		min-height: $create-note-ctnr-height;
+		// min-height: $create-note-ctnr-height;
+		height: fit-content;
 	}
 
 	.ctrl_bar {
