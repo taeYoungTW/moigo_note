@@ -23,12 +23,39 @@ const useBlock = () => {
   */
 
 	// ------ Actions: useCallback -------------------
+	const resetBlocks = useCallback(() => {
+		setBlocks([]);
+	}, []);
+
 	const addBlock = useCallback((block) => {
 		setBlocks((blocks) => [...blocks, block]);
 	}, []);
+
+	const deleteBlock = useCallback((blockId) => {
+		setBlocks((blocks) => blocks.filter((block) => block.id !== blockId));
+	}, []);
+
+	const updateBlock = useCallback(
+		(targetBlock) => {
+			if (blocks.find((block) => block.id === targetBlock.id)) {
+				setBlocks((blocks) =>
+					blocks.map((block) => {
+						if (block.id === targetBlock.id) {
+							return targetBlock;
+						} else {
+							return block;
+						}
+					})
+				);
+			} else {
+				throw new Error('Error: updateBlock');
+			}
+		},
+		[blocks]
+	);
 	// ------ Combine States & Actions ---------------
 	const combineStates = { blocks };
-	const combineActions = { addBlock };
+	const combineActions = { addBlock, deleteBlock, updateBlock, resetBlocks };
 
 	return { ...combineStates, ...combineActions };
 };
