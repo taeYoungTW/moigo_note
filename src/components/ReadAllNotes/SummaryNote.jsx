@@ -5,6 +5,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
+import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 
 const SummaryNote = ({ note }) => {
 	// ---- Global States ----
@@ -48,6 +50,23 @@ const SummaryNote = ({ note }) => {
 		>
 			<div className="summary_area">
 				{note.title && <h1 className="summary_title">{note.title}</h1>}
+				{note.blocks &&
+					note.blocks.map((block) => {
+						switch (block.type) {
+							case 'text':
+								return <ReadTextBlock block={block} key={block.id} />;
+							case 'checklist':
+								return (
+									<ReadChecklistBlock
+										block={block}
+										key={block.id}
+										noteId={note.id}
+									/>
+								);
+							default:
+								return new Error('Error: Read Block');
+						}
+					})}
 			</div>
 			<div className="ctrl_area">
 				<button
