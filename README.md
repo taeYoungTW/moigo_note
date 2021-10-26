@@ -93,29 +93,28 @@ SummaryNote 선택에 따른 선택된 노트들을 제어하는 헤더를 구�
 
 <br/>
 
-다음에 할 것
-
 ## 📆 2021.10.25
 
 - CreateNote 진행시 제일 앞으로 추가하게 변경
 - Note가 삭제를 위해 선택되었을 경우, onDetailNote 불가 구현
   - 선택되어 활성화되는 노트의 outline을 z-index 조정으로 구현
 - Delete-Note-Confirm 모달 구현
+
   - Confirm 컴포넌트 구성 및 스타일 구현
   - SummaryNote, DetailNote, NotesHeader 컴포넌트에 삭제 클릭시 모두 confirm component template를 사용하도록 하고 confirm에 대한 질문, 버튼, 특정 기능은 prop으로 연결
   - 모달 스크롤 방지 (overflow-y: hidden)
-  ![image](https://user-images.githubusercontent.com/92776202/138784125-7453a91f-41cc-48d7-aa75-f79b6538a766.png)
+    ![image](https://user-images.githubusercontent.com/92776202/138784125-7453a91f-41cc-48d7-aa75-f79b6538a766.png)
 
 - Scrollbar 설정
+
   - body height를 viewport에 맞게 설정하여 scroll이 발생하지 않게 하였으며, main 영역에서만 scroll이 발생하도록 main height를 viewport 사이즈에 맞게 설정하고 overflow scroll로 설정하였습니다.
-![main_slidebar](https://user-images.githubusercontent.com/92776202/138784328-0f65f8ac-8fc7-4fce-9c56-0208c5cf468d.png)
+    ![main_slidebar](https://user-images.githubusercontent.com/92776202/138784328-0f65f8ac-8fc7-4fce-9c56-0208c5cf468d.png)
 
 - Block 만들기
   - Block 어떻게 표시할지 구상
   - CreateTextBlock 컴포넌트 스타일링
     - textarea 줄바꿈에 따른 크기 조정 문제 (커지는것은 해결했으나 줄어들지 않음)
-    ![create_text_block](https://user-images.githubusercontent.com/92776202/138784430-1ffb1eeb-1f54-478b-9717-26ec9bf1de14.png)
-
+      ![create_text_block](https://user-images.githubusercontent.com/92776202/138784430-1ffb1eeb-1f54-478b-9717-26ec9bf1de14.png)
 
 <br/>
 
@@ -125,3 +124,79 @@ SummaryNote 선택에 따른 선택된 노트들을 제어하는 헤더를 구�
   : 스토어의 Action에서 연관된 기능까지 구현 하여 묶어야 하는가?
   아니면, 독립성을 위해서 사용되는 컴포넌트 내부에서 함수를 통해서 연관되 기능 끼리의 조합을 해야하는가?
 - Global states, actions들이 컴포넌트의 Local states, functions의 식별자 중복 가능성이 있기 때문에 `_`를 붙여 구분하여 사용할지 생각
+
+<br/>
+
+## 📆 2021.10.26
+
+- textarea auto height 문제 해결
+  - scrollheight와 sytle의 height를 같게 만들어 줌으로서 해결하였고, 계속해서 갱신시 height를 "" 빈값으로 만들어 늘어나서 돌아오지 않는 scrollheight를 초기화하여 줄수가 줄어드는 경우도 크기가 맞게 만들었습니다.
+
+```js
+// useEffect : textarea auto height
+useEffect(() => {
+	textRef.current.style.height = '';
+	textRef.current.style.height = textRef.current.scrollHeight + 'px';
+}, [textBlock]);
+```
+
+<br/>
+
+- useBlock Hook 생성 (Block과 관련된 state, action을 관리합니다.)
+  - createNoteForm에서 blocks state에 block을 추가하여 생성할 blocks를 관리합니다.
+  - resetBlocks, addBlock, deleteBlock, updateBlock Action을 구현하였습니다.
+
+<br/>
+
+- 종류별 CreateBlocks 기능 구현
+
+  - Block 공통 사항으로 deleteBlock 기능 구현
+  - 블록 추가가 되는 경우 uuid를 통해 id를 받고 아래 형태로 Global State인 blocks에 추가 됩니다.
+  - 해당 종류별 컴포넌트에서 각각의 state가지고, global state blocks에 바로 반영 됩니다. (updateBlock Action을 활용)
+
+  ```js
+  const textBlockStructure = {
+  	id: '', // uuid v4 활용 ex. 23c5e02f-c89a-47d4-886a-3220c96ece8e
+  	type: 'text',
+  	text: '',
+  };
+
+  const checklistBlockStructure = {
+  	id: '', // uuid v4 활용 ex. e2e7b1eb-1543-466e-bfd8-301a37860ac9
+  	type: 'checklist',
+  	isDone: false,
+  	content: '',
+  };
+  ```
+
+- ReadBlocks 구성 및 스타일링 (SummaryNote의 content 영역에서 보여질 컴포넌트)
+
+  - ReadChecklistBlock, ReadTextBlock
+  - 최대한, 실제 모이고 노트와 비슷한 스타일링을 구현하려고 하였습니다.
+  - **ReadChecklistBlock의 경우 수정이 가능해야 하므로, 이미 완료된 allNotes를 직접 건드려 해당 노트의 해당 블럭의 isDone을 변경하게 구현하였습니다.**
+
+  ```js
+  // ~~~~~ Update specific Checklistblock of A Note
+  const updateNoteChecklist = useCallback((noteId, targetBlock) => {
+  	// allNotes를 직접 수정 합니다.
+  	setAllNotes((AllNotes) => {
+  		return AllNotes.map((note) => {
+  			// AllNotes에서 해당 note를 찾습니다.
+  			if (note.id === noteId) {
+  				const newBlocks = note.blocks.map((block) => {
+  					// 해당 note에서 해당 block을 찾습니다.
+  					if (block.id === targetBlock.id) {
+  						// 수정된 블록을 반영합니다.
+  						return { ...targetBlock };
+  					}
+  					return { ...block };
+  				});
+  				return { ...note, blocks: newBlocks };
+  			}
+  			return { ...note };
+  		});
+  	});
+  }, []);
+
+  // 해당 부분에 있어서 많은 반복문이 필요합니다. note 개수 * block 개수 만큼 비교하기 때문에 개선이 필요합니다. O(n^2)
+  ```
