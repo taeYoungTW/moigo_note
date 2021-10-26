@@ -27,9 +27,9 @@ const CreateChecklistBlock = ({ block }) => {
 			<div className="checklist">
 				<label htmlFor={block.id} className="checkbox_label">
 					{checklistBlock.isDone ? (
-						<CheckBoxIcon sx={{ fontSize: 20 }} />
+						<CheckBoxIcon sx={{ fontSize: 20, color: '#29394B' }} />
 					) : (
-						<CheckBoxOutlineBlankIcon sx={{ fontSize: 20 }} />
+						<CheckBoxOutlineBlankIcon sx={{ fontSize: 20, color: '#29394B' }} />
 					)}
 				</label>
 				<input
