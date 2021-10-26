@@ -7,24 +7,32 @@ import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
+import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 
 const CreateNoteForm = () => {
 	// Request to add Note to global state
 	const { blocks } = useAppState();
-	const { addNote, changeIsOnCreateNote, addBlock } = useAppAction();
+	const { addNote, changeIsOnCreateNote, addBlock, resetBlocks } =
+		useAppAction();
 
 	const [note, setNote] = useState({
 		title: '',
+		blocks: [],
 	});
 
 	function createNoteSubmit(e) {
 		e.preventDefault();
-		addNote({ ...note, id: uuid() });
+		addNote({ ...note, id: uuid(), blocks: [...blocks] });
+		resetBlocks();
 		changeIsOnCreateNote(false);
 	}
 
 	function addTextBlock() {
 		addBlock({ id: uuid(), type: 'text', text: '' });
+	}
+
+	function addChecklistBlock() {
+		addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
 	}
 
 	return (
@@ -52,6 +60,8 @@ const CreateNoteForm = () => {
 						switch (block.type) {
 							case 'text':
 								return <CreateTextBlock block={block} key={block.id} />;
+							case 'checklist':
+								return <CreateChecklistBlock block={block} key={block.id} />;
 							default:
 								return <CreateTextBlock block={block} key={block.id} />;
 						}
@@ -60,7 +70,10 @@ const CreateNoteForm = () => {
 				<div className="ctrl_bar">
 					<div className="add_btns">
 						<AddBtn Icon={InsertPhotoIcon} />
-						<AddBtn Icon={FormatListBulletedIcon} />
+						<AddBtn
+							Icon={FormatListBulletedIcon}
+							eventHandler={addChecklistBlock}
+						/>
 						<AddBtn Icon={TextFieldsIcon} eventHandler={addTextBlock} />
 					</div>
 					<button type="submit" className="create_submit_btn">
