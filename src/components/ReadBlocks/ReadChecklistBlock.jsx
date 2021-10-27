@@ -1,13 +1,28 @@
-import { useState } from 'react';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useAppAction } from '../../contexts/AppStateContext';
-const ReadChecklistBlock = ({ block, noteId }) => {
-	const [checklistBlock, setChecklistBlock] = useState(block);
-	const { updateNoteChecklist } = useAppAction();
+
+const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
+	const { updateNoteChecklist, updateDetailNoteChecklist } = useAppAction();
+
+	function onClickCheckbox(e) {
+		const {
+			target: { checked },
+		} = e;
+		updateNoteChecklist(noteId, {
+			...block,
+			isDone: checked,
+		});
+		if (isDetail) {
+			updateDetailNoteChecklist({
+				...block,
+				isDone: checked,
+			});
+		}
+	}
 
 	return (
-		<div className="read_block">
+		<div className={`read_block ${isDetail ? 'detail' : ''}`}>
 			<div className="read_checklist_block">
 				<div
 					onClick={(e) => {
@@ -15,8 +30,11 @@ const ReadChecklistBlock = ({ block, noteId }) => {
 					}}
 					className="stopPropagation_el"
 				>
-					<label htmlFor={block.id} className="checkbox_label">
-						{checklistBlock.isDone ? (
+					<label
+						htmlFor={isDetail ? `DetailNote_${block.id}` : block.id}
+						className="checkbox_label"
+					>
+						{block.isDone ? (
 							<CheckBoxIcon sx={{ fontSize: 20, color: '#29394B' }} />
 						) : (
 							<CheckBoxOutlineBlankIcon
@@ -26,26 +44,16 @@ const ReadChecklistBlock = ({ block, noteId }) => {
 					</label>
 					<input
 						type="checkbox"
-						id={block.id}
+						id={isDetail ? `DetailNote_${block.id}` : block.id}
 						className="checkbox_input"
-						onClick={(e) => {
-							const {
-								target: { checked },
-							} = e;
-							// updateBlock({ ...checklistBlock, isDone: checked });
-							updateNoteChecklist(noteId, {
-								...checklistBlock,
-								isDone: checked,
-							});
-							setChecklistBlock((block) => ({ ...block, isDone: checked }));
-						}}
+						checked={block.isDone}
+						onChange={onClickCheckbox}
 					/>
 				</div>
 				<div
 					className="content"
 					style={{
-						textDecoration:
-							checklistBlock.isDone && 'solid line-through #414141 1px',
+						textDecoration: block.isDone && 'solid line-through #414141 1px',
 					}}
 				>
 					{block.content}
