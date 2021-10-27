@@ -3,7 +3,7 @@ import './CreateNoteForm.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
@@ -20,10 +20,10 @@ const CreateNoteForm = () => {
 		blocks: [],
 	});
 
+	// Functions
 	function createNoteSubmit(e) {
 		e.preventDefault();
 		addNote({ ...note, id: uuid(), blocks: [...blocks] });
-		resetBlocks();
 		changeIsOnCreateNote(false);
 	}
 
@@ -34,6 +34,19 @@ const CreateNoteForm = () => {
 	function addChecklistBlock() {
 		addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
 	}
+
+	// useEffect
+	useEffect(() => {
+		if (blocks.length === 0) {
+			addTextBlock();
+		}
+	}, [blocks.length]);
+
+	useEffect(() => {
+		return () => {
+			resetBlocks();
+		};
+	}, []);
 
 	return (
 		<section
