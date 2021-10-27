@@ -27,6 +27,10 @@ const useBlock = () => {
 		setBlocks([]);
 	}, []);
 
+	const initBlocks = useCallback((blocks) => {
+		setBlocks(blocks);
+	}, []);
+
 	const addBlock = useCallback((block) => {
 		setBlocks((blocks) => [...blocks, block]);
 	}, []);
@@ -55,7 +59,13 @@ const useBlock = () => {
 	);
 	// ------ Combine States & Actions ---------------
 	const combineStates = { blocks };
-	const combineActions = { addBlock, deleteBlock, updateBlock, resetBlocks };
+	const combineActions = {
+		addBlock,
+		deleteBlock,
+		updateBlock,
+		resetBlocks,
+		initBlocks,
+	};
 
 	return { ...combineStates, ...combineActions };
 };
