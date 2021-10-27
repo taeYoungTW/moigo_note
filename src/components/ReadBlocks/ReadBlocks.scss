@@ -6,8 +6,7 @@
 		font-size: 0.9rem;
 		color: $black-text-color;
 		font-weight: 300;
-		padding-right: 20px;
-		line-height: 30px;
+		line-height: 28px;
 	}
 
 	.read_checklist_block {
@@ -15,7 +14,39 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 10px;
-		padding-right: 20px;
+		.stopPropagation_el {
+			align-self: flex-start;
+			margin-top: 3px;
+			.checkbox_input {
+				display: none;
+			}
+		}
+		.content {
+			flex-grow: 1;
+			color: $black-text-color;
+			font-weight: 300;
+			font-size: 0.9rem;
+			line-height: 17px;
+			overflow: hidden;
+		}
+	}
+}
+
+.read_block.detail {
+	margin: 10px 0;
+	.read_text_block {
+		@include newline;
+		font-size: 0.9rem;
+		color: $black-text-color;
+		font-weight: 300;
+		line-height: 18px;
+	}
+
+	.read_checklist_block {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
 
 		.stopPropagation_el {
 			align-self: flex-start;
@@ -30,6 +61,7 @@
 			font-weight: 300;
 			font-size: 0.9rem;
 			line-height: 17px;
+			@include newline;
 		}
 	}
 }
