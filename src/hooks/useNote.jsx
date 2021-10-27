@@ -6,7 +6,7 @@ const useNote = () => {
 	const [isOnCreateNote, setIsOnCreateNote] = useState(false);
 	const [selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
-	const [detailNote, setDetailNote] = useState({}); // ex. {title, id}
+	const [detailNote, setDetailNote] = useState({}); // ex. {title, id, blocks}
 	const [confirmNoteIdtoDelete, setConfirmNoteIdtoDelete] = useState(''); // string : Put a specific Note id to delete
 
 	// ------ Actions: useCallback -------------------
@@ -42,6 +42,22 @@ const useNote = () => {
 	const offDetailNote = useCallback(() => {
 		setDetailNote({});
 	}, []);
+
+	const updateDetailNoteChecklist = useCallback(
+		(targetBlock) =>
+			setDetailNote((detailNote) => {
+				const newBlocks = detailNote.blocks.map((block) => {
+					if (block.id === targetBlock.id) {
+						return { ...targetBlock };
+					} else {
+						return { ...block };
+					}
+				});
+
+				return { ...detailNote, blocks: newBlocks };
+			}),
+		[]
+	);
 
 	// ~~~~ Create A Note ~~~~
 	const addNote = useCallback(
@@ -126,6 +142,7 @@ const useNote = () => {
 		updateNote,
 		setConfirmNoteIdtoDelete,
 		updateNoteChecklist,
+		updateDetailNoteChecklist,
 	};
 
 	return { ...combineStates, ...combineActions };
