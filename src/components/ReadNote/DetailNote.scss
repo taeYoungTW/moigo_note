@@ -36,10 +36,14 @@
 			}
 		}
 
-		.content {
+		.detailNote_content {
 			flex-grow: 1;
 			border-top: 1px solid $split-color;
 			border-bottom: 1px solid $split-color;
+			padding: 10px 15px;
+			max-height: 550px;
+			overflow-y: scroll;
+			@include default_scrollbar;
 		}
 
 		.ctrl_bar {
