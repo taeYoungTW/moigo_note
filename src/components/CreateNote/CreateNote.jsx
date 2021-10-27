@@ -10,20 +10,19 @@ const CreateNote = () => {
 	const { isOnCreateNote } = useAppState();
 	const { changeIsOnCreateNote, addBlock } = useAppAction();
 
-	function AddTextBlock(e) {
-		// e.stopPropagation();
+	function addTextBlock(e) {
 		changeIsOnCreateNote(true);
 		addBlock({ id: uuid(), type: 'text', text: '' });
 	}
 
-	function AddChecklistBlock(e) {
+	function addChecklistBlock(e) {
 		changeIsOnCreateNote(true);
 		addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
 	}
 
-	function AddImageBlock(e) {
+	function addImageBlock(e) {
 		changeIsOnCreateNote(true);
-		addBlock({ id: uuid(), type: 'image', baseURL: '' });
+		// addBlock({ id: uuid(), type: 'image', baseURL: '' });
 	}
 
 	return (
@@ -37,13 +36,13 @@ const CreateNote = () => {
 						e.stopPropagation();
 					}}
 				>
-					<button className="add_text_btn" onClick={AddTextBlock}>
+					<button className="add_text_btn" onClick={addTextBlock}>
 						노트 작성...
 					</button>
-					<AddBtn Icon={InsertPhotoIcon} eventHandler={AddImageBlock} />
+					<AddBtn Icon={InsertPhotoIcon} eventHandler={addImageBlock} />
 					<AddBtn
 						Icon={FormatListBulletedIcon}
-						eventHandler={AddChecklistBlock}
+						eventHandler={addChecklistBlock}
 					/>
 				</div>
 			)}
