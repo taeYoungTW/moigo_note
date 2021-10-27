@@ -61,6 +61,7 @@ const SummaryNote = ({ note }) => {
 										block={block}
 										key={block.id}
 										noteId={note.id}
+										isDetail={false}
 									/>
 								);
 							default:
