@@ -8,13 +8,13 @@
 	@include default_border_radius;
 	display: flex;
 	flex-direction: column;
-	padding: 0 0 0 20px;
 	position: relative;
 	z-index: 1;
 	user-select: none;
 
 	.summary_area {
-		flex-grow: 1;
+		padding: 0 20px;
+		height: 280px;
 		overflow: scroll;
 		overflow-x: hidden;
 		@include default_scrollbar;
@@ -31,7 +31,7 @@
 	}
 
 	.ctrl_area {
-		height: 70px;
+		height: 50px;
 		display: flex;
 		justify-content: flex-end;
 
