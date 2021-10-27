@@ -208,7 +208,7 @@ useEffect(() => {
 
 <br/>
 
-## 📆 2021.10.26
+## 📆 2021.10.27
 
 - **DetailNote Content 영역 Block 표시 구현**
   - **DetailNote의 Content의 경우, 기존에 Summary에서 사용했던 Read\*\*Block을 재활용 하였습니다.**
@@ -278,6 +278,16 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
 ]
  */
 ```
+
+- 구현된 Summary Note 비교
+![1차완료_summary_Note](https://user-images.githubusercontent.com/92776202/139028061-56da5c44-5810-4152-8442-6588b1583134.png)
+
+- 구현된 Detail Note 비교
+![1차완료_detail_note](https://user-images.githubusercontent.com/92776202/139028135-851d375d-af23-44de-a102-78837ec9d1cc.png)
+
+- 구현된 Update Note 비교
+![1차완료_update_note](https://user-images.githubusercontent.com/92776202/139028189-c42b5e7e-ab5b-4994-88ef-ad9b2f873d13.png)
+
 
 - 기본적인 기능 구현 완료
   - 노트 CRUD (노트 상세 보기 : Delete, Update 구현)
