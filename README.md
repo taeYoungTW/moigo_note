@@ -280,14 +280,13 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
 ```
 
 - 구현된 Summary Note 비교
-![1차완료_summary_Note](https://user-images.githubusercontent.com/92776202/139028061-56da5c44-5810-4152-8442-6588b1583134.png)
+  ![1차완료_summary_Note](https://user-images.githubusercontent.com/92776202/139028061-56da5c44-5810-4152-8442-6588b1583134.png)
 
 - 구현된 Detail Note 비교
-![1차완료_detail_note](https://user-images.githubusercontent.com/92776202/139028135-851d375d-af23-44de-a102-78837ec9d1cc.png)
+  ![1차완료_detail_note](https://user-images.githubusercontent.com/92776202/139028135-851d375d-af23-44de-a102-78837ec9d1cc.png)
 
 - 구현된 Update Note 비교
-![1차완료_update_note](https://user-images.githubusercontent.com/92776202/139028189-c42b5e7e-ab5b-4994-88ef-ad9b2f873d13.png)
-
+  ![1차완료_update_note](https://user-images.githubusercontent.com/92776202/139028189-c42b5e7e-ab5b-4994-88ef-ad9b2f873d13.png)
 
 - 기본적인 기능 구현 완료
   - 노트 CRUD (노트 상세 보기 : Delete, Update 구현)
@@ -297,3 +296,19 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
   - 상태관리 코드 및 구조를 깔끔하게 개선할 필요가 있습니다.
   - 식별자명 관리가 필요합니다.
   - 특정 기준을 가지고 Global Action과 Local Function의 구분 그리고 이벤트에 직접적으로 붙인 익명함수를 기명 함수로 만들어 정리할 필요가 있습니다.
+
+<br/>
+
+## 📆 2021.10.28
+
+기본적인 기능 구현이 완료되었으며, 이제는 기존의 코드를 더 잘 관리하고 다른 사람이 이해하기 쉽게 개선해야합니다.
+
+- Global States, Actions의 **네이밍이 적절한지 확인하고 수정**하였습니다.
+- 또한, 일반 컴포넌트에서 Global States, Actions를 Local과 판별하기 쉽게 **식별자 앞에 `_`(Lowdash)를 붙여 변경**하였습니다.
+  - redux를 사용할 때에는 dispatch를 사용했기에 actions가 무엇인지 확인하기 쉬웠으나, 현재 Context API의 경우에는 판별하기 쉽지 않아 자체적으로 규칙을 만들어 활용하였습니다.
+  - class의 private 메서드에 \_를 붙인것에 착안하였습니다.
+- 각 **Global Action의 독립성을 확보**하고, 최대한 컴포넌트 내 EventHandler에서 해당 Action을 조합하여 사용할 수 있도록 기존 Action의 로직을 변경하고 EventHandler에 반영하였습니다.
+- **EventHandler에 대한 식별자 규칙을 만들어 식별자 수정**하였습니다.
+- Function keyword의 EventHandler의 경우 useCallback을 사용하지 못하여 **ArrowFunction 형식의 EventHandler로 수정**하였습니다.
+- 주석을 통해 컴포넌트 내에서 쉽게 필요한 것을 찾게 구분선을 만들어 가독성을 확보했습니다.
+- **애매한 내용의 States, Actions, EventHandler의 경우 추가 설명의 주석**을 달았습니다.
