@@ -8,10 +8,10 @@ import NotesHeader from './NotesHeader';
 import { useAppState } from '../../contexts/AppStateContext';
 
 const Header = () => {
-	const { selectedNoteIds } = useAppState();
+	const { _selectedNoteIds } = useAppState();
 	return (
 		<>
-			{selectedNoteIds.length === 0 ? (
+			{_selectedNoteIds.length === 0 ? (
 				<header>
 					<div className="header_fixed">
 						<div className="align_left">
