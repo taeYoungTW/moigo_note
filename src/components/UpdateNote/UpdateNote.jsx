@@ -11,41 +11,46 @@ import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 import { v4 as uuid } from 'uuid';
 
 const UpdateNote = () => {
-	const { blocks, detailNote } = useAppState();
-	const { offDetailNote, updateNote, addBlock, initBlocks, resetBlocks } =
-		useAppAction();
-	const [note, setNote] = useState(detailNote);
+	const { _blocks, _detailNote } = useAppState();
+	const {
+		_resetDetailNote,
+		_updateNote,
+		_addBlock,
+		_initBlocks,
+		_resetBlocks,
+	} = useAppAction();
+	const [note, setNote] = useState(_detailNote);
 
 	function updateNoteSubmit(e) {
 		e.preventDefault();
-		updateNote({ ...note, blocks: [...blocks] });
+		_updateNote({ ...note, blocks: [..._blocks] });
 	}
 
 	function addTextBlock(e) {
-		addBlock({ id: uuid(), type: 'text', text: '' });
+		_addBlock({ id: uuid(), type: 'text', text: '' });
 	}
 
 	function addChecklistBlock(e) {
-		addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
+		_addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
 	}
 
 	/* 	function addImageBlock(e) {
-		addBlock({ id: uuid(), type: 'image', baseURL: '' });
+		_addBlock({ id: uuid(), type: 'image', baseURL: '' });
 	} */
 
 	useEffect(() => {
-		if (blocks.length === 0) {
+		if (_blocks.length === 0) {
 			addTextBlock();
 		}
-	}, [blocks.length]);
+	}, [_blocks.length]);
 
 	useEffect(() => {
-		initBlocks([...detailNote.blocks]);
+		_initBlocks([..._detailNote.blocks]);
 
 		return () => {
-			resetBlocks();
+			_resetBlocks();
 		};
-	}, [detailNote, initBlocks, resetBlocks]);
+	}, [_detailNote, _initBlocks, _resetBlocks]);
 
 	return (
 		<div className="update_note_ctnr">
@@ -60,12 +65,12 @@ const UpdateNote = () => {
 							setNote((note) => ({ ...note, title: value }));
 						}}
 					/>
-					<button className="close_btn" onClick={offDetailNote}>
+					<button className="close_btn" onClick={_resetDetailNote}>
 						<CloseIcon sx={{ fontSize: 25, color: '#767676' }} />
 					</button>
 				</div>
 				<div className="content">
-					{blocks.map((block) => {
+					{_blocks.map((block) => {
 						switch (block.type) {
 							case 'text':
 								return (
