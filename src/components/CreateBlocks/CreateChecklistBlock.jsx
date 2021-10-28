@@ -8,7 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const CreateChecklistBlock = ({ block, isUpdate }) => {
 	// Global State, Actions
-	const { deleteBlock, updateBlock } = useAppAction();
+	const { _deleteBlock, _updateBlock } = useAppAction();
 
 	// Local State
 	const contentRef = useRef(null);
@@ -42,7 +42,7 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 						const {
 							target: { checked },
 						} = e;
-						updateBlock({ ...block, isDone: checked });
+						_updateBlock({ ...block, isDone: checked });
 					}}
 				/>
 				<textarea
@@ -53,7 +53,7 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 						const {
 							target: { value },
 						} = e;
-						updateBlock({ ...block, content: value });
+						_updateBlock({ ...block, content: value });
 					}}
 					placeholder="항목 추가"
 					rows={1}
@@ -69,7 +69,7 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 				<button
 					type="button"
 					onClick={() => {
-						deleteBlock(block.id);
+						_deleteBlock(block.id);
 					}}
 				>
 					<DeleteIcon sx={{ fontSize: 18 }} />
