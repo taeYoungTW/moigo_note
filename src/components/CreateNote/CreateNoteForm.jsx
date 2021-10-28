@@ -11,8 +11,8 @@ import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 
 const CreateNoteForm = () => {
 	// Request to add Note to global state
-	const { blocks } = useAppState();
-	const { addNote, changeIsOnCreateNoteForm, addBlock, resetBlocks } =
+	const { _blocks } = useAppState();
+	const { _addNote, _changeIsOnCreateNoteForm, _addBlock, _resetBlocks } =
 		useAppAction();
 
 	const [note, setNote] = useState({
@@ -23,28 +23,28 @@ const CreateNoteForm = () => {
 	// Functions
 	function createNoteSubmit(e) {
 		e.preventDefault();
-		addNote({ ...note, id: uuid(), blocks: [...blocks] });
-		changeIsOnCreateNoteForm(false);
+		_addNote({ ...note, id: uuid(), blocks: [..._blocks] });
+		_changeIsOnCreateNoteForm(false);
 	}
 
 	function addTextBlock() {
-		addBlock({ id: uuid(), type: 'text', text: '' });
+		_addBlock({ id: uuid(), type: 'text', text: '' });
 	}
 
 	function addChecklistBlock() {
-		addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
+		_addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
 	}
 
 	// useEffect
 	useEffect(() => {
-		if (blocks.length === 0) {
+		if (_blocks.length === 0) {
 			addTextBlock();
 		}
-	}, [blocks.length]);
+	}, [_blocks.length]);
 
 	useEffect(() => {
 		return () => {
-			resetBlocks();
+			_resetBlocks();
 		};
 	}, []);
 
@@ -69,7 +69,7 @@ const CreateNoteForm = () => {
 					/>
 				</div>
 				<div className="content">
-					{blocks.map((block) => {
+					{_blocks.map((block) => {
 						switch (block.type) {
 							case 'text':
 								return <CreateTextBlock block={block} key={block.id} />;
