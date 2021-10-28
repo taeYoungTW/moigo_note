@@ -3,18 +3,19 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useAppAction } from '../../contexts/AppStateContext';
 
 const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
-	const { updateNoteChecklist, updateDetailNoteChecklist } = useAppAction();
+	const { _updateChecklistOfNote, _updateChecklistOfDetailNote } =
+		useAppAction();
 
 	function onClickCheckbox(e) {
 		const {
 			target: { checked },
 		} = e;
-		updateNoteChecklist(noteId, {
+		_updateChecklistOfNote(noteId, {
 			...block,
 			isDone: checked,
 		});
 		if (isDetail) {
-			updateDetailNoteChecklist({
+			_updateChecklistOfDetailNote({
 				...block,
 				isDone: checked,
 			});
