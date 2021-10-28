@@ -5,13 +5,23 @@ import DetailNote from '../ReadNote/DetailNote';
 import Confirm from '../Common/Confirm';
 
 const ReadAllNotes = () => {
-	const { _allNotes, _detailNote, _confirmNoteIdToDelete } = useAppState();
-	const { _deleteNote, _setConfirmNoteIdToDelete, _resetDetailNote } =
-		useAppAction();
+	const { _allNotes, _detailNote, _confirmNoteIdToDelete, _selectedNoteIds } =
+		useAppState();
+	const {
+		_deleteNote,
+		_setConfirmNoteIdToDelete,
+		_resetDetailNote,
+		_deleteSelectedNoteId,
+	} = useAppAction();
 
 	function deleteCurrentNote() {
+		const id = _confirmNoteIdToDelete;
 		_setConfirmNoteIdToDelete('');
-		_deleteNote(_confirmNoteIdToDelete);
+		_deleteNote(id);
+		const isSelected = _selectedNoteIds.includes(id);
+		if (isSelected) {
+			_deleteSelectedNoteId(id);
+		}
 		_resetDetailNote();
 	}
 
