@@ -11,45 +11,45 @@ import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 const SummaryNote = ({ note }) => {
 	// ---- Global States ----
 	const {
-		addSelectedNoteId,
-		deleteSelectedNoteId,
-		onDetailNote,
-		setConfirmNoteIdtoDelete,
+		_addSelectedNoteId,
+		_deleteSelectedNoteId,
+		_setDetailNote,
+		_setConfirmNoteIdToDelete,
 	} = useAppAction();
-	const { selectedNoteIds } = useAppState();
+	const { _selectedNoteIds } = useAppState();
 
 	// ---- Local States ----
 	const [isSelected, setIsSelected] = useState(
-		selectedNoteIds.includes(note.id)
+		_selectedNoteIds.includes(note.id)
 	); // false로 해야하나 고민
 
 	// ---- Functions ----
 	// On Delete-Note-Confirm
 	function onDelNoteConfirm(e) {
 		e.stopPropagation();
-		setConfirmNoteIdtoDelete(note.id);
+		_setConfirmNoteIdToDelete(note.id);
 	}
 	// Select A Note
 	function selectOnCurrentNoteId() {
 		setIsSelected(true);
-		addSelectedNoteId(note.id);
+		_addSelectedNoteId(note.id);
 	}
 
 	function selectOffCurrentNoteId() {
 		setIsSelected(false);
-		deleteSelectedNoteId(note.id);
+		_deleteSelectedNoteId(note.id);
 	}
 
 	//---- useEffect ---- For Cancel Selection (Update Note Outline)
 	useEffect(() => {
-		setIsSelected(selectedNoteIds.includes(note.id));
-	}, [selectedNoteIds, note]);
+		setIsSelected(_selectedNoteIds.includes(note.id));
+	}, [_selectedNoteIds, note]);
 
 	return (
 		<article
 			className="summary_note"
 			onClick={() => {
-				onDetailNote(note);
+				_setDetailNote(note);
 			}}
 		>
 			<div className="summary_area">
