@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
@@ -7,13 +7,37 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const CreateChecklistBlock = ({ block, isUpdate }) => {
-	// Global State, Actions
+	// Global States, Actions
 	const { _deleteBlock, _updateBlock } = useAppAction();
 
 	// Local State
 	const contentRef = useRef(null);
 
-	// Functions
+	// Event Handler
+	const handleCheckBoxOnChange = useCallback(
+		(e) => {
+			const {
+				target: { checked },
+			} = e;
+			_updateBlock({ ...block, isDone: checked });
+		},
+		[_updateBlock, block]
+	);
+
+	const handleChecklistContentOnChange = useCallback(
+		(e) => {
+			const {
+				target: { value },
+			} = e;
+			_updateBlock({ ...block, content: value });
+		},
+		[_updateBlock, block]
+	);
+
+	const handleDeleteBtnOnClick = useCallback(() => {
+		_deleteBlock(block.id);
+	}, [_deleteBlock, block]);
+
 	// useEffect : textarea auto height
 	useEffect(() => {
 		contentRef.current.style.height = '';
@@ -38,23 +62,13 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 					id={isUpdate ? `updateNote_${block.id}` : block.id}
 					className="checkbox"
 					checked={block.isDone}
-					onChange={(e) => {
-						const {
-							target: { checked },
-						} = e;
-						_updateBlock({ ...block, isDone: checked });
-					}}
+					onChange={handleCheckBoxOnChange}
 				/>
 				<textarea
 					className="checklist_block_textarea"
 					type="text"
 					value={block.content}
-					onChange={(e) => {
-						const {
-							target: { value },
-						} = e;
-						_updateBlock({ ...block, content: value });
-					}}
+					onChange={handleChecklistContentOnChange}
 					placeholder="항목 추가"
 					rows={1}
 					ref={contentRef}
@@ -66,12 +80,7 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 				/>
 			</div>
 			<div className="btns">
-				<button
-					type="button"
-					onClick={() => {
-						_deleteBlock(block.id);
-					}}
-				>
+				<button type="button" onClick={handleDeleteBtnOnClick}>
 					<DeleteIcon sx={{ fontSize: 18 }} />
 				</button>
 				<button type="button">
