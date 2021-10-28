@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useCallback } from 'react';
 import './Confirm.scss';
 
 /* 
@@ -14,6 +15,12 @@ const Confirm = ({
 	isConfirmOn,
 	setIsConfirmOn,
 }) => {
+	// Event Handler --------------------------
+	const handleOffConfirmOnClick = useCallback(() => {
+		setIsConfirmOn('');
+	}, [setIsConfirmOn]);
+
+	// Render -----------------------
 	return (
 		isConfirmOn && (
 			<div
@@ -25,12 +32,7 @@ const Confirm = ({
 				<div className="confirm">
 					<h1 className="question">{question}</h1>
 					<div className="btns">
-						<button
-							type="button"
-							onClick={() => {
-								setIsConfirmOn('');
-							}}
-						>
+						<button type="button" onClick={handleOffConfirmOnClick}>
 							{offConfirmBtnName}
 						</button>
 						{children}
@@ -41,6 +43,7 @@ const Confirm = ({
 	);
 };
 
+// PropTypes --------------------
 Confirm.propTypes = {
 	question: PropTypes.string.isRequired,
 	offConfirmBtnName: PropTypes.string.isRequired,
