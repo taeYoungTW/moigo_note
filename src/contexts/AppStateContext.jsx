@@ -20,13 +20,15 @@ const AppstateProvider = ({ children }) => {
 		</AppStateContext.Provider>
 	);
 };
+// Global States PropTypes
 AppStateContext.Provider.propTypes = {
 	value: Proptypes.shape({
-		isOnCreateNote: Proptypes.bool,
-		selectedNoteIds: Proptypes.array,
-		allNotes: Proptypes.array,
-		detailNote: Proptypes.object,
-		confirmNoteIdtoDelete: Proptypes.string,
+		_isOnCreateNoteForm: Proptypes.bool,
+		_selectedNoteIds: Proptypes.array,
+		_allNotes: Proptypes.array,
+		_detailNote: Proptypes.object,
+		_confirmNoteIdToDelete: Proptypes.string,
+		_blocks: Proptypes.array,
 	}),
 };
 
