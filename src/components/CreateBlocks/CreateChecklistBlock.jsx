@@ -7,13 +7,13 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const CreateChecklistBlock = ({ block, isUpdate }) => {
-	// Global States, Actions
+	// Global States, Actions ------------------------------------
 	const { _deleteBlock, _updateBlock } = useAppAction();
 
-	// Local State
+	// Local State ----------------------------------------------
 	const contentRef = useRef(null);
 
-	// Event Handler
+	// Event Handler --------------------------------------------
 	const handleCheckBoxOnChange = useCallback(
 		(e) => {
 			const {
@@ -38,12 +38,13 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 		_deleteBlock(block.id);
 	}, [_deleteBlock, block]);
 
-	// useEffect : textarea auto height
+	// useEffect : textarea auto height -----------------------------
 	useEffect(() => {
 		contentRef.current.style.height = '';
 		contentRef.current.style.height = contentRef.current.scrollHeight + 'px';
 	}, [block]);
 
+	// Render ------------------------------------------
 	return (
 		<div className="create_block">
 			<div className="checklist">
