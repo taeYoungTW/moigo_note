@@ -7,9 +7,9 @@ import UpdateNote from '../UpdateNote/UpdateNote';
 import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
 const DetailNote = () => {
-	const { detailNote } = useAppState();
+	const { _detailNote } = useAppState();
 
-	const { offDetailNote, setConfirmNoteIdtoDelete } = useAppAction();
+	const { _resetDetailNote, _setConfirmNoteIdToDelete } = useAppAction();
 	const [isEdit, setIsEdit] = useState(false);
 
 	return isEdit ? (
@@ -18,14 +18,14 @@ const DetailNote = () => {
 		<div className="detail_note_ctnr">
 			<div className="detail_note">
 				<div className="title_ctnr">
-					<h1 className="title">{detailNote.title}</h1>
-					<button className="close_btn" onClick={offDetailNote}>
+					<h1 className="title">{_detailNote.title}</h1>
+					<button className="close_btn" onClick={_resetDetailNote}>
 						<CloseIcon sx={{ fontSize: 25, color: '#767676' }} />
 					</button>
 				</div>
 				<div className="detailNote_content">
-					{detailNote.blocks &&
-						detailNote.blocks.map((block) => {
+					{_detailNote.blocks &&
+						_detailNote.blocks.map((block) => {
 							switch (block.type) {
 								case 'text':
 									return (
@@ -40,7 +40,7 @@ const DetailNote = () => {
 										<ReadChecklistBlock
 											block={block}
 											key={`DetailNote_${block.id}`}
-											noteId={detailNote.id}
+											noteId={_detailNote.id}
 											isDetail={true}
 										/>
 									);
@@ -53,7 +53,7 @@ const DetailNote = () => {
 					<button
 						className="delete_btn"
 						onClick={() => {
-							setConfirmNoteIdtoDelete(detailNote.id);
+							_setConfirmNoteIdToDelete(_detailNote.id);
 						}}
 					>
 						<DeleteIcon sx={{ fontSize: 23, color: '#2a394b' }} />
