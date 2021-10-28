@@ -12,7 +12,7 @@ import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 const CreateNoteForm = () => {
 	// Request to add Note to global state
 	const { blocks } = useAppState();
-	const { addNote, changeIsOnCreateNote, addBlock, resetBlocks } =
+	const { addNote, changeIsOnCreateNoteForm, addBlock, resetBlocks } =
 		useAppAction();
 
 	const [note, setNote] = useState({
@@ -24,7 +24,7 @@ const CreateNoteForm = () => {
 	function createNoteSubmit(e) {
 		e.preventDefault();
 		addNote({ ...note, id: uuid(), blocks: [...blocks] });
-		changeIsOnCreateNote(false);
+		changeIsOnCreateNoteForm(false);
 	}
 
 	function addTextBlock() {
