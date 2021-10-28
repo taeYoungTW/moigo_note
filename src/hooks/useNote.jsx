@@ -26,15 +26,15 @@ const useNote = () => {
 	}, []);
 	/**
 	 * ~~~~ About Selection ~~~~
-	 *	- selectNotdId : add A selected NoteID To SelectedNoteIds
-	 *	- deleteNoteId : delete A selected NoteID To SelectedNoteIds
-	 *	- cancelSelect : reset SelectedNoteIds
+	 *	- addSelectedNotedId : add A selected NoteID To SelectedNoteIds
+	 *	- deleteSelectedNoteId : delete A selected NoteID To SelectedNoteIds
+	 *	- resetSelectedNoteIds : reset SelectedNoteIds
 	 */
-	const selectNoteId = useCallback((id) => {
+	const addSelectedNoteId = useCallback((id) => {
 		setSelectedNoteIds((ids) => [...ids, id]);
 	}, []);
 
-	const deleteNoteId = useCallback(
+	const deleteSelectedNoteId = useCallback(
 		(id) => {
 			const newSelectedNoteIds = selectedNoteIds.filter(
 				(noteId) => noteId !== id
@@ -44,7 +44,7 @@ const useNote = () => {
 		[selectedNoteIds]
 	);
 
-	const cancelSelect = useCallback(() => {
+	const resetSelectedNoteIds = useCallback(() => {
 		setSelectedNoteIds([]);
 	}, []);
 
@@ -102,10 +102,10 @@ const useNote = () => {
 
 			const isSelected = selectedNoteIds.includes(id);
 			if (isSelected) {
-				deleteNoteId(id);
+				deleteSelectedNoteId(id);
 			}
 		},
-		[allNotes, selectedNoteIds, deleteNoteId]
+		[allNotes, selectedNoteIds, deleteSelectedNoteId]
 	);
 
 	const deleteNotes = useCallback(() => {
@@ -157,9 +157,9 @@ const useNote = () => {
 		changeIsOnCreateNoteForm,
 		deleteNote,
 		deleteNotes,
-		selectNoteId,
-		deleteNoteId,
-		cancelSelect,
+		addSelectedNoteId,
+		deleteSelectedNoteId,
+		resetSelectedNoteIds,
 		onDetailNote,
 		offDetailNote,
 		updateNote,
