@@ -10,8 +10,12 @@ import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 
 const SummaryNote = ({ note }) => {
 	// ---- Global States ----
-	const { selectNoteId, deleteNoteId, onDetailNote, setConfirmNoteIdtoDelete } =
-		useAppAction();
+	const {
+		addSelectedNoteId,
+		deleteSelectedNoteId,
+		onDetailNote,
+		setConfirmNoteIdtoDelete,
+	} = useAppAction();
 	const { selectedNoteIds } = useAppState();
 
 	// ---- Local States ----
@@ -28,12 +32,12 @@ const SummaryNote = ({ note }) => {
 	// Select A Note
 	function selectOnCurrentNoteId() {
 		setIsSelected(true);
-		selectNoteId(note.id);
+		addSelectedNoteId(note.id);
 	}
 
 	function selectOffCurrentNoteId() {
 		setIsSelected(false);
-		deleteNoteId(note.id);
+		deleteSelectedNoteId(note.id);
 	}
 
 	//---- useEffect ---- For Cancel Selection (Update Note Outline)
