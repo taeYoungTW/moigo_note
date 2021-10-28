@@ -11,6 +11,7 @@ const NotesHeader = () => {
 
 	function deleteSelectedNotes() {
 		_deleteNotes(_selectedNoteIds);
+		_resetSelectedNoteIds();
 		setIsConfirmOn('');
 	}
 	return (
