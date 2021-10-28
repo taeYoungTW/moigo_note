@@ -1,40 +1,49 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 
 const CreateTextBlock = ({ block }) => {
-	// Global State, Actions
+	// Global States, Actions ---------------------------------------
 	const { _deleteBlock, _updateBlock } = useAppAction();
 
-	// Local State
+	// Local States ------------------------------------------------
 	const [textBlock, setTextBlock] = useState(block);
 	const textRef = useRef(null);
 
-	// Functions
+	// Event Handler ----------------------------------------------
+	const handleTextOnChange = useCallback(
+		(e) => {
+			const {
+				target: { value },
+			} = e;
+			_updateBlock({ ...textBlock, text: value });
+			setTextBlock((block) => {
+				return { ...block, text: value };
+			});
+		},
+		[_updateBlock, setTextBlock, textBlock]
+	);
 
-	// useEffect : textarea auto height
+	const handleDeleteBtnOnClick = useCallback(() => {
+		_deleteBlock(block.id);
+	}, [_deleteBlock, block]);
+
+	// useEffect : textarea auto height -----------------------------
 	useEffect(() => {
 		textRef.current.style.height = '';
 		textRef.current.style.height = textRef.current.scrollHeight + 'px';
 	}, [textBlock]);
 
+	// Render -------------------------------------------------------
 	return (
 		<div className="create_block">
 			<textarea
 				className="text_block_textarea"
 				type="text"
 				value={textBlock.text}
-				onChange={(e) => {
-					const {
-						target: { value },
-					} = e;
-					_updateBlock({ ...textBlock, text: value });
-					setTextBlock((block) => {
-						return { ...block, text: value };
-					});
-				}}
+				onChange={handleTextOnChange}
 				placeholder="노트 작성..."
 				rows={1}
 				ref={textRef}
@@ -42,12 +51,7 @@ const CreateTextBlock = ({ block }) => {
 				autoFocus={true}
 			/>
 			<div className="btns">
-				<button
-					type="button"
-					onClick={() => {
-						_deleteBlock(block.id);
-					}}
-				>
+				<button type="button" onClick={handleDeleteBtnOnClick}>
 					<DeleteIcon sx={{ fontSize: 18 }} />
 				</button>
 				<button type="button">
