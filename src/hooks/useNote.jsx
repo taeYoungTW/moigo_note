@@ -2,20 +2,34 @@ import { useCallback, useState } from 'react';
 
 // Manage Global States & Actions
 const useNote = () => {
-	// ------ Init State : useState ------------------
-	const [isOnCreateNote, setIsOnCreateNote] = useState(false);
+	/*
+	 * ------ Init State : useState ------------------
+	 */
+	const [isOnCreateNoteForm, setIsOnCreateNoteForm] = useState(false); // ex. true or false
 	const [selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
 	const [detailNote, setDetailNote] = useState({}); // ex. {title, id, blocks}
 	const [confirmNoteIdtoDelete, setConfirmNoteIdtoDelete] = useState(''); // string : Put a specific Note id to delete
 
-	// ------ Actions: useCallback -------------------
-	// ~~~~ Change "isOn(focus)" State of CreateNote Area ~~~~
-	const changeIsOnCreateNote = useCallback((value) => {
-		setIsOnCreateNote(value);
+	/*
+	 * ------ Actions: useCallback -------------------
+	 */
+	/*
+	 * ~~~~ About State of CreateNote Area ~~~~
+	 * - changeIsOnCreateNoteForm : Change "isOn(focus)"
+	 * true : (CreateNote -> CreateNoteForm)
+	 * 									Or
+	 * false : (CreateNoteForm -> CreateNote)
+	 */
+	const changeIsOnCreateNoteForm = useCallback((value) => {
+		setIsOnCreateNoteForm(value);
 	}, []);
-
-	// ~~~~ About Selection ~~~~
+	/**
+	 * ~~~~ About Selection ~~~~
+	 *	- selectNotdId : add A selected NoteID To SelectedNoteIds
+	 *	- deleteNoteId : delete A selected NoteID To SelectedNoteIds
+	 *	- cancelSelect : reset SelectedNoteIds
+	 */
 	const selectNoteId = useCallback((id) => {
 		setSelectedNoteIds((ids) => [...ids, id]);
 	}, []);
@@ -34,7 +48,13 @@ const useNote = () => {
 		setSelectedNoteIds([]);
 	}, []);
 
-	// ~~~~ Detail Note (ON/OFF) ~~~~
+	/*
+	 * ~~~~ About Detail Note (ON/OFF) ~~~~
+	 * - onDetailNote : Add a specific Note to detailNote (Global State) when user click the specific SummaryNote.
+	 * 									After that, DetailNot Component is rendered
+	 * - offDetailNote : Reset detailNote state
+	 * - updateDetailNoteChecklist : Update A specific ChecklistBlock for detailNote state
+	 */
 	const onDetailNote = useCallback((note) => {
 		setDetailNote(note);
 	}, []);
@@ -59,7 +79,14 @@ const useNote = () => {
 		[]
 	);
 
-	// ~~~~ Create A Note ~~~~
+	/*
+	 * ~~~~ About "allNotes" state ~~~~
+	 * - addNote : Add a specific Note to "allNotes" state
+	 * - deleteNote : Delete a specific Note to "allNotes" state
+	 * - deleteNotes : Delete specific Notes (selected Notes) to "allNotes" state
+	 * - updateNote : Update a specific Note of "allNotes" state
+	 * - updateNoteChecklist : Update a specific ChecklistBlock of a specific Note (so, need noteId and block)
+	 */
 	const addNote = useCallback(
 		(note) => {
 			allNotes.unshift(note);
@@ -68,7 +95,6 @@ const useNote = () => {
 		[allNotes]
 	);
 
-	// ~~~~ Delete A specific Note~~~~
 	const deleteNote = useCallback(
 		(id) => {
 			const newAllNotes = allNotes.filter((note) => note.id !== id);
@@ -82,7 +108,6 @@ const useNote = () => {
 		[allNotes, selectedNoteIds, deleteNoteId]
 	);
 
-	// ~~~~ Delete specific Notes (Selected) ~~~~
 	const deleteNotes = useCallback(() => {
 		let tempAllNotes = allNotes;
 		selectedNoteIds.forEach((id) => {
@@ -92,7 +117,6 @@ const useNote = () => {
 		setAllNotes(tempAllNotes);
 	}, [allNotes, selectedNoteIds]);
 
-	// ~~~~ Update A Note ~~~~
 	const updateNote = useCallback(
 		(newNote) => {
 			const newAllNotes = allNotes.filter((note) => note.id !== newNote.id);
@@ -103,7 +127,6 @@ const useNote = () => {
 		[allNotes]
 	);
 
-	// ~~~~~ Update specific Checklistblock of A Note
 	const updateNoteChecklist = useCallback((noteId, targetBlock) => {
 		setAllNotes((AllNotes) => {
 			return AllNotes.map((note) => {
@@ -124,14 +147,14 @@ const useNote = () => {
 	// ------ Combine States & Actions ------
 	const combineStates = {
 		allNotes,
-		isOnCreateNote,
+		isOnCreateNoteForm,
 		selectedNoteIds,
 		detailNote,
 		confirmNoteIdtoDelete,
 	};
 	const combineActions = {
 		addNote,
-		changeIsOnCreateNote,
+		changeIsOnCreateNoteForm,
 		deleteNote,
 		deleteNotes,
 		selectNoteId,
