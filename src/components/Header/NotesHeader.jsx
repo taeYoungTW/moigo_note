@@ -6,7 +6,7 @@ import Confirm from '../Common/Confirm';
 import { useState } from 'react';
 const NotesHeader = () => {
 	const { selectedNoteIds } = useAppState();
-	const { deleteNotes, cancelSelect } = useAppAction();
+	const { deleteNotes, resetSelectedNoteIds } = useAppAction();
 	const [isConfirmOn, setIsConfirmOn] = useState('');
 
 	function deleteSelectedNotes() {
@@ -17,7 +17,7 @@ const NotesHeader = () => {
 		<header className="note_header">
 			<div className="header_fixed">
 				<div className="align_left">
-					<button className="cancel_btn" onClick={cancelSelect}>
+					<button className="cancel_btn" onClick={resetSelectedNoteIds}>
 						<ArrowBackIcon sx={{ fontSize: 19, color: '#767676' }} />
 					</button>
 					<h2 className="selected_note_count">
