@@ -2,46 +2,55 @@ import { useCallback, useState } from 'react';
 
 // Manage Global States & Actions
 const useBlock = () => {
-	// ------ Init State : useState ------------------
-	const [blocks, setBlocks] = useState([]);
 	/*
-  ex.
+	 * ------ Init States : useState ------------------
+	 * Use for Creating or Updating Blocks of Note
+	 * temporarily, Take inputs of blocks to put "_allNotes"
+	 * ex. _blocks
+	 *[
+	 *  {
+	 *  	id: '',
+	 *  	type: 'text',
+	 *  	text: ''
+	 *	},
+	 *	{
+	 *  	id: '',
+	 *  	type: 'checklist',
+	 *  	isDone: false,
+	 *  	content: ''
+	 *	}
+	 *]
+	 */
+	const [_blocks, setBlocks] = useState([]);
 
-  [
-    {
-      id: '',
-      type: 'text',
-      text: ''
-    },
-    {
-      id: '',
-      type: 'checklist',
-      isDone: false,
-      content: ''
-    }
-  ]
-  */
-
-	// ------ Actions: useCallback -------------------
-	const resetBlocks = useCallback(() => {
+	/*
+	 * ------ Actions: useCallback ------------------
+	 * ~~~~ About Block ~~~~
+	 * - _resetBlocks : Set "_blocks" to [] (Empty Array)
+	 * - _initBlocks : Set "_blocks" to already existed blocks of Note
+	 * - _addBlock : Add A specific Block to "_blocks"
+	 * - _deleteBlock : Delete A specific Block from "_blocks"
+	 * - _updateBlock : Update A specific Block of "_blocks"
+	 */
+	const _resetBlocks = useCallback(() => {
 		setBlocks([]);
 	}, []);
 
-	const initBlocks = useCallback((blocks) => {
+	const _initBlocks = useCallback((blocks) => {
 		setBlocks(blocks);
 	}, []);
 
-	const addBlock = useCallback((block) => {
+	const _addBlock = useCallback((block) => {
 		setBlocks((blocks) => [...blocks, block]);
 	}, []);
 
-	const deleteBlock = useCallback((blockId) => {
+	const _deleteBlock = useCallback((blockId) => {
 		setBlocks((blocks) => blocks.filter((block) => block.id !== blockId));
 	}, []);
 
-	const updateBlock = useCallback(
+	const _updateBlock = useCallback(
 		(targetBlock) => {
-			if (blocks.find((block) => block.id === targetBlock.id)) {
+			if (_blocks.find((block) => block.id === targetBlock.id)) {
 				setBlocks((blocks) =>
 					blocks.map((block) => {
 						if (block.id === targetBlock.id) {
@@ -55,16 +64,16 @@ const useBlock = () => {
 				throw new Error('Error: updateBlock');
 			}
 		},
-		[blocks]
+		[_blocks]
 	);
 	// ------ Combine States & Actions ---------------
-	const combineStates = { blocks };
+	const combineStates = { _blocks };
 	const combineActions = {
-		addBlock,
-		deleteBlock,
-		updateBlock,
-		resetBlocks,
-		initBlocks,
+		_addBlock,
+		_deleteBlock,
+		_updateBlock,
+		_resetBlocks,
+		_initBlocks,
 	};
 
 	return { ...combineStates, ...combineActions };
