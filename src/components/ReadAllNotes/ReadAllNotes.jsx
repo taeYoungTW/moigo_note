@@ -5,25 +5,25 @@ import DetailNote from '../ReadNote/DetailNote';
 import Confirm from '../Common/Confirm';
 
 const ReadAllNotes = () => {
-	const { allNotes, detailNote, confirmNoteIdtoDelete } = useAppState();
-	const { deleteNote, setConfirmNoteIdtoDelete, offDetailNote } =
+	const { _allNotes, _detailNote, _confirmNoteIdToDelete } = useAppState();
+	const { _deleteNote, _setConfirmNoteIdToDelete, _resetDetailNote } =
 		useAppAction();
 
 	function deleteCurrentNote() {
-		setConfirmNoteIdtoDelete('');
-		deleteNote(confirmNoteIdtoDelete);
-		offDetailNote();
+		_setConfirmNoteIdToDelete('');
+		_deleteNote(_confirmNoteIdToDelete);
+		_resetDetailNote();
 	}
 
 	return (
 		<section className="summary_notes_ctnr">
-			{allNotes.map((note) => (
+			{_allNotes.map((note) => (
 				<SummaryNote note={note} key={note.id} />
 			))}
-			{detailNote?.id && <DetailNote />}
+			{_detailNote?.id && <DetailNote />}
 			<Confirm
-				isConfirmOn={confirmNoteIdtoDelete}
-				setIsConfirmOn={setConfirmNoteIdtoDelete}
+				isConfirmOn={_confirmNoteIdToDelete}
+				setIsConfirmOn={_setConfirmNoteIdToDelete}
 				question="선택한 노트를 삭제하시겠습니까?"
 				offConfirmBtnName="취소"
 			>
