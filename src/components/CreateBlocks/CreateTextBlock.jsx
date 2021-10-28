@@ -6,7 +6,7 @@ import { useAppAction } from '../../contexts/AppStateContext';
 
 const CreateTextBlock = ({ block }) => {
 	// Global State, Actions
-	const { deleteBlock, updateBlock } = useAppAction();
+	const { _deleteBlock, _updateBlock } = useAppAction();
 
 	// Local State
 	const [textBlock, setTextBlock] = useState(block);
@@ -30,7 +30,7 @@ const CreateTextBlock = ({ block }) => {
 					const {
 						target: { value },
 					} = e;
-					updateBlock({ ...textBlock, text: value });
+					_updateBlock({ ...textBlock, text: value });
 					setTextBlock((block) => {
 						return { ...block, text: value };
 					});
@@ -45,7 +45,7 @@ const CreateTextBlock = ({ block }) => {
 				<button
 					type="button"
 					onClick={() => {
-						deleteBlock(block.id);
+						_deleteBlock(block.id);
 					}}
 				>
 					<DeleteIcon sx={{ fontSize: 18 }} />
