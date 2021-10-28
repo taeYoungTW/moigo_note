@@ -8,7 +8,10 @@ import NotesHeader from './NotesHeader';
 import { useAppState } from '../../contexts/AppStateContext';
 
 const Header = () => {
+	// Global States, Actions ---------------------------------------
 	const { _selectedNoteIds } = useAppState();
+
+	// Render -------------------------------------------------------
 	return (
 		<>
 			{_selectedNoteIds.length === 0 ? (

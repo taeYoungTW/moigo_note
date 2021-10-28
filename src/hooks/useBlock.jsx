@@ -25,7 +25,7 @@ const useBlock = () => {
 
 	/*
 	 * ------ Actions: useCallback ------------------
-	 * ~~~~ About Block ~~~~
+	 * ~~~~ About Blocks ~~~~
 	 * - _resetBlocks : Set "_blocks" to [] (Empty Array)
 	 * - _initBlocks : Set "_blocks" to already existed blocks of Note
 	 * - _addBlock : Add A specific Block to "_blocks"
