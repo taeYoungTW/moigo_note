@@ -7,27 +7,27 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { v4 as uuid } from 'uuid';
 
 const CreateNote = () => {
-	const { isOnCreateNoteForm } = useAppState();
-	const { changeIsOnCreateNoteForm, addBlock } = useAppAction();
+	const { _isOnCreateNoteForm } = useAppState();
+	const { _changeIsOnCreateNoteForm, _addBlock } = useAppAction();
 
 	function addTextBlock(e) {
-		changeIsOnCreateNoteForm(true);
-		addBlock({ id: uuid(), type: 'text', text: '' });
+		_changeIsOnCreateNoteForm(true);
+		_addBlock({ id: uuid(), type: 'text', text: '' });
 	}
 
 	function addChecklistBlock(e) {
-		changeIsOnCreateNoteForm(true);
-		addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
+		_changeIsOnCreateNoteForm(true);
+		_addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
 	}
 
 	function addImageBlock(e) {
-		changeIsOnCreateNoteForm(true);
-		// addBlock({ id: uuid(), type: 'image', baseURL: '' });
+		_changeIsOnCreateNoteForm(true);
+		// _addBlock({ id: uuid(), type: 'image', baseURL: '' });
 	}
 
 	return (
 		<section className="create_note">
-			{isOnCreateNoteForm ? (
+			{_isOnCreateNoteForm ? (
 				<CreateNoteForm />
 			) : (
 				<div
