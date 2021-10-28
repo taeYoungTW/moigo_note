@@ -5,12 +5,13 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import './UpdateNote.scss';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 import { v4 as uuid } from 'uuid';
 
 const UpdateNote = () => {
+	// Global States, Actions ---------------------------------------
 	const { _blocks, _detailNote } = useAppState();
 	const {
 		_resetDetailNote,
@@ -19,30 +20,33 @@ const UpdateNote = () => {
 		_initBlocks,
 		_resetBlocks,
 	} = useAppAction();
+
+	// Local States ------------------------------------------------
 	const [note, setNote] = useState(_detailNote);
 
-	function updateNoteSubmit(e) {
-		e.preventDefault();
+	// Event Handler ----------------------------------------------
+	const handleUpdateNoteBtnOnClick = useCallback(() => {
 		_updateNote({ ...note, blocks: [..._blocks] });
-	}
+	}, [_updateNote, note, _blocks]);
 
-	function addTextBlock(e) {
+	const handleAddTextBtnOnClick = useCallback(() => {
 		_addBlock({ id: uuid(), type: 'text', text: '' });
-	}
+	}, [_addBlock]);
 
-	function addChecklistBlock(e) {
-		_addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
-	}
+	const handleAddChecklistBtnOnClick = useCallback(() => {
+		_addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
+	}, [_addBlock]);
 
-	/* 	function addImageBlock(e) {
-		_addBlock({ id: uuid(), type: 'image', baseURL: '' });
-	} */
+	/* 	const handleAddImageBtnOnClick = useCallback(() => {
+		_addBlock({ id: uuid(), type: 'image', baseURL:'' });
+	}, [_addBlock]); */
 
+	// useEffects ------------------------------------------------------
 	useEffect(() => {
 		if (_blocks.length === 0) {
-			addTextBlock();
+			handleAddTextBtnOnClick();
 		}
-	}, [_blocks.length]);
+	}, [_blocks.length, handleAddTextBtnOnClick]);
 
 	useEffect(() => {
 		_initBlocks([..._detailNote.blocks]);
@@ -97,13 +101,16 @@ const UpdateNote = () => {
 						<AddBtn Icon={InsertPhotoIcon} />
 						<AddBtn
 							Icon={FormatListBulletedIcon}
-							eventHandler={addChecklistBlock}
+							eventHandler={handleAddChecklistBtnOnClick}
 						/>
-						<AddBtn Icon={TextFieldsIcon} eventHandler={addTextBlock} />
+						<AddBtn
+							Icon={TextFieldsIcon}
+							eventHandler={handleAddTextBtnOnClick}
+						/>
 					</div>
 					<button
 						type="button"
-						onClick={updateNoteSubmit}
+						onClick={handleUpdateNoteBtnOnClick}
 						className="update_submit_btn"
 					>
 						완료

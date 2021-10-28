@@ -5,26 +5,30 @@ import AddBtn from '../Common/AddBtn';
 import CreateNoteForm from './CreateNoteForm';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { v4 as uuid } from 'uuid';
+import { useCallback } from 'react';
 
 const CreateNote = () => {
+	// Global States & Actions --------------------------
 	const { _isOnCreateNoteForm } = useAppState();
 	const { _changeIsOnCreateNoteForm, _addBlock } = useAppAction();
 
-	function addTextBlock(e) {
+	// Event Handler --------------------------
+	const handleAddTextBtnOnClick = useCallback(() => {
 		_changeIsOnCreateNoteForm(true);
 		_addBlock({ id: uuid(), type: 'text', text: '' });
-	}
+	}, [_changeIsOnCreateNoteForm, _addBlock]);
 
-	function addChecklistBlock(e) {
+	const handleAddChecklistBtnOnClick = useCallback(() => {
 		_changeIsOnCreateNoteForm(true);
 		_addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
-	}
+	}, [_changeIsOnCreateNoteForm, _addBlock]);
 
-	function addImageBlock(e) {
+	const handleAddImgBtnOnClick = useCallback(() => {
 		_changeIsOnCreateNoteForm(true);
 		// _addBlock({ id: uuid(), type: 'image', baseURL: '' });
-	}
+	}, [_changeIsOnCreateNoteForm]);
 
+	// Render -----------------------
 	return (
 		<section className="create_note">
 			{_isOnCreateNoteForm ? (
@@ -36,13 +40,16 @@ const CreateNote = () => {
 						e.stopPropagation();
 					}}
 				>
-					<button className="add_text_btn" onClick={addTextBlock}>
+					<button className="add_text_btn" onClick={handleAddTextBtnOnClick}>
 						노트 작성...
 					</button>
-					<AddBtn Icon={InsertPhotoIcon} eventHandler={addImageBlock} />
+					<AddBtn
+						Icon={InsertPhotoIcon}
+						eventHandler={handleAddImgBtnOnClick}
+					/>
 					<AddBtn
 						Icon={FormatListBulletedIcon}
-						eventHandler={addChecklistBlock}
+						eventHandler={handleAddChecklistBtnOnClick}
 					/>
 				</div>
 			)}

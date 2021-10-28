@@ -3,17 +3,28 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './NotesHeader.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import Confirm from '../Common/Confirm';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+
 const NotesHeader = () => {
+	// Global States, Actions ---------------------------------------
 	const { _selectedNoteIds } = useAppState();
 	const { _deleteNotes, _resetSelectedNoteIds } = useAppAction();
+
+	// Local States ------------------------------------------------
 	const [isConfirmOn, setIsConfirmOn] = useState('');
 
-	function deleteSelectedNotes() {
+	// Event Handler ----------------------------------------------
+	const handleDeleteConfirmBtnOnClick = useCallback(() => {
 		_deleteNotes(_selectedNoteIds);
 		_resetSelectedNoteIds();
 		setIsConfirmOn('');
-	}
+	}, [_selectedNoteIds, _deleteNotes, _resetSelectedNoteIds]);
+
+	const handleMoveToConfirmOnClick = useCallback(() => {
+		setIsConfirmOn('true');
+	}, []);
+
+	// Render ------------------------------------------------------
 	return (
 		<header className="note_header">
 			<div className="header_fixed">
@@ -25,12 +36,7 @@ const NotesHeader = () => {
 						{_selectedNoteIds.length}개 선택됨
 					</h2>
 				</div>
-				<button
-					className="delete_btn"
-					onClick={() => {
-						setIsConfirmOn('true');
-					}}
-				>
+				<button className="delete_btn" onClick={handleMoveToConfirmOnClick}>
 					<DeleteIcon sx={{ fontSize: 19, color: '#767676' }} />
 				</button>
 			</div>
@@ -40,7 +46,7 @@ const NotesHeader = () => {
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfirmOn}
 			>
-				<button type="button" onClick={deleteSelectedNotes}>
+				<button type="button" onClick={handleDeleteConfirmBtnOnClick}>
 					삭제
 				</button>
 			</Confirm>

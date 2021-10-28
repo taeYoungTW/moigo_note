@@ -3,13 +3,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
 import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 
 const SummaryNote = ({ note }) => {
-	// ---- Global States ----
+	// Global States & Actions --------------
 	const {
 		_addSelectedNoteId,
 		_deleteSelectedNoteId,
@@ -18,33 +18,37 @@ const SummaryNote = ({ note }) => {
 	} = useAppAction();
 	const { _selectedNoteIds } = useAppState();
 
-	// ---- Local States ----
+	// Local States --------------------------
 	const [isSelected, setIsSelected] = useState(
 		_selectedNoteIds.includes(note.id)
 	); // false로 해야하나 고민
 
-	// ---- Functions ----
-	// On Delete-Note-Confirm
-	function onDelNoteConfirm(e) {
-		e.stopPropagation();
-		_setConfirmNoteIdToDelete(note.id);
-	}
-	// Select A Note
-	function selectOnCurrentNoteId() {
+	// Event Handler ----------------------------------------------
+	const handleMoveToConfirmOnClick = useCallback(
+		(e) => {
+			e.stopPropagation();
+			_setConfirmNoteIdToDelete(note.id);
+		},
+		[_setConfirmNoteIdToDelete, note]
+	);
+
+	// Select or Unselect A SummaryNote
+	const handleSelectBtnOnClick = useCallback(() => {
 		setIsSelected(true);
 		_addSelectedNoteId(note.id);
-	}
+	}, [_addSelectedNoteId, note]);
 
-	function selectOffCurrentNoteId() {
+	const handleUnselectBtnOnClick = useCallback(() => {
 		setIsSelected(false);
 		_deleteSelectedNoteId(note.id);
-	}
+	}, [_deleteSelectedNoteId, note]);
 
 	//---- useEffect ---- For Cancel Selection (Update Note Outline)
 	useEffect(() => {
 		setIsSelected(_selectedNoteIds.includes(note.id));
 	}, [_selectedNoteIds, note]);
 
+	// Render -------------------------------------------
 	return (
 		<article
 			className="summary_note"
@@ -76,7 +80,7 @@ const SummaryNote = ({ note }) => {
 			<div className="ctrl_area">
 				<button
 					className="del_summary_note_btn"
-					onClickCapture={onDelNoteConfirm}
+					onClickCapture={handleMoveToConfirmOnClick}
 				>
 					<DeleteIcon sx={{ fontSize: 20 }} />
 				</button>
@@ -85,7 +89,7 @@ const SummaryNote = ({ note }) => {
 					<>
 						<button
 							className="select_summary_note_off_btn"
-							onClickCapture={selectOffCurrentNoteId}
+							onClickCapture={handleUnselectBtnOnClick}
 						>
 							<CheckCircleIcon sx={{ fontSize: 35, color: '#81C7E4' }} />
 						</button>
@@ -99,7 +103,7 @@ const SummaryNote = ({ note }) => {
 				) : (
 					<button
 						className="select_summary_note_on_btn"
-						onClickCapture={selectOnCurrentNoteId}
+						onClickCapture={handleSelectBtnOnClick}
 					>
 						<CheckCircleOutlineIcon sx={{ fontSize: 35, color: '#81C7E4' }} />
 					</button>

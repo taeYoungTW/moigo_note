@@ -2,16 +2,28 @@ import './DetailNote.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import UpdateNote from '../UpdateNote/UpdateNote';
 import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
 const DetailNote = () => {
+	// Global States, Actions ---------------------------------------
 	const { _detailNote } = useAppState();
-
 	const { _resetDetailNote, _setConfirmNoteIdToDelete } = useAppAction();
+
+	// Local States ------------------------------------------------
 	const [isEdit, setIsEdit] = useState(false);
 
+	// Event Handler ----------------------------------------------
+	const handleMoveToConfirmOnClick = useCallback(() => {
+		_setConfirmNoteIdToDelete(_detailNote.id);
+	}, [_setConfirmNoteIdToDelete, _detailNote]);
+
+	const handleSetEditBtnOnClick = useCallback(() => {
+		setIsEdit(true);
+	}, []);
+
+	// Render -------------------------------------------------------
 	return isEdit ? (
 		<UpdateNote />
 	) : (
@@ -50,20 +62,10 @@ const DetailNote = () => {
 						})}
 				</div>
 				<div className="ctrl_bar">
-					<button
-						className="delete_btn"
-						onClick={() => {
-							_setConfirmNoteIdToDelete(_detailNote.id);
-						}}
-					>
+					<button className="delete_btn" onClick={handleMoveToConfirmOnClick}>
 						<DeleteIcon sx={{ fontSize: 23, color: '#2a394b' }} />
 					</button>
-					<button
-						onClick={() => {
-							setIsEdit(true);
-						}}
-						className="edit_btn"
-					>
+					<button onClick={handleSetEditBtnOnClick} className="edit_btn">
 						수정
 					</button>
 				</div>
