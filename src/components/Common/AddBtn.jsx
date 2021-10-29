@@ -12,8 +12,14 @@ const AddBtn = ({ Icon, eventHandler }) => {
 	);
 };
 
-AddBtn.PropTyes = {
-	Icon: PropTypes.element,
+AddBtn.propTypes = {
+	Icon: PropTypes.elementType,
+	/*
+	 * - elementType
+	 * 식별자 명으로 prop 전달 O
+	 * jsx 스타일 컴포넌트 표기법으로 prop 전달 X
+	 * - element : elementType 반대
+	 */
 	eventHandler: PropTypes.func,
 };
 
