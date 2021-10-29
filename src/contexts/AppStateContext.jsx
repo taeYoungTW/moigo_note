@@ -9,7 +9,7 @@ const useAppState = () => useContext(AppStateContext);
 const useAppAction = () => useContext(AppStateContext);
 
 // Provider
-const AppstateProvider = ({ children }) => {
+const AppStateProvider = ({ children }) => {
 	// Combine
 	const combine = { ...useNote(), ...useBlock() };
 
@@ -32,4 +32,4 @@ AppStateContext.Provider.propTypes = {
 	}),
 };
 
-export { AppstateProvider, useAppState, useAppAction };
+export { AppStateProvider, useAppState, useAppAction };
