@@ -11,7 +11,7 @@ const CtrlBtn = ({ Icon }) => {
 
 // PropTypes ---------------------------------
 CtrlBtn.propTypes = {
-	Icon: PropTypes.object,
+	Icon: PropTypes.elementType,
 };
 
 export default CtrlBtn;
