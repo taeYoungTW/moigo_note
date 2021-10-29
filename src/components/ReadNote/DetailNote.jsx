@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 import UpdateNote from '../UpdateNote/UpdateNote';
 import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
+
 const DetailNote = () => {
 	// Global States, Actions ---------------------------------------
 	const { _detailNote } = useAppState();
