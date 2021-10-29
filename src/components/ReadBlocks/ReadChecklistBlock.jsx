@@ -2,6 +2,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 	// Global States, Actions ---------------------------------------
@@ -80,6 +81,13 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 			</div>
 		</div>
 	);
+};
+
+// PropTypes --------------------------------------------------------------
+ReadChecklistBlock.propTypes = {
+	block: PropTypes.object,
+	noteId: PropTypes.string,
+	isDetail: PropTypes.bool,
 };
 
 export default ReadChecklistBlock;
