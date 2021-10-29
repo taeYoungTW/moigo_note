@@ -5,6 +5,7 @@ import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PropTypes from 'prop-types';
 
 const CreateChecklistBlock = ({ block, isUpdate }) => {
 	// Global States, Actions ------------------------------------
@@ -90,6 +91,12 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 			</div>
 		</div>
 	);
+};
+
+// PropTypes ------------------------------------------------------
+CreateChecklistBlock.propTypes = {
+	block: PropTypes.object,
+	isUpdate: PropTypes.bool,
 };
 
 export default CreateChecklistBlock;

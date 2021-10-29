@@ -3,6 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
+import PropTypes from 'prop-types';
 
 const CreateTextBlock = ({ block }) => {
 	// Global States, Actions ---------------------------------------
@@ -60,6 +61,11 @@ const CreateTextBlock = ({ block }) => {
 			</div>
 		</div>
 	);
+};
+
+// PropTypes ----------------------------------------------------------
+CreateTextBlock.propTypes = {
+	block: PropTypes.object,
 };
 
 export default CreateTextBlock;
