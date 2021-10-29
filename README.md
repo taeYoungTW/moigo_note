@@ -312,3 +312,13 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
 - Function keyword의 EventHandler의 경우 useCallback을 사용하지 못하여 **ArrowFunction 형식의 EventHandler로 수정**하였습니다.
 - 주석을 통해 컴포넌트 내에서 쉽게 필요한 것을 찾게 구분선을 만들어 가독성을 확보했습니다.
 - **애매한 내용의 States, Actions, EventHandler의 경우 추가 설명의 주석**을 달았습니다.
+
+<br/>
+
+## 📆 2021.10.29
+
+- **빈 textBlock 유효성 검사**
+  - 빈 text를 가진 textBlock을 반영하지 않도록 유효성 검사 함수를 만들고, CreateNoteForm, UpdateNote에 반영시켰습니다.
+  - 유효성 검사 함수는 useValidation 파일에 묶어 관리하고자 합니다. (유효성과 관련된 Custom hooks 또는 일반 함수가 위치하게 됩니다.)
+- **Prop를 사용하는 컴포넌트 PropTypes 설정**
+  - 구체적인 Type 설정이 아닌, 제일 외부 형태만 설정하였습니다. 추후에, 구체적인 Type 설정을 진행하고자 합니다.
