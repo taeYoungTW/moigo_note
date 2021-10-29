@@ -62,7 +62,13 @@ const SummaryNote = ({ note }) => {
 					note.blocks.map((block) => {
 						switch (block.type) {
 							case 'text':
-								return <ReadTextBlock block={block} key={block.id} />;
+								return (
+									<ReadTextBlock
+										block={block}
+										key={block.id}
+										isDetail={false}
+									/>
+								);
 							case 'checklist':
 								return (
 									<ReadChecklistBlock
