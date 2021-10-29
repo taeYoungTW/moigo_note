@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Router from './routes/router';
 import reportWebVitals from './reportWebVitals';
-import { AppstateProvider } from './contexts/AppStateContext';
+import { AppStateProvider } from './contexts/AppStateContext';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<AppstateProvider>
+		<AppStateProvider>
 			<Router />
-		</AppstateProvider>
+		</AppStateProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
