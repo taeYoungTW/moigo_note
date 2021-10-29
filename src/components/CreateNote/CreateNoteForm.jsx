@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
+import { filterEmptyTextBlock } from '../../hooks/useValidation';
 
 const CreateNoteForm = () => {
 	// Global States & Actions --------------------------
@@ -23,7 +24,8 @@ const CreateNoteForm = () => {
 
 	// Event Handler ----------------------------------
 	const handleCreateNoteBtnOnClick = useCallback(() => {
-		_addNote({ ...note, id: uuid(), blocks: [..._blocks] });
+		const filteredBlocks = filterEmptyTextBlock(_blocks);
+		_addNote({ ...note, id: uuid(), blocks: [...filteredBlocks] });
 		_changeIsOnCreateNoteForm(false);
 	}, [_addNote, _changeIsOnCreateNoteForm, _blocks, note]);
 
@@ -74,9 +76,15 @@ const CreateNoteForm = () => {
 						case 'text':
 							return <CreateTextBlock block={block} key={block.id} />;
 						case 'checklist':
-							return <CreateChecklistBlock block={block} key={block.id} />;
+							return (
+								<CreateChecklistBlock
+									block={block}
+									key={block.id}
+									isUpdate={false}
+								/>
+							);
 						default:
-							return <CreateTextBlock block={block} key={block.id} />;
+							return <></>;
 					}
 				})}
 			</div>
