@@ -49,6 +49,7 @@ Confirm.propTypes = {
 	offConfirmBtnName: PropTypes.string.isRequired,
 	children: PropTypes.element,
 	isConfirmOn: PropTypes.oneOfType([
+		// isConfirmOn -> union : string || bool
 		PropTypes.string.isRequired,
 		PropTypes.bool.isRequired,
 	]),
