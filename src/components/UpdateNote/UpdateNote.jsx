@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from 'react';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 import { v4 as uuid } from 'uuid';
+import { filterEmptyTextBlock } from '../../hooks/useValidation';
 
 const UpdateNote = () => {
 	// Global States, Actions ---------------------------------------
@@ -26,7 +27,8 @@ const UpdateNote = () => {
 
 	// Event Handler ----------------------------------------------
 	const handleUpdateNoteBtnOnClick = useCallback(() => {
-		_updateNote({ ...note, blocks: [..._blocks] });
+		const filteredBlocks = filterEmptyTextBlock(_blocks);
+		_updateNote({ ...note, blocks: [...filteredBlocks] });
 	}, [_updateNote, note, _blocks]);
 
 	const handleAddTextBtnOnClick = useCallback(() => {
