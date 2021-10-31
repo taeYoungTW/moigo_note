@@ -321,4 +321,25 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
   - 빈 text를 가진 textBlock을 반영하지 않도록 유효성 검사 함수를 만들고, CreateNoteForm, UpdateNote에 반영시켰습니다.
   - 유효성 검사 함수는 useValidation 파일에 묶어 관리하고자 합니다. (유효성과 관련된 Custom hooks 또는 일반 함수가 위치하게 됩니다.)
 - **Prop를 사용하는 컴포넌트 PropTypes 설정**
+
   - 구체적인 Type 설정이 아닌, 제일 외부 형태만 설정하였습니다. 추후에, 구체적인 Type 설정을 진행하고자 합니다.
+
+- **1차 코드 리뷰 진행**
+
+  - 개선사항
+    - CreatePortals Modal 적용
+    - useCallback 남용
+    - 컴포넌트 대비 기능의 개수 유념
+    - 작은 단위로 쪼개서
+    - SCSS styles를 사용하여 구현하자
+  - 추가 기능 구현
+    - 검색 기능
+    - 노트 순서 변경
+    - 이미지 블록 구현
+    - 블록 순서 변경
+  - 21.11.10 까지
+
+  - [x] **CreatePortals 적용한 Confirm 컴포넌트로 수정 완료!**
+    - 기존 confirm 관련된 Global States, Actions가 필요 없어져서 삭제
+    - confirm location은 Main 컴포넌트에 위치
+    - NoteHeader, SummaryNote, DetailNote 모두 PortalConfirm으로 개선
