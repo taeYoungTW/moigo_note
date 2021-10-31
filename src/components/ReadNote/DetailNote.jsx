@@ -6,23 +6,31 @@ import { useCallback, useState } from 'react';
 import UpdateNote from '../UpdateNote/UpdateNote';
 import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
+import PortalConfirm from '../Common/PortalConfirm';
 
 const DetailNote = () => {
 	// Global States, Actions ---------------------------------------
 	const { _detailNote } = useAppState();
-	const { _resetDetailNote, _setConfirmNoteIdToDelete } = useAppAction();
+	const { _resetDetailNote, _deleteNote } = useAppAction();
 
 	// Local States ------------------------------------------------
 	const [isEdit, setIsEdit] = useState(false);
-
+	const [isConfirmOn, setIsConfrimOn] = useState(false);
 	// Event Handler ----------------------------------------------
 	const handleMoveToConfirmOnClick = useCallback(() => {
-		_setConfirmNoteIdToDelete(_detailNote.id);
-	}, [_setConfirmNoteIdToDelete, _detailNote]);
+		setIsConfrimOn(true);
+	}, []);
 
 	const handleSetEditBtnOnClick = useCallback(() => {
 		setIsEdit(true);
 	}, []);
+
+	const handleConfirmBtnOnClick = () => {
+		const id = _detailNote.id;
+		_deleteNote(id);
+		_resetDetailNote();
+		setIsConfrimOn(false);
+	};
 
 	// Render -------------------------------------------------------
 	return isEdit ? (
@@ -37,40 +45,45 @@ const DetailNote = () => {
 					</button>
 				</div>
 				<div className="detailNote_content">
-					{_detailNote.blocks &&
-						_detailNote.blocks.map((block) => {
-							switch (block.type) {
-								case 'text':
-									return (
-										<ReadTextBlock
-											block={block}
-											key={block.id}
-											isDetail={true}
-										/>
-									);
-								case 'checklist':
-									return (
-										<ReadChecklistBlock
-											block={block}
-											key={`DetailNote_${block.id}`}
-											noteId={_detailNote.id}
-											isDetail={true}
-										/>
-									);
-								default:
-									return new Error('Error: Read Block');
-							}
-						})}
+					{_detailNote?.blocks?.map((block) => {
+						switch (block.type) {
+							case 'text':
+								return (
+									<ReadTextBlock block={block} key={block.id} isDetail={true} />
+								);
+							case 'checklist':
+								return (
+									<ReadChecklistBlock
+										block={block}
+										key={`DetailNote_${block.id}`}
+										noteId={_detailNote.id}
+										isDetail={true}
+									/>
+								);
+							default:
+								return <></>; // new Error('Error: Read Block') 에러 컴포넌트 필요!
+						}
+					})}
 				</div>
 				<div className="ctrl_bar">
 					<button className="delete_btn" onClick={handleMoveToConfirmOnClick}>
 						<DeleteIcon sx={{ fontSize: 23, color: '#2a394b' }} />
 					</button>
-					<button onClick={handleSetEditBtnOnClick} className="edit_btn">
+					<button
+						type="button"
+						onClick={handleSetEditBtnOnClick}
+						className="edit_btn"
+					>
 						수정
 					</button>
 				</div>
 			</div>
+			<PortalConfirm
+				question="선택한 노트를 삭제하시겠습니까?"
+				isConfirmOn={isConfirmOn}
+				setIsConfirmOn={setIsConfrimOn}
+				confirmCallback={handleConfirmBtnOnClick}
+			/>
 		</div>
 	);
 };
