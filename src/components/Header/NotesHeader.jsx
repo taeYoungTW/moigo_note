@@ -2,8 +2,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './NotesHeader.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import Confirm from '../Common/Confirm';
 import { useCallback, useState } from 'react';
+import PortalConfirm from '../Common/PortalConfirm';
 
 const NotesHeader = () => {
 	// Global States, Actions ---------------------------------------
@@ -11,17 +11,17 @@ const NotesHeader = () => {
 	const { _deleteNotes, _resetSelectedNoteIds } = useAppAction();
 
 	// Local States ------------------------------------------------
-	const [isConfirmOn, setIsConfirmOn] = useState('');
+	const [isConfirmOn, setIsConfirmOn] = useState(false);
 
 	// Event Handler ----------------------------------------------
 	const handleDeleteConfirmBtnOnClick = useCallback(() => {
 		_deleteNotes(_selectedNoteIds);
 		_resetSelectedNoteIds();
-		setIsConfirmOn('');
+		setIsConfirmOn(false);
 	}, [_selectedNoteIds, _deleteNotes, _resetSelectedNoteIds]);
 
 	const handleMoveToConfirmOnClick = useCallback(() => {
-		setIsConfirmOn('true');
+		setIsConfirmOn(true);
 	}, []);
 
 	// Render ------------------------------------------------------
@@ -40,16 +40,12 @@ const NotesHeader = () => {
 					<DeleteIcon sx={{ fontSize: 19, color: '#767676' }} />
 				</button>
 			</div>
-			<Confirm
+			<PortalConfirm
 				question={'선택한 노트를 삭제하시겠습니까?'}
-				offConfirmBtnName="취소"
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfirmOn}
-			>
-				<button type="button" onClick={handleDeleteConfirmBtnOnClick}>
-					삭제
-				</button>
-			</Confirm>
+				confirmCallback={handleDeleteConfirmBtnOnClick}
+			/>
 		</header>
 	);
 };
