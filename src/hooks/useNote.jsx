@@ -9,24 +9,10 @@ const useNote = () => {
 	const [_selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [_allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
 	const [_detailNote, setDetailNote] = useState({}); // ex. {title, id, blocks}
-	const [_confirmNoteIdToDelete, setConfirmNoteIdToDelete] = useState(''); // string : Put a specific Note id to delete
-	/* 
-	_conFirmNoteIdToDelete의 필요성
-		SummaryNote에서 noteId를 줄 수 있지만, Confirm을 표시할 스타일이 SummaryNote의 position relative에 막혀 absolute로 전체 화면을 감쌀 수 없기 때문에
-		Confirm 위치를 ReadAllNotes에 둘 수 밖에 없고 해당 위치에서 삭제 구현을 위해 특정 noteId를 필요로 함으로 confirmNoteIdToDelete를 사용하였습니다.
-	*/
 
 	/*
 	 * ------ Actions: useCallback -------------------
 	 */
-
-	/*
-	 * ~~~~ About Confirm ~~~~
-	 * - _setConfirmNoteIdToDelete : noteId or '' (For using Confirm Component Callback)
-	 */
-	const _setConfirmNoteIdToDelete = useCallback((noteId) => {
-		setConfirmNoteIdToDelete(noteId);
-	}, []);
 	/*
 	 * ~~~~ About State of CreateNote Area ~~~~
 	 * - _changeIsOnCreateNoteForm : Change "isOn(focus)"
@@ -191,7 +177,6 @@ const useNote = () => {
 		_isOnCreateNoteForm,
 		_selectedNoteIds,
 		_detailNote,
-		_confirmNoteIdToDelete,
 	};
 	const combineActions = {
 		_addNote,
@@ -204,7 +189,6 @@ const useNote = () => {
 		_setDetailNote,
 		_resetDetailNote,
 		_updateNote,
-		_setConfirmNoteIdToDelete,
 		_updateChecklistOfNote,
 		_updateChecklistOfDetailNote,
 	};
