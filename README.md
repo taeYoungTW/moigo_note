@@ -343,3 +343,31 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
     - 기존 confirm 관련된 Global States, Actions가 필요 없어져서 삭제
     - confirm location은 Main 컴포넌트에 위치
     - NoteHeader, SummaryNote, DetailNote 모두 PortalConfirm으로 개선
+
+<br/>
+
+## 📆 2021.11.01
+
+- CreateNote stopPropagation 요소 추가하여 감싸 최상단 stopPropagation으로 통일
+- Error 표시를 위한 useError Hook 생성
+  - 발생 가능한 상황에 error메세지 처리를 통해 Error 없이 console.error로 확인 가능
+  - `useBlocks/_updateBlocks`
+  - `SummaryNote/summary_area_el/switch`
+  - `CreateNoteForm/content_el/switch`
+  - `DetailNote/detailNote_content_el/switch`
+  - `UpdateNote/content_el/switch`
+- 상수 값 분리 관리하기
+  - ICON style로 들어가는 값 또는 Text 등 ...
+  - constants 폴더의 constant.js에서 관리
+- 2가지 상태를 가지면서 동일한 위치에 있는 컴포넌트의 경우, 연결을 담당하는 부모 컴포넌트를 만들어 조금 더 확실하게 어떤 컴포넌트가 어떤 상태에서 위치하게 되는지 표시하도록 변경
+  - CreateNote -> CreateNoteArea를 중심으로 CreateNote, CreateNoteForm 상태를 연결
+  - Header -> HeaderArea를 중심으로 Header, NotesHeader 상태를 연결
+  - DetailNote -> ModalNote를 중심으로 DetailNote, UpdateNote 상태를 연결
+    - 모든 \_detailNote global state에서 \_modalNote 이름으로 모두 변경하였습니다. updateNote가 detail에 종속된 표현이 아닌 modalNote를 중심으로 동등한 위치(계층)에 detailNote, UpdateNote가 있습니다.
+- 디렉토리 구조 변경 -> 최대한 1폴더 1Component 형식
+  - index.jsx 형식의 파일명은 보류 (파일 끼리 비교할때 불편할 것 같다는 생각이 듭니다.)
+  - import 문제라면, 자동 import 기능을 사용하면 될 듯합니다.
+- hooks의 store 역할의 hook -> contextStore 폴더에서 관리
+- hooks에 있던 hook을 사용하지 않는 재사용 일반 함수 -> utils 에서 관리
+- CreateNoteForm, UpdateNote의 Content 영역 Component 화 -> CreateContent
+- handleAdd\*\*BtnOnClick 형태의 이벤트 핸들러를 type 넣어 사용하는 handleAddBlockBtnOnClick 형태의 switch 문으로 이루어진 이벤트 핸들러로 통합
