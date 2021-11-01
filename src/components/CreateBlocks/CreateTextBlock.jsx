@@ -4,6 +4,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
+import {
+	CTRL_BLOCK_ICON_FONT_SIZE,
+	WRITE_NOTE_TEXT,
+} from '../../constants/constants';
 
 const CreateTextBlock = ({ block }) => {
 	// Global States, Actions ---------------------------------------
@@ -45,7 +49,7 @@ const CreateTextBlock = ({ block }) => {
 				type="text"
 				value={textBlock.text}
 				onChange={handleTextOnChange}
-				placeholder="노트 작성..."
+				placeholder={WRITE_NOTE_TEXT}
 				rows={1}
 				ref={textRef}
 				spellCheck={false}
@@ -53,10 +57,10 @@ const CreateTextBlock = ({ block }) => {
 			/>
 			<div className="btns">
 				<button type="button" onClick={handleDeleteBtnOnClick}>
-					<DeleteIcon sx={{ fontSize: 18 }} />
+					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
 				<button type="button">
-					<MenuIcon sx={{ fontSize: 18 }} />
+					<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
 			</div>
 		</div>
