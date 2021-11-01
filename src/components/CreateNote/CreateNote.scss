@@ -1,29 +1,21 @@
 @import '../../styles/variables.scss';
 
 .create_note {
-	background-color: transparent;
-	min-height: $create-note-height;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	height: $create-note-ctnr-height;
+	width: $create-note-ctnr-width;
+	background-color: $create-note-ctnr-color;
+	border: 1px solid $create-note-ctnr-border-color;
+	@include default_border_radius;
+	@include flex_align_center;
+	padding: 10px;
 
-	.create_note_ctnr {
-		height: $create-note-ctnr-height;
-		width: $create-note-ctnr-width;
-		background-color: $create-note-ctnr-color;
-		border: 1px solid $create-note-ctnr-border-color;
-		@include default_border_radius;
-		@include flex_align_center;
-		padding: 10px;
-
-		.add_text_btn {
-			@include rm_btn_style;
-			text-align: left;
-			flex-grow: 1;
-			font-size: 0.9rem;
-			font-weight: 400;
-			color: #828482;
-			cursor: text;
-		}
+	.add_text_btn {
+		@include rm_btn_style;
+		text-align: left;
+		flex-grow: 1;
+		font-size: 0.9rem;
+		font-weight: 400;
+		color: #828482;
+		cursor: text;
 	}
 }
