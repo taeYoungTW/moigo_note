@@ -6,6 +6,13 @@ import { useAppAction } from '../../contexts/AppStateContext';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PropTypes from 'prop-types';
+import {
+	ADD_LIST_TEXT,
+	CHECKBOX_ICON_COLOR,
+	CHECKBOX_ICON_FONT_SIZE,
+	CTRL_BLOCK_ICON_FONT_SIZE,
+	TEXT_DECORATION_VALUE,
+} from '../../constants/constants';
 
 const CreateChecklistBlock = ({ block, isUpdate }) => {
 	// Global States, Actions ------------------------------------
@@ -54,9 +61,19 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 					className="checkbox_label"
 				>
 					{block.isDone ? (
-						<CheckBoxIcon sx={{ fontSize: 20, color: '#29394B' }} />
+						<CheckBoxIcon
+							sx={{
+								fontSize: CHECKBOX_ICON_FONT_SIZE,
+								color: CHECKBOX_ICON_COLOR,
+							}}
+						/>
 					) : (
-						<CheckBoxOutlineBlankIcon sx={{ fontSize: 20, color: '#29394B' }} />
+						<CheckBoxOutlineBlankIcon
+							sx={{
+								fontSize: CHECKBOX_ICON_FONT_SIZE,
+								color: CHECKBOX_ICON_COLOR,
+							}}
+						/>
 					)}
 				</label>
 				<input
@@ -71,22 +88,22 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 					type="text"
 					value={block.content}
 					onChange={handleChecklistContentOnChange}
-					placeholder="항목 추가"
+					placeholder={ADD_LIST_TEXT}
 					rows={1}
 					ref={contentRef}
 					spellCheck={false}
 					autoFocus={true}
 					style={{
-						textDecoration: block.isDone && 'solid line-through #767676 1px',
+						textDecoration: block.isDone && TEXT_DECORATION_VALUE,
 					}}
 				/>
 			</div>
 			<div className="btns">
 				<button type="button" onClick={handleDeleteBtnOnClick}>
-					<DeleteIcon sx={{ fontSize: 18 }} />
+					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
 				<button type="button">
-					<MenuIcon sx={{ fontSize: 18 }} />
+					<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
 			</div>
 		</div>
