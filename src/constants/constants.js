@@ -49,3 +49,4 @@ export const DETAIL_NOTE_DELETE_ICON_COLOR = '#2a394b'; // DetailNote
 Error Messages
 */
 export const INVALID_BLOCK_TYPE_TEXT = 'Detected invalid Type of block!';
+export const NO_MATCHED_ID_IN_BLOCKS_TEXT = 'No Matched Id in _blocks!';
