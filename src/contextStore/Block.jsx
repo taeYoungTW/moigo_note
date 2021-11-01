@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { NO_MATCHED_ID_IN_BLOCKS_TEXT } from '../constants/constants';
 import useError from '../hooks/useError';
 
 // Manage Global States & Actions
@@ -64,13 +65,14 @@ const Block = () => {
 				);
 			} else {
 				_setUseError({
-					message: 'No Matched Id in _blocks!',
-					location: 'useBlock/_updateBlock',
+					message: NO_MATCHED_ID_IN_BLOCKS_TEXT,
+					location: 'Block/_updateBlock',
 				});
 			}
 		},
 		[_blocks, _setUseError]
 	);
+
 	// ------ Combine States & Actions ---------------
 	const combineStates = { _blocks };
 	const combineActions = {
