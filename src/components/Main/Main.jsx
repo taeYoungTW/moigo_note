@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import CreateNote from '../CreateNote/CreateNote';
+import CreateNoteArea from '../CreateNoteArea/CreateNoteArea';
 import ReadAllNotes from '../ReadAllNotes/ReadAllNotes';
 import './Main.scss';
 const Main = () => {
@@ -28,7 +28,7 @@ const Main = () => {
 	// Render -----------------------------------------------------
 	return (
 		<main onClick={handleMainOnClick}>
-			<CreateNote />
+			<CreateNoteArea />
 			<ReadAllNotes />
 			<div id="confirm_root"></div>
 		</main>
