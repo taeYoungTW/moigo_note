@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
-import useNote from '../hooks/useNote';
+import Note from '../contextStore/Note';
+import Block from '../contextStore/Block';
 import Proptypes from 'prop-types';
-import useBlock from '../hooks/useBlock';
 
 const AppStateContext = createContext();
 // State와 Action을 구분하여 사용하기 위함
@@ -11,7 +11,7 @@ const useAppAction = () => useContext(AppStateContext);
 // Provider
 const AppStateProvider = ({ children }) => {
 	// Combine
-	const combine = { ...useNote(), ...useBlock() };
+	const combine = { ...Note(), ...Block() };
 
 	// Provider
 	return (
@@ -26,7 +26,7 @@ AppStateContext.Provider.propTypes = {
 		_isOnCreateNoteForm: Proptypes.bool,
 		_selectedNoteIds: Proptypes.array,
 		_allNotes: Proptypes.array,
-		_detailNote: Proptypes.object,
+		_modalNote: Proptypes.object,
 		_confirmNoteIdToDelete: Proptypes.string,
 		_blocks: Proptypes.array,
 	}),
