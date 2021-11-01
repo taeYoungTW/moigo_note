@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import { CANCEL_TEXT, CONFIRM_TEXT } from '../../constants/constants';
 import './PortalConfirm.scss';
 
 const PortalConfirm = ({
@@ -30,10 +31,10 @@ const PortalConfirm = ({
 					<h1 className="question">{question}</h1>
 					<div className="btns">
 						<button type="button" onClick={handleCancelBtnOnClick}>
-							취소
+							{CANCEL_TEXT}
 						</button>
 						<button type="button" onClick={handleConfirmBtnOnClick}>
-							확인
+							{CONFIRM_TEXT}
 						</button>
 					</div>
 				</div>
