@@ -6,13 +6,3 @@
  * React의 경우 use라는 prefix를 붙여 식별자를 사용하면, 해당 함수를 hooks로 판단하여 경고를 보냅니다.
  * 그래서 일반 함수의 경우 use를 생략하고, hooks를 사용한 것은 use를 붙일 예정입니다.
  */
-
-export const filterEmptyTextBlock = (oldBlocks) => {
-	const newBlocks = oldBlocks.filter((block) => {
-		if (block.text === '') {
-			return false;
-		}
-		return true;
-	});
-	return newBlocks;
-};
