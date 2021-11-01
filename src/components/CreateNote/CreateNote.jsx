@@ -12,31 +12,45 @@ const CreateNote = () => {
 	const { _changeIsOnCreateNoteForm, _addBlock } = useAppAction();
 
 	// Event Handler --------------------------
-	const handleAddTextBtnOnClick = useCallback(() => {
-		_changeIsOnCreateNoteForm(true);
-		_addBlock({ id: uuid(), type: 'text', text: '' });
-	}, [_changeIsOnCreateNoteForm, _addBlock]);
-
-	const handleAddChecklistBtnOnClick = useCallback(() => {
-		_changeIsOnCreateNoteForm(true);
-		_addBlock({ id: uuid(), type: 'checklist', isDone: false, content: '' });
-	}, [_changeIsOnCreateNoteForm, _addBlock]);
-
-	const handleAddImgBtnOnClick = useCallback(() => {
-		_changeIsOnCreateNoteForm(true);
-		// _addBlock({ id: uuid(), type: 'image', baseURL: '' });
-	}, [_changeIsOnCreateNoteForm]);
+	const handleAddBlockBtnOnClick = useCallback(
+		(type) => {
+			_changeIsOnCreateNoteForm(true);
+			switch (type) {
+				case 'text':
+					_addBlock({ id: uuid(), type, text: '' });
+					break;
+				case 'checklist':
+					_addBlock({ id: uuid(), type, isDone: false, content: '' });
+					break;
+				default:
+					break;
+			}
+		},
+		[_changeIsOnCreateNoteForm, _addBlock]
+	);
 
 	// Render -----------------------
 	return (
 		<div className="create_note">
-			<button className="add_text_btn" onClick={handleAddTextBtnOnClick}>
+			<button
+				className="add_text_btn"
+				onClick={() => {
+					handleAddBlockBtnOnClick('text');
+				}}
+			>
 				{WRITE_NOTE_TEXT}
 			</button>
-			<AddBtn Icon={InsertPhotoIcon} eventHandler={handleAddImgBtnOnClick} />
+			<AddBtn
+				Icon={InsertPhotoIcon}
+				eventHandler={() => {
+					handleAddBlockBtnOnClick('image');
+				}}
+			/>
 			<AddBtn
 				Icon={FormatListBulletedIcon}
-				eventHandler={handleAddChecklistBtnOnClick}
+				eventHandler={() => {
+					handleAddBlockBtnOnClick('checklist');
+				}}
 			/>
 		</div>
 	);
