@@ -1,11 +1,19 @@
 import './AddBtn.scss';
 import PropTypes from 'prop-types';
+import {
+	ADD_BTN_ICON_COLOR,
+	ADD_BTN_ICON_FONT_SIZE,
+} from '../../constants/constants';
 
 const AddBtn = ({ Icon, eventHandler }) => {
 	return (
 		<button className="add_btn" type="button" onClick={eventHandler}>
 			<Icon
-				sx={{ fontSize: 22, cursor: 'pointer', color: '#2A394B' }}
+				sx={{
+					fontSize: ADD_BTN_ICON_FONT_SIZE,
+					cursor: 'pointer',
+					color: ADD_BTN_ICON_COLOR,
+				}}
 				className="addBtn_icon"
 			/>
 		</button>
