@@ -1,75 +1,58 @@
 @import '../../styles/variables.scss';
 
-header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 99;
+.align_left {
+	display: flex;
+	align-items: center;
 
-	.header_fixed {
-		background-color: $header-color;
-		height: $header-height;
-
+	.title_ctnr {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		margin: 0 25px;
+		color: $header-logo-color;
+		user-select: none;
 
-		.align_left {
-			display: flex;
-			align-items: center;
+		.logo {
+			font-size: 1.1rem;
+			margin-right: 10px;
+		}
+		.title {
+			font-size: 0.8rem;
+			font-weight: 500;
+		}
+	}
 
-			.title_ctnr {
-				display: flex;
-				align-items: center;
-				margin: 0 25px;
-				color: $header-logo-color;
-				user-select: none;
+	.search_ctnr {
+		width: $search_cntr_width;
+		height: $search_cntr_height;
+		display: flex;
+		align-items: center;
+		background-color: $search-bg-color;
+		border-radius: 15px;
+		padding: 0 10px;
 
-				.logo {
-					font-size: 1.1rem;
-					margin-right: 10px;
-				}
-				.title {
-					font-size: 0.8rem;
-					font-weight: 500;
-				}
-			}
-
-			.search_ctnr {
-				width: $search_cntr_width;
-				height: $search_cntr_height;
-				display: flex;
-				align-items: center;
-				background-color: $search-bg-color;
-				border-radius: 15px;
-				padding: 0 10px;
-
-				.search_input {
-					color: $search-color;
-					font-size: 0.9rem;
-					flex-grow: 1;
-					@include rm_input_style;
-					&::placeholder {
-						color: black;
-						font-weight: 500;
-						font-size: 0.9rem;
-					}
-				}
+		.search_input {
+			color: $search-color;
+			font-size: 0.9rem;
+			flex-grow: 1;
+			@include rm_input_style;
+			&::placeholder {
+				color: black;
+				font-weight: 500;
+				font-size: 0.9rem;
 			}
 		}
+	}
+}
 
-		.window_ctrl {
-			padding-right: 15px;
-			.ctrl_btn {
-				width: 27px;
-				@include rm_btn_style;
-				color: $search-color;
-				.ctrlBtn_icon:hover {
-					color: $header-ctrl-hover-color;
-					transition: 0.2s;
-				}
-			}
+.window_ctrl {
+	padding-right: 15px;
+	.ctrl_window_btn {
+		width: 27px;
+		@include rm_btn_style;
+		color: $search-color;
+		.ctrl_window_btn_icon:hover {
+			color: $header-ctrl-hover-color;
+			transition: 0.2s;
 		}
 	}
 }
