@@ -1,10 +1,10 @@
-import Header from '../components/Header/Header';
+import HeaderArea from '../components/HeaderArea/HeaderArea';
 import Main from '../components/Main/Main';
 
 const Home = () => {
 	return (
 		<div className="note_app">
-			<Header />
+			<HeaderArea />
 			<Main />
 		</div>
 	);
