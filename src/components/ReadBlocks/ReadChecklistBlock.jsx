@@ -3,6 +3,11 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import {
+	CHECKBOX_ICON_COLOR,
+	CHECKBOX_ICON_FONT_SIZE,
+	TEXT_DECORATION_VALUE,
+} from '../../constants/constants';
 
 const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 	// Global States, Actions ---------------------------------------
@@ -55,10 +60,18 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 						className="checkbox_label"
 					>
 						{block.isDone ? (
-							<CheckBoxIcon sx={{ fontSize: 20, color: '#29394B' }} />
+							<CheckBoxIcon
+								sx={{
+									fontSize: CHECKBOX_ICON_FONT_SIZE,
+									color: CHECKBOX_ICON_COLOR,
+								}}
+							/>
 						) : (
 							<CheckBoxOutlineBlankIcon
-								sx={{ fontSize: 20, color: '#29394B' }}
+								sx={{
+									fontSize: CHECKBOX_ICON_FONT_SIZE,
+									color: CHECKBOX_ICON_COLOR,
+								}}
 							/>
 						)}
 					</label>
@@ -73,7 +86,7 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 				<div
 					className="content"
 					style={{
-						textDecoration: block.isDone && 'solid line-through #414141 1px',
+						textDecoration: block.isDone && TEXT_DECORATION_VALUE,
 					}}
 				>
 					{block.content}
