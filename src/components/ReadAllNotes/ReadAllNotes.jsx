@@ -1,19 +1,19 @@
 import { useAppState } from '../../contexts/AppStateContext';
-import SummaryNote from './SummaryNote';
+import SummaryNote from '../SummaryNote/SummaryNote';
 import './ReadAllNotes.scss';
-import DetailNote from '../ReadNote/DetailNote';
+import ModalNote from '../ModalNote/ModalNote';
 
 const ReadAllNotes = () => {
 	// Global States, Actions ---------------------------------------
-	const { _allNotes, _detailNote } = useAppState();
+	const { _allNotes, _modalNote } = useAppState();
 
 	// Render -----------------------------------------------
 	return (
-		<section className="summary_notes_ctnr">
+		<section className="read_all_notes">
 			{_allNotes.map((note) => (
 				<SummaryNote note={note} key={note.id} />
 			))}
-			{_detailNote?.id && <DetailNote />}
+			{_modalNote?.id && <ModalNote />}
 		</section>
 	);
 };
