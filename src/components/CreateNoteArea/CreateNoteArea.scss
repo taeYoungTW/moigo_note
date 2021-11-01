@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.create_note_area {
+	background-color: transparent;
+	min-height: $create-note-height;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
