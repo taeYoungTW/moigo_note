@@ -6,26 +6,20 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import './UpdateNote.scss';
 import { useCallback, useEffect, useState } from 'react';
-import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
-import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
-import { v4 as uuid } from 'uuid';
-import useError from '../../hooks/useError';
 import {
 	COMPLETE_TEXT,
-	INVALID_BLOCK_TYPE_TEXT,
 	MODAL_NOTE_CLOSE_ICON_COLOR,
 	MODAL_NOTE_CLOSE_ICON_FONT_SIZE,
 } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
+import { v4 as uuid } from 'uuid';
+import CreateContent from '../CreateContent/CreateContent';
 
 const UpdateNote = () => {
 	// Global States, Actions ---------------------------------------
 	const { _blocks, _modalNote } = useAppState();
-	const { _resetModalNote, _updateNote, _addBlock, _initBlocks, _resetBlocks } =
+	const { _resetModalNote, _updateNote, _initBlocks, _resetBlocks, _addBlock } =
 		useAppAction();
-
-	// Hooks ---------------------------------
-	const _setUseError = useError();
 
 	// Local States ------------------------------------------------
 	const [note, setNote] = useState(_modalNote);
@@ -36,24 +30,33 @@ const UpdateNote = () => {
 		_updateNote({ ...note, blocks: [...filteredBlocks] });
 	}, [_updateNote, note, _blocks]);
 
-	const handleAddTextBtnOnClick = useCallback(() => {
-		_addBlock({ id: uuid(), type: 'text', text: '' });
-	}, [_addBlock]);
-
-	const handleAddChecklistBtnOnClick = useCallback(() => {
-		_addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
-	}, [_addBlock]);
-
-	/* 	const handleAddImageBtnOnClick = useCallback(() => {
-		_addBlock({ id: uuid(), type: 'image', baseURL:'' });
-	}, [_addBlock]); */
+	const handleAddBlockBtnOnClick = useCallback(
+		(type) => {
+			switch (type) {
+				case 'text':
+					_addBlock({ id: uuid(), type, text: '' });
+					break;
+				case 'checklist':
+					_addBlock({
+						id: uuid(),
+						type,
+						content: '',
+						isDone: false,
+					});
+					break;
+				default:
+					break;
+			}
+		},
+		[_addBlock]
+	);
 
 	// useEffects ------------------------------------------------------
 	useEffect(() => {
 		if (_blocks.length === 0) {
-			handleAddTextBtnOnClick();
+			handleAddBlockBtnOnClick('text');
 		}
-	}, [_blocks.length, handleAddTextBtnOnClick]);
+	}, [_blocks.length, handleAddBlockBtnOnClick]);
 
 	useEffect(() => {
 		_initBlocks([..._modalNote.blocks]);
@@ -85,43 +88,21 @@ const UpdateNote = () => {
 						/>
 					</button>
 				</div>
-				<div className="content">
-					{_blocks?.map((block) => {
-						switch (block.type) {
-							case 'text':
-								return (
-									<CreateTextBlock
-										block={block}
-										key={`updateNote_${block.id}`}
-									/>
-								);
-							case 'checklist':
-								return (
-									<CreateChecklistBlock
-										block={block}
-										key={`updateNote_${block.id}`}
-										isUpdate={true}
-									/>
-								);
-							default:
-								_setUseError({
-									message: INVALID_BLOCK_TYPE_TEXT,
-									location: 'UpdateNote/content_el/switch',
-								});
-								return <></>;
-						}
-					})}
-				</div>
+				<CreateContent blocks={_blocks} isUpdateNote={true} />
 				<div className="ctrl_bar">
 					<div className="add_btns">
 						<AddBtn Icon={InsertPhotoIcon} />
 						<AddBtn
 							Icon={FormatListBulletedIcon}
-							eventHandler={handleAddChecklistBtnOnClick}
+							eventHandler={() => {
+								handleAddBlockBtnOnClick('checklist');
+							}}
 						/>
 						<AddBtn
 							Icon={TextFieldsIcon}
-							eventHandler={handleAddTextBtnOnClick}
+							eventHandler={() => {
+								handleAddBlockBtnOnClick('text');
+							}}
 						/>
 					</div>
 					<button

@@ -6,18 +6,11 @@ import TextFieldsIcon from '@mui/icons-material/TextFields';
 import { useEffect, useState, useCallback } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
-import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
-import useError from '../../hooks/useError';
-import {
-	COMPLETE_TEXT,
-	INVALID_BLOCK_TYPE_TEXT,
-	TITLE_TEXT,
-} from '../../constants/constants';
+import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
+import CreateContent from '../CreateContent/CreateContent';
 
 const CreateNoteForm = () => {
-	const _setUseError = useError();
 	// Global States & Actions --------------------------
 	const { _blocks } = useAppState();
 	const { _addNote, _changeIsOnCreateNoteForm, _addBlock, _resetBlocks } =
@@ -41,20 +34,33 @@ const CreateNoteForm = () => {
 		setNote({ title: value });
 	};
 
-	const handleAddTextBtnOnClick = useCallback(() => {
-		_addBlock({ id: uuid(), type: 'text', text: '' });
-	}, [_addBlock]);
-
-	const handleAddChecklistBtnOnClick = useCallback(() => {
-		_addBlock({ id: uuid(), type: 'checklist', content: '', isDone: false });
-	}, [_addBlock]);
+	const handleAddBlockBtnOnClick = useCallback(
+		(type) => {
+			switch (type) {
+				case 'text':
+					_addBlock({ id: uuid(), type, text: '' });
+					break;
+				case 'checklist':
+					_addBlock({
+						id: uuid(),
+						type,
+						content: '',
+						isDone: false,
+					});
+					break;
+				default:
+					break;
+			}
+		},
+		[_addBlock]
+	);
 
 	// useEffects ------------------------------------
 	useEffect(() => {
 		if (_blocks.length === 0) {
-			handleAddTextBtnOnClick();
+			handleAddBlockBtnOnClick('text');
 		}
-	}, [_blocks.length, handleAddTextBtnOnClick]);
+	}, [_blocks.length, handleAddBlockBtnOnClick]);
 
 	useEffect(() => {
 		return () => {
@@ -74,38 +80,21 @@ const CreateNoteForm = () => {
 					value={note.title}
 				/>
 			</div>
-			<div className="content">
-				{_blocks?.map((block) => {
-					switch (block.type) {
-						case 'text':
-							return <CreateTextBlock block={block} key={block.id} />;
-						case 'checklist':
-							return (
-								<CreateChecklistBlock
-									block={block}
-									key={block.id}
-									isUpdate={false}
-								/>
-							);
-						default:
-							_setUseError({
-								message: INVALID_BLOCK_TYPE_TEXT,
-								location: 'CreateNoteForm/content_el/switch',
-							});
-							return <></>;
-					}
-				})}
-			</div>
+			<CreateContent blocks={_blocks} isUpdateNote={false} />
 			<div className="ctrl_bar">
 				<div className="add_btns">
 					<AddBtn Icon={InsertPhotoIcon} />
 					<AddBtn
 						Icon={FormatListBulletedIcon}
-						eventHandler={handleAddChecklistBtnOnClick}
+						eventHandler={() => {
+							handleAddBlockBtnOnClick('checklist');
+						}}
 					/>
 					<AddBtn
 						Icon={TextFieldsIcon}
-						eventHandler={handleAddTextBtnOnClick}
+						eventHandler={() => {
+							handleAddBlockBtnOnClick('text');
+						}}
 					/>
 				</div>
 				<button
