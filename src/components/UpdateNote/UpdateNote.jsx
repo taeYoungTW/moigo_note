@@ -9,21 +9,26 @@ import { useCallback, useEffect, useState } from 'react';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 import { v4 as uuid } from 'uuid';
-import { filterEmptyTextBlock } from '../../hooks/useValidation';
+import useError from '../../hooks/useError';
+import {
+	COMPLETE_TEXT,
+	INVALID_BLOCK_TYPE_TEXT,
+	MODAL_NOTE_CLOSE_ICON_COLOR,
+	MODAL_NOTE_CLOSE_ICON_FONT_SIZE,
+} from '../../constants/constants';
+import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
 
 const UpdateNote = () => {
 	// Global States, Actions ---------------------------------------
-	const { _blocks, _detailNote } = useAppState();
-	const {
-		_resetDetailNote,
-		_updateNote,
-		_addBlock,
-		_initBlocks,
-		_resetBlocks,
-	} = useAppAction();
+	const { _blocks, _modalNote } = useAppState();
+	const { _resetModalNote, _updateNote, _addBlock, _initBlocks, _resetBlocks } =
+		useAppAction();
+
+	// Hooks ---------------------------------
+	const _setUseError = useError();
 
 	// Local States ------------------------------------------------
-	const [note, setNote] = useState(_detailNote);
+	const [note, setNote] = useState(_modalNote);
 
 	// Event Handler ----------------------------------------------
 	const handleUpdateNoteBtnOnClick = useCallback(() => {
@@ -51,15 +56,15 @@ const UpdateNote = () => {
 	}, [_blocks.length, handleAddTextBtnOnClick]);
 
 	useEffect(() => {
-		_initBlocks([..._detailNote.blocks]);
+		_initBlocks([..._modalNote.blocks]);
 
 		return () => {
 			_resetBlocks();
 		};
-	}, [_detailNote, _initBlocks, _resetBlocks]);
+	}, [_modalNote, _initBlocks, _resetBlocks]);
 
 	return (
-		<div className="update_note_ctnr">
+		<>
 			<div className="update_note">
 				<div className="title">
 					<input
@@ -71,12 +76,17 @@ const UpdateNote = () => {
 							setNote((note) => ({ ...note, title: value }));
 						}}
 					/>
-					<button className="close_btn" onClick={_resetDetailNote}>
-						<CloseIcon sx={{ fontSize: 25, color: '#767676' }} />
+					<button className="close_btn" onClick={_resetModalNote}>
+						<CloseIcon
+							sx={{
+								fontSize: MODAL_NOTE_CLOSE_ICON_FONT_SIZE,
+								color: MODAL_NOTE_CLOSE_ICON_COLOR,
+							}}
+						/>
 					</button>
 				</div>
 				<div className="content">
-					{_blocks.map((block) => {
+					{_blocks?.map((block) => {
 						switch (block.type) {
 							case 'text':
 								return (
@@ -94,7 +104,11 @@ const UpdateNote = () => {
 									/>
 								);
 							default:
-								return '';
+								_setUseError({
+									message: INVALID_BLOCK_TYPE_TEXT,
+									location: 'UpdateNote/content_el/switch',
+								});
+								return <></>;
 						}
 					})}
 				</div>
@@ -115,11 +129,11 @@ const UpdateNote = () => {
 						onClick={handleUpdateNoteBtnOnClick}
 						className="update_submit_btn"
 					>
-						완료
+						{COMPLETE_TEXT}
 					</button>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
