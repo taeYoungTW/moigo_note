@@ -1,13 +1,8 @@
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import {
-	CHECKBOX_ICON_COLOR,
-	CHECKBOX_ICON_FONT_SIZE,
-	TEXT_DECORATION_VALUE,
-} from '../../constants/constants';
+import CheckBoxInput from '../Common/CheckBoxInput';
+import ChecklistContent from '../Common/ChecklistContent';
 
 const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 	// Global States, Actions ---------------------------------------
@@ -55,42 +50,14 @@ const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 					}}
 					className="stopPropagation_el"
 				>
-					<label
-						htmlFor={isDetailNote ? `DetailNote_${block.id}` : block.id}
-						className="checkbox_label"
-					>
-						{block.isDone ? (
-							<CheckBoxIcon
-								sx={{
-									fontSize: CHECKBOX_ICON_FONT_SIZE,
-									color: CHECKBOX_ICON_COLOR,
-								}}
-							/>
-						) : (
-							<CheckBoxOutlineBlankIcon
-								sx={{
-									fontSize: CHECKBOX_ICON_FONT_SIZE,
-									color: CHECKBOX_ICON_COLOR,
-								}}
-							/>
-						)}
-					</label>
-					<input
-						type="checkbox"
-						id={isDetailNote ? `DetailNote_${block.id}` : block.id}
-						className="checkbox_input"
-						checked={block.isDone}
-						onChange={handleCheckBoxOnChange}
+					<CheckBoxInput
+						blockId={block.id}
+						isDone={block.isDone}
+						handleCheckBoxOnChange={handleCheckBoxOnChange}
+						location={isDetailNote ? 'detailNote' : 'summaryNote'}
 					/>
 				</div>
-				<div
-					className="content"
-					style={{
-						textDecoration: block.isDone && TEXT_DECORATION_VALUE,
-					}}
-				>
-					{block.content}
-				</div>
+				<ChecklistContent isDone={block.isDone} content={block.content} />
 			</div>
 		</div>
 	);
