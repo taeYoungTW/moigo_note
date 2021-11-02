@@ -10,10 +10,12 @@ import {
 	COMPLETE_TEXT,
 	MODAL_NOTE_CLOSE_ICON_COLOR,
 	MODAL_NOTE_CLOSE_ICON_FONT_SIZE,
+	TITLE_TEXT,
 } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
-import { v4 as uuid } from 'uuid';
 import CreateContent from '../CreateContent/CreateContent';
+import useAddBlock from '../../hooks/useAddBlock';
+import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 
 const UpdateNote = () => {
 	// Global States, Actions ---------------------------------------
@@ -30,33 +32,15 @@ const UpdateNote = () => {
 		_updateNote({ ...note, blocks: [...filteredBlocks] });
 	}, [_updateNote, note, _blocks]);
 
-	const handleAddBlockBtnOnClick = useCallback(
-		(type) => {
-			switch (type) {
-				case 'text':
-					_addBlock({ id: uuid(), type, text: '' });
-					break;
-				case 'checklist':
-					_addBlock({
-						id: uuid(),
-						type,
-						content: '',
-						isDone: false,
-					});
-					break;
-				default:
-					break;
-			}
-		},
-		[_addBlock]
-	);
+	const handleTitleInputOnChange = useCallback((e) => {
+		const { value } = e.target;
+		setNote((note) => ({ ...note, title: value }));
+	}, []);
+
+	const handleAddBlockBtnOnClick = useAddBlock(_addBlock); // hooks로 재사용 관리
 
 	// useEffects ------------------------------------------------------
-	useEffect(() => {
-		if (_blocks.length === 0) {
-			handleAddBlockBtnOnClick('text');
-		}
-	}, [_blocks.length, handleAddBlockBtnOnClick]);
+	useAddDefaultBlock(handleAddBlockBtnOnClick, _blocks.length); // hooks로 재사용 관리
 
 	useEffect(() => {
 		_initBlocks([..._modalNote.blocks]);
@@ -74,10 +58,8 @@ const UpdateNote = () => {
 						type="text"
 						className="title_input"
 						value={note.title}
-						onChange={(e) => {
-							const { value } = e.target;
-							setNote((note) => ({ ...note, title: value }));
-						}}
+						placeholder={TITLE_TEXT}
+						onChange={handleTitleInputOnChange}
 					/>
 					<button className="close_btn" onClick={_resetModalNote}>
 						<CloseIcon
