@@ -9,7 +9,7 @@ import {
 	TEXT_DECORATION_VALUE,
 } from '../../constants/constants';
 
-const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
+const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 	// Global States, Actions ---------------------------------------
 	const { _updateChecklistOfNote, _updateChecklistOfDetailNote } =
 		useAppAction();
@@ -29,7 +29,7 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 				...block,
 				isDone: checked,
 			});
-			if (isDetail) {
+			if (isDetailNote) {
 				_updateChecklistOfDetailNote({
 					...block,
 					isDone: checked,
@@ -41,13 +41,13 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 			_updateChecklistOfDetailNote,
 			block,
 			noteId,
-			isDetail,
+			isDetailNote,
 		]
 	);
 
 	// Render -----------------------------------------------------
 	return (
-		<div className={`read_block ${isDetail ? 'detail' : ''}`}>
+		<div className={`read_block ${isDetailNote ? 'detail' : ''}`}>
 			<div className="read_checklist_block">
 				<div
 					onClick={(e) => {
@@ -56,7 +56,7 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 					className="stopPropagation_el"
 				>
 					<label
-						htmlFor={isDetail ? `DetailNote_${block.id}` : block.id}
+						htmlFor={isDetailNote ? `DetailNote_${block.id}` : block.id}
 						className="checkbox_label"
 					>
 						{block.isDone ? (
@@ -77,7 +77,7 @@ const ReadChecklistBlock = ({ block, noteId, isDetail }) => {
 					</label>
 					<input
 						type="checkbox"
-						id={isDetail ? `DetailNote_${block.id}` : block.id}
+						id={isDetailNote ? `DetailNote_${block.id}` : block.id}
 						className="checkbox_input"
 						checked={block.isDone}
 						onChange={handleCheckBoxOnChange}
