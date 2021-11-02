@@ -10,11 +10,15 @@ import {
 import ReadContent from '../ReadContent/ReadContent';
 import SelectNote from '../SelectNote/SelectNote';
 import DeleteNoteBtn from '../Common/DeleteBtn';
+import useSearch from '../../hooks/useSearch';
 
 const SummaryNote = ({ note }) => {
 	// Global States & Actions --------------
 	const { _deleteSelectedNoteId, _setModalNote, _deleteNote } = useAppAction();
-	const { _selectedNoteIds } = useAppState();
+	const { _selectedNoteIds, _searchInput } = useAppState();
+
+	// Hook --------------------------------------
+	const isDisplay = useSearch(_searchInput, note);
 
 	// Local States --------------------------
 	const [isConfirmOn, setIsConfirmOn] = useState(false);
@@ -36,7 +40,7 @@ const SummaryNote = ({ note }) => {
 	};
 
 	// Render -------------------------------------------
-	return (
+	return isDisplay ? (
 		<article
 			className="summary_note"
 			onClick={() => {
@@ -62,6 +66,8 @@ const SummaryNote = ({ note }) => {
 				confirmCallback={handleDeleteConfirmBtnOnClick}
 			/>
 		</article>
+	) : (
+		<></>
 	);
 };
 
