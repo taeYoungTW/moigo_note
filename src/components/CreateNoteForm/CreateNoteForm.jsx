@@ -3,12 +3,14 @@ import './CreateNoteForm.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
 import CreateContent from '../CreateContent/CreateContent';
+import useAddBlock from '../../hooks/useAddBlock';
+import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 
 const CreateNoteForm = () => {
 	// Global States & Actions --------------------------
@@ -34,33 +36,10 @@ const CreateNoteForm = () => {
 		setNote({ title: value });
 	};
 
-	const handleAddBlockBtnOnClick = useCallback(
-		(type) => {
-			switch (type) {
-				case 'text':
-					_addBlock({ id: uuid(), type, text: '' });
-					break;
-				case 'checklist':
-					_addBlock({
-						id: uuid(),
-						type,
-						content: '',
-						isDone: false,
-					});
-					break;
-				default:
-					break;
-			}
-		},
-		[_addBlock]
-	);
+	const handleAddBlockBtnOnClick = useAddBlock(_addBlock); // hooks로 재사용 관리
 
 	// useEffects ------------------------------------
-	useEffect(() => {
-		if (_blocks.length === 0) {
-			handleAddBlockBtnOnClick('text');
-		}
-	}, [_blocks.length, handleAddBlockBtnOnClick]);
+	useAddDefaultBlock(handleAddBlockBtnOnClick, _blocks.length); // hooks로 재사용 관리
 
 	useEffect(() => {
 		return () => {
