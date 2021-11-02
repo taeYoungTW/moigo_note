@@ -369,5 +369,68 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
   - import 문제라면, 자동 import 기능을 사용하면 될 듯합니다.
 - hooks의 store 역할의 hook -> contextStore 폴더에서 관리
 - hooks에 있던 hook을 사용하지 않는 재사용 일반 함수 -> utils 에서 관리
-- CreateNoteForm, UpdateNote의 Content 영역 Component 화 -> CreateContent
+- CreateContent 컴포넌트 생성
+  - CreateNoteForm, UpdateNote의 Content 영역 컴포넌트화 하여 분리
 - handleAdd\*\*BtnOnClick 형태의 이벤트 핸들러를 type 넣어 사용하는 handleAddBlockBtnOnClick 형태의 switch 문으로 이루어진 이벤트 핸들러로 통합
+
+<br/>
+
+## 📆 2021.11.02
+
+### 컴포넌트 스플릿팅을 통한 재사용성 높이기
+
+<br/>
+
+### 분리하여 새로 만든 Components
+
+- **`ReadContent` 컴포넌트 생성**
+  - SummaryNote, DetailNote 컴포넌트의 content 영역을 컴포넌트화 하여 분리
+- **`SelectNote` 컴포넌트 생성**
+  - SummaryNote의 Select와 관련된 부분을 컴포넌트화 하여 분리
+  - Select button 관련 식별자 수정
+    - eventHandler의 경우 앞으로 할 행동 이름으로 식별자 정의 (handleUnselectBtnOnClick, handleSelectBtnOnClick)
+    - className의 경우 현재 버튼의 상태 이름으로 식별자 정의
+      (now_select_on_btn, now_select_off_btn)
+- **`DeleteNoteBtn` 컴포넌트 생성**
+  - material ui의 휴지통 아이콘을 동일 하게 사용하는 Note를 지울때 Confirm을 보여주는 컴포넌트
+  - SummaryNote, DetailNote, NotesHeader 컴포넌트에서 공통적으로 사용되며, 각 컴포넌트에 따라 스타일이 달라서 아이콘의 사이즈 및 색상의 경우 prop으로 받아 설정하며, 외부의 button의 위치 등의 경우는 className을 prop으로 넘겨 적용합니다. (material ui icon의 style 지정 방식은 sx 프로퍼티에 값을 주는 방식 뿐이기 때문입니다.)
+- **`CreateContent` 컴포넌트 생성**
+  - UpdateNote, CreateNoteForm 컴포넌트의 content 영역을 컴포넌트화 하여 분리
+- **`ChecklistContent` 컴포넌트 생성**
+  - ReadChecklistBlock의 content 부분을 컴포넌트화 시킨 컴포넌트
+- **`ChecklistTextarea` 컴포넌트 생성**
+  - CreateChecklistBlock의 content 부분을 컴포넌트화 시킨 컴포넌트
+- **`CheckBoxInput` 컴포넌트 생성**
+  - ChecklistBlock의 CheckBox Input, label 부분을 컴포넌트화 시킨 컴포넌트
+- Github default indent 변경 -> github Account settings -> Appearance -> Tab size preference
+
+<br/>
+
+### 분리하여 만든 Hooks (useEffect or EventHandler(useCallback))
+
+- **`useAutoHeightTextArea` Hook 생성**
+  - CreateTextBlock 또는 ChecklistTextarea 컴포넌트의 text input의 height를 자동으로 조정해주던 useEffect의 로직을 재사용 가능한 hook으로 만들었습니다.
+- **`useAddBlock` Hook 생성**
+  - 기존에 CreatNoteForm, CreateNote, UpdateNote 컴포넌트에 존재하던 handleAddBlockBtnOnClick 이벤트 핸들러의 useCallback의 로직을 hook으로 만들어 재사용 가능하게 만들었습니다.
+- **`useAddDefaultBlock` Hook 생성**
+  - \_blocks에 block이 하나도 없는 경우 기본으로 블럭을 넣어주는 useEffect를 재사용을 위해 useAddDefaultBlock hook으로 만들어 재사용 했습니다.
+
+### 검색 기능 구현
+
+검색 기능을 구현할 때, 기존의 노트들의 데이터는 수정이 되면 안됩니다. 그래서, 화면상으로만 검색하여 표시되어야 하는 노트만 접근 가능하게 표시시키고 나머지는 요소를 return 시키지 않게 하여 접근 불가하게 하는 것이 좋은 방안이라고 생각했습니다.
+
+먼저, Search input의 내용을 담을 global State 와 Action(\_searchInput, \_setSearchInput)을 만들었습니다.
+
+검색 기능 구현을 위해서 Header의 검색 input에 eventHandler를 연결하였으며, 해당 eventHandler의 경우 \_setSearchInput을 통해서 값을 반영시킵니다.
+
+<br/>
+
+Search를 구현하는 로직의 경우, SummaryNote 컴포넌트 하나 하나에서 자신의 노트의 내용이 Search Value에 부합하는지 확인하는 로직을 넣었습니다.
+
+그래서, useSearch로 hook을 따로 분리하여 좀더 깔끔한 컴포넌트의 모습으로 확인할 수 있게 했습니다.
+
+<br/>
+
+useSearch의 경우 OR 조건을 통해 title, block의 text 또는 content의 내용을 찾아 표시할지 말지를 결정해 줍니다.
+
+해당 search의 핵심 로직은 string.prototype.includes를 사용하여 구현하였습니다.
