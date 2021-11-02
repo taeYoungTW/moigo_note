@@ -36,14 +36,11 @@
 		justify-content: flex-end;
 
 		.del_summary_note_btn,
-		.select_summary_note_on_btn {
+		.now_select_off_btn {
 			display: none;
 		}
 
-		/* 
-		OFF-Btn : from ON to OFF (Not Off State)
-		*/
-		.select_summary_note_off_btn {
+		.now_select_on_btn {
 			@include rm_btn_style;
 			position: absolute;
 			right: -25px;
@@ -53,7 +50,7 @@
 			z-index: 3;
 		}
 
-		.select_outline {
+		.now_select_on_outline {
 			position: absolute;
 			left: 0;
 			right: 0;
@@ -76,10 +73,8 @@
 				margin-right: 10px;
 				margin-top: 10px;
 			}
-			/* 
-			ON-Btn : from OFF to ON (Not ON State)
-			*/
-			.select_summary_note_on_btn {
+
+			.now_select_off_btn {
 				@include rm_btn_style;
 				position: absolute;
 				right: -25px;
