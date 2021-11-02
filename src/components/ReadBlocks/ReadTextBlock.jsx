@@ -1,10 +1,10 @@
 import './ReadBlocks.scss';
 import PropTypes from 'prop-types';
 
-const ReadTextBlock = ({ block, isDetail }) => {
+const ReadTextBlock = ({ block, isDetailNote }) => {
 	// Render -------------------------------------------------------
 	return (
-		<div className={`read_block ${isDetail ? 'detail' : ''}`}>
+		<div className={`read_block ${isDetailNote ? 'detail' : ''}`}>
 			<div className="read_text_block">{block.text}</div>
 		</div>
 	);
