@@ -13,7 +13,7 @@ export const SEARCH_TEXT = '검색'; // Header
 export const COUNT_OF_SELECTED_NOTE_TEXT = '개 선택됨'; // Header
 export const DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT =
 	'선택한 노트를 삭제하시겠습니까?'; // Header, SummaryNote, DetailNote
-
+export const EDIT_TEXT = '수정'; // detailNote
 /* 
 Styles Sizes & Colors & Values
 */
