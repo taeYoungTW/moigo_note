@@ -1,4 +1,3 @@
-import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './NotesHeader.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
@@ -12,6 +11,7 @@ import {
 	HEADER_DELETE_ICON_COLOR,
 	HEADER_DELETE_ICON_FONT_SIZE,
 } from '../../constants/constants';
+import DeleteNoteBtn from '../Common/DeleteBtn';
 
 const NotesHeader = () => {
 	// Global States, Actions ---------------------------------------
@@ -28,7 +28,7 @@ const NotesHeader = () => {
 		setIsConfirmOn(false);
 	}, [_selectedNoteIds, _deleteNotes, _resetSelectedNoteIds]);
 
-	const handleMoveToConfirmOnClick = useCallback(() => {
+	const handleDeleteBtnOnClick = useCallback(() => {
 		setIsConfirmOn(true);
 	}, []);
 
@@ -49,14 +49,12 @@ const NotesHeader = () => {
 					{COUNT_OF_SELECTED_NOTE_TEXT}
 				</h2>
 			</div>
-			<button className="delete_btn" onClick={handleMoveToConfirmOnClick}>
-				<DeleteIcon
-					sx={{
-						fontSize: HEADER_DELETE_ICON_FONT_SIZE,
-						color: HEADER_DELETE_ICON_COLOR,
-					}}
-				/>
-			</button>
+			<DeleteNoteBtn
+				className="delete_btn"
+				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+				fontSize={HEADER_DELETE_ICON_FONT_SIZE}
+				color={HEADER_DELETE_ICON_COLOR}
+			/>
 			<PortalConfirm
 				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
 				isConfirmOn={isConfirmOn}
