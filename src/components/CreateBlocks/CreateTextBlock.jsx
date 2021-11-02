@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
@@ -8,6 +8,7 @@ import {
 	CTRL_BLOCK_ICON_FONT_SIZE,
 	WRITE_NOTE_TEXT,
 } from '../../constants/constants';
+import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
 
 const CreateTextBlock = ({ block }) => {
 	// Global States, Actions ---------------------------------------
@@ -35,11 +36,8 @@ const CreateTextBlock = ({ block }) => {
 		_deleteBlock(block.id);
 	}, [_deleteBlock, block]);
 
-	// useEffect : textarea auto height -----------------------------
-	useEffect(() => {
-		textRef.current.style.height = '';
-		textRef.current.style.height = textRef.current.scrollHeight + 'px';
-	}, [textBlock]);
+	// hook : textarea auto height -----------------------------
+	useAutoHeightTextArea(textRef, textBlock.text);
 
 	// Render -------------------------------------------------------
 	return (
