@@ -6,14 +6,14 @@ import ChecklistContent from '../Common/ChecklistContent';
 
 const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 	// Global States, Actions ---------------------------------------
-	const { _updateChecklistOfNote, _updateChecklistOfDetailNote } =
+	const { _updateChecklistOfNote, _updateChecklistOfModalNote } =
 		useAppAction();
 
 	// Event Handler ----------------------------------------------
 	/* - handleCheckBoxOnChange
 	 * ReadChecklistBlock의 경우 DetailNote와 SummaryNote에서 공유되어 사용됩니다.
 	 * 기본적으로 "_allNotes"의 특정 note의 특정 checklistblock을 update합니다.
-	 * isDetail 값을 통해서 DetailNote에서 수정되는 경우 추가적으로 _detailNote의 특정 checklistblock을 update 합니다.
+	 * isDetail 값을 통해서 DetailNote에서 수정되는 경우 추가적으로 _modalNote의 특정 checklistblock을 update 합니다.
 	 */
 	const handleCheckBoxOnChange = useCallback(
 		(e) => {
@@ -25,7 +25,7 @@ const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 				isDone: checked,
 			});
 			if (isDetailNote) {
-				_updateChecklistOfDetailNote({
+				_updateChecklistOfModalNote({
 					...block,
 					isDone: checked,
 				});
@@ -33,7 +33,7 @@ const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 		},
 		[
 			_updateChecklistOfNote,
-			_updateChecklistOfDetailNote,
+			_updateChecklistOfModalNote,
 			block,
 			noteId,
 			isDetailNote,
