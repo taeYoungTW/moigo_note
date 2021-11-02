@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import {
 	ADD_LIST_TEXT,
 	TEXT_DECORATION_VALUE,
 } from '../../constants/constants';
+import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
 
 const ChecklistTextarea = ({
 	content,
@@ -11,11 +12,8 @@ const ChecklistTextarea = ({
 }) => {
 	const contentRef = useRef(null);
 
-	// useEffect : textarea auto height -----------------------------
-	useEffect(() => {
-		contentRef.current.style.height = '';
-		contentRef.current.style.height = contentRef.current.scrollHeight + 'px';
-	}, [content]);
+	// hook : textarea auto height -----------------------------
+	useAutoHeightTextArea(contentRef, content);
 
 	// Render ------------------------------------------
 	return (
