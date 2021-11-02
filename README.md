@@ -434,3 +434,21 @@ Search를 구현하는 로직의 경우, SummaryNote 컴포넌트 하나 하나�
 useSearch의 경우 OR 조건을 통해 title, block의 text 또는 content의 내용을 찾아 표시할지 말지를 결정해 줍니다.
 
 해당 search의 핵심 로직은 string.prototype.includes를 사용하여 구현하였습니다.
+
+### 검색 전 기본 Notes
+![search_default_notes](https://user-images.githubusercontent.com/92776202/139809029-f8c5fc17-15e5-420c-90b8-771caf2fe1e5.png)
+
+### TEXT 일부 검색
+![search_word_notes](https://user-images.githubusercontent.com/92776202/139809131-be3c10af-474e-4052-9794-1033bad1fb20.png)
+
+## 개행 일부 검색
+![search_newline_word](https://user-images.githubusercontent.com/92776202/139809176-7207be32-5560-43c2-8798-8652adace5a1.png)
+
+## Checklist 일부 검색
+![search_checklist](https://user-images.githubusercontent.com/92776202/139809388-7150f358-f242-4342-b97a-b26e9332a59a.png)
+
+
+## 일치하는 데이터 없음
+![search_no_data](https://user-images.githubusercontent.com/92776202/139809208-293ab658-1d11-4743-9de2-56d1a9c43392.png)
+
+
