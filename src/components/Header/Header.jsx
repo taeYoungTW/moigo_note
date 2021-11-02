@@ -12,11 +12,22 @@ import {
 	SEARCH_TEXT,
 } from '../../constants/constants';
 import CtrlWindowBtn from './CtrlWindowBtn';
+import { useAppAction } from '../../contexts/AppStateContext';
+import { useCallback } from 'react';
 
 const Header = () => {
 	// Global States, Actions ---------------------------------------
-
+	const { _setSearchInput } = useAppAction();
 	// Render -------------------------------------------------------
+	const handleSearchInputOnChange = useCallback(
+		(e) => {
+			const {
+				target: { value },
+			} = e;
+			_setSearchInput(value);
+		},
+		[_setSearchInput]
+	);
 	return (
 		<>
 			<div className="align_left">
@@ -36,6 +47,7 @@ const Header = () => {
 						className="search_input"
 						type="text"
 						placeholder={SEARCH_TEXT}
+						onChange={handleSearchInputOnChange}
 					/>
 				</div>
 			</div>
