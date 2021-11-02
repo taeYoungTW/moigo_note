@@ -24,6 +24,7 @@ const useSearch = (searchValue, targetNote) => {
 						return true;
 					}
 				}
+				return false;
 			} else {
 				return true;
 			}
