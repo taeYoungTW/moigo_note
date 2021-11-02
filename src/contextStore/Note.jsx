@@ -9,10 +9,18 @@ const Note = () => {
 	const [_selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [_allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
 	const [_modalNote, setModalNote] = useState({}); // ex. {title, id, blocks}
+	const [_searchInput, setSearchInput] = useState('');
 
 	/*
 	 * ------ Actions: useCallback -------------------
 	 */
+
+	/*
+	 * ~~~~ About Search
+	 */
+	const _setSearchInput = useCallback((value) => {
+		setSearchInput(value);
+	}, []);
 	/*
 	 * ~~~~ About State of CreateNote Area ~~~~
 	 * - _changeIsOnCreateNoteForm : Change "isOn(focus)"
@@ -177,6 +185,7 @@ const Note = () => {
 		_isOnCreateNoteForm,
 		_selectedNoteIds,
 		_modalNote,
+		_searchInput,
 	};
 	const combineActions = {
 		_addNote,
@@ -190,7 +199,8 @@ const Note = () => {
 		_resetModalNote,
 		_updateNote,
 		_updateChecklistOfNote,
-		_updateChecklistOfDetailNote: _updateChecklistOfModalNote,
+		_updateChecklistOfModalNote,
+		_setSearchInput,
 	};
 
 	return { ...combineStates, ...combineActions };
