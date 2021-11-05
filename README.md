@@ -346,6 +346,10 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
 
 <br/>
 
+---
+
+<br/>
+
 ## 📆 2021.11.01
 
 - CreateNote stopPropagation 요소 추가하여 감싸 최상단 stopPropagation으로 통일
@@ -372,6 +376,10 @@ blocks를 useBlocks hook으로 따로 관리하면, block에 관한 state, actio
 - CreateContent 컴포넌트 생성
   - CreateNoteForm, UpdateNote의 Content 영역 컴포넌트화 하여 분리
 - handleAdd\*\*BtnOnClick 형태의 이벤트 핸들러를 type 넣어 사용하는 handleAddBlockBtnOnClick 형태의 switch 문으로 이루어진 이벤트 핸들러로 통합
+
+<br/>
+
+---
 
 <br/>
 
@@ -436,19 +444,72 @@ useSearch의 경우 OR 조건을 통해 title, block의 text 또는 content의 �
 해당 search의 핵심 로직은 string.prototype.includes를 사용하여 구현하였습니다.
 
 ### 검색 전 기본 Notes
+
 ![search_default_notes](https://user-images.githubusercontent.com/92776202/139809029-f8c5fc17-15e5-420c-90b8-771caf2fe1e5.png)
 
 ### TEXT 일부 검색
+
 ![search_word_notes](https://user-images.githubusercontent.com/92776202/139809131-be3c10af-474e-4052-9794-1033bad1fb20.png)
 
 ## 개행 일부 검색
+
 ![search_newline_word](https://user-images.githubusercontent.com/92776202/139809176-7207be32-5560-43c2-8798-8652adace5a1.png)
 
 ## Checklist 일부 검색
+
 ![search_checklist](https://user-images.githubusercontent.com/92776202/139809388-7150f358-f242-4342-b97a-b26e9332a59a.png)
 
-
 ## 일치하는 데이터 없음
+
 ![search_no_data](https://user-images.githubusercontent.com/92776202/139809208-293ab658-1d11-4743-9de2-56d1a9c43392.png)
 
+<br/>
 
+---
+
+<br/>
+
+## 📆 2021.11.03
+
+- Drag and Drop Move 기능을 구현하기 위한 Beautiful DnD 공부
+- [ ] Block or Note Semantic Tag -> ul, li ?
+
+- react-draggable, react-beautiful-dnd, react-dnd
+- react-draggable의 경우 배열의 위치를 변경하기 보단, 창의 위치를 변경하는 느낌이 강하게 느껴져서 나중에 알아보기로 하였습니다.
+
+### react-dnd vs react-beautiful-dnd
+
+### react-beautiful-dnd
+
+rbd는 Context 형식의 개념으로 손쉽게 애니메이션 모션 까지 적용된 형태로 dnd를 구현할 수 있습니다.
+rbd의 경우 onDragEnd의 이벤트 핸들러를 설정하여, drag하는 요소와 drop된 요소의 index를 받아 구현하는 형식입니다.
+
+- [Github: react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+- **장 점 :**
+  1. 단일 축으로 구성된 배열의 순서를 변경하는 형태 및 다른 두개의 Section에서 정보를 교환하는 형태의 경우 **매우 편리하게 사용할 수 있습니다**. (horizontal, vertical)
+  2. `react-beautiful-dnd`의 경우 유명한 Atlassian에서 제작한 library이고 사용자도 많아 공신력 있는 library 입니다.
+  3. 신경 쓸 것이 없이 쉽게 배울수 있습니다.
+- **단 점 :**
+  1. Grid 형태의 이중 축의 경우 지원하지 않고 있습니다. 대신, 유사한 사용방식으로 `react-grid-dnd`라는 library가 존재합니다.
+  - [CodeSandbox: react-grid-dnd](https://codesandbox.io/s/react-grid-dnd-example-forked-j63t0?file=/src/index.js) -> 사용자가 많이 없어 공신력 있는 library는 아닙니다.
+  2.  현재 다른 업무에 우선순위를 두고 있어 rbd의 경우 개선 및 개발을 현재 진행하지 않는다고 합니다.
+- 라이센스 : Apache-2.0
+
+### react-dnd
+
+react-dnd의 경우 redux, flux 느낌과 hooks를 활용하는 개념으로 dnd를 구성할 수 있습니다.
+react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 수 있습니다. 하지만, react-beautiful-dnd의 motion을 지원하지 않기 때문에 motion 설정을 하고 싶으면 따로 react motion 관련된 라이브러리를 사용해야 합니다.
+
+- **장 점 :**
+  1. 까다로운 설정을 통해 다양하게 활용할 수 있습니다.
+  2. Grid를 구현할 수 있을 듯 합니다.
+- **단 점 :**
+  1. 모션을 구현해야 함으로, 더 복잡하게 구현을 해야합니다.
+
+## 📆 2021.11.04
+
+- react-dnd sortable list test
+- Motion 적용을 위한 라이브러리
+  - react-flip-move
+  - react-flip-toolkit ->
+  - framer-motion -> 현재 버전의 경우 CRA에 대한 문제로 사용 불가
