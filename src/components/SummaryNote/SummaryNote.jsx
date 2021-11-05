@@ -12,7 +12,7 @@ import SelectNote from '../SelectNote/SelectNote';
 import DeleteNoteBtn from '../Common/DeleteBtn';
 import useSearch from '../../hooks/useSearch';
 
-const SummaryNote = ({ note }) => {
+const SummaryNote = ({ note, isDragging }) => {
 	// Global States & Actions --------------
 	const { _deleteSelectedNoteId, _setModalNote, _deleteNote } = useAppAction();
 	const { _selectedNoteIds, _searchInput } = useAppState();
@@ -46,6 +46,7 @@ const SummaryNote = ({ note }) => {
 			onClick={() => {
 				_setModalNote(note);
 			}}
+			style={{ opacity: isDragging ? 0 : 1 }}
 		>
 			<div className="summary_area">
 				{note.title && <h1 className="summary_title">{note.title}</h1>}
