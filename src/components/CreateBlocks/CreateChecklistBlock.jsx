@@ -8,7 +8,7 @@ import { CTRL_BLOCK_ICON_FONT_SIZE } from '../../constants/constants';
 import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistTextarea from '../Common/ChecklistTextarea';
 
-const CreateChecklistBlock = ({ block, isUpdate }) => {
+const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 	// Global States, Actions ------------------------------------
 	const { _deleteBlock, _updateBlock } = useAppAction();
 
@@ -57,9 +57,7 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 				<button type="button" onClick={handleDeleteBtnOnClick}>
 					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
-				<button type="button">
-					<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
-				</button>
+				{children}
 			</div>
 		</div>
 	);
