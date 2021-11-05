@@ -513,3 +513,7 @@ react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 �
   - react-flip-move
   - react-flip-toolkit ->
   - framer-motion -> 현재 버전의 경우 CRA에 대한 문제로 사용 불가
+
+## 📆 2021.11.05
+
+- 모션 적용 없이 일단, `react_dnd` 라이브러리를 통한 Note 순서 변경 구현
