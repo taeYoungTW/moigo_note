@@ -2,6 +2,7 @@ import React from 'react';
 import { INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
 import useError from '../../hooks/useError';
 import ReadChecklistBlock from '../ReadBlocks/ReadChecklistBlock';
+import ReadImgBlock from '../ReadBlocks/ReadImgBlock';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
 
 const ReadContent = ({ note, isDetailNote }) => {
@@ -24,6 +25,14 @@ const ReadContent = ({ note, isDetailNote }) => {
 								block={block}
 								key={block.id}
 								noteId={note.id}
+								isDetailNote={isDetailNote}
+							/>
+						);
+					case 'image':
+						return (
+							<ReadImgBlock
+								block={block}
+								key={block.id}
 								isDetailNote={isDetailNote}
 							/>
 						);
