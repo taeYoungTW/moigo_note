@@ -3,8 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 const useAddBlock = (_addBlockAction, callback = () => '') => {
 	const handleAddBlockBtnOnClick = useCallback(
-		(type) => {
-			callback();
+		(type, dataUrl) => {
 			switch (type) {
 				case 'text':
 					_addBlockAction({ id: uuid(), type, text: '' });
@@ -17,9 +16,13 @@ const useAddBlock = (_addBlockAction, callback = () => '') => {
 						isDone: false,
 					});
 					break;
+				case 'image':
+					_addBlockAction({ id: uuid(), type, dataUrl });
+					break;
 				default:
 					break;
 			}
+			callback();
 		},
 		[_addBlockAction, callback]
 	);
