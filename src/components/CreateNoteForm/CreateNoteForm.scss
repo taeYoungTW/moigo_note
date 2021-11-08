@@ -32,8 +32,9 @@
 	}
 
 	.content {
-		// min-height: $create-note-ctnr-height;
-		height: fit-content;
+		max-height: $content-max-height;
+		overflow-y: scroll;
+		@include default_scrollbar;
 	}
 
 	.ctrl_bar {
