@@ -1,6 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
@@ -10,7 +9,7 @@ import {
 } from '../../constants/constants';
 import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
 
-const CreateTextBlock = ({ block }) => {
+const CreateTextBlock = ({ block, children }) => {
 	// Global States, Actions ---------------------------------------
 	const { _deleteBlock, _updateBlock } = useAppAction();
 
@@ -57,9 +56,7 @@ const CreateTextBlock = ({ block }) => {
 				<button type="button" onClick={handleDeleteBtnOnClick}>
 					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
-				<button type="button">
-					<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
-				</button>
+				{children}
 			</div>
 		</div>
 	);
