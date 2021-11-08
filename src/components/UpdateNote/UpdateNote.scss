@@ -41,7 +41,10 @@
 	}
 
 	.content {
-		flex-grow: 1;
+		max-height: $content-max-height;
+		overflow-y: scroll;
+		@include default_scrollbar;
+
 		border-top: 1px solid $split-color;
 		border-bottom: 1px solid $split-color;
 	}
