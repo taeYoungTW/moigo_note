@@ -2,6 +2,7 @@ import React from 'react';
 import { INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
 import useError from '../../hooks/useError';
 import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
+import CreateImgBlock from '../CreateBlocks/CreateImgBlock';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 import DnDListBlockHOC from '../DnDListBlockHOC/DnDListBlockHOC';
 
@@ -26,6 +27,16 @@ const CreateContent = ({ blocks, isUpdateNote }) => {
 						return (
 							<DnDListBlockHOC
 								Component={CreateChecklistBlock}
+								ComponentProp={{ block: block, isUpdate: isUpdateNote }}
+								key={block.id}
+								id={block.id}
+								index={i}
+							/>
+						);
+					case 'image':
+						return (
+							<DnDListBlockHOC
+								Component={CreateImgBlock}
 								ComponentProp={{ block: block, isUpdate: isUpdateNote }}
 								key={block.id}
 								id={block.id}
