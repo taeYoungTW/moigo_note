@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
@@ -6,8 +6,12 @@ import { BLOCK_TYPE } from '../../constants/constants';
 import MoveBlockBtn from '../Common/MoveBlockBtn';
 
 const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
+	// Global States & Actions
 	const { _blocks } = useAppState();
 	const { _initBlocks } = useAppAction();
+
+	// Ref
+	const dropRef = useRef(null);
 
 	const moveBlock = useCallback(
 		(dragIndex, hoverIndex) => {
@@ -23,17 +27,31 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 		accept: BLOCK_TYPE,
 		hover(dragItem, monitor) {
 			const { dragIndex } = dragItem;
-
-			if (dragIndex === index) {
+			if (!dropRef.current || dragIndex === index) {
 				return;
 			}
 
+			const { y: dropY, height: dropHeight } =
+				dropRef.current.getBoundingClientRect();
+			const { y: dragCursorY } = monitor.getClientOffset();
+
+			if (dragIndex > index) {
+				if (dropHeight > 45) {
+					if (dragCursorY < dropY + 45) {
+						moveBlock(dragIndex, index);
+						dragItem.dragIndex = index;
+						return;
+					}
+					return;
+				}
+			}
 			moveBlock(dragIndex, index);
 			dragItem.dragIndex = index;
 		},
 	});
+
 	return (
-		<div ref={drop}>
+		<div ref={drop(dropRef)}>
 			<Component {...ComponentProp}>
 				<MoveBlockBtn index={index} id={id} />
 			</Component>
