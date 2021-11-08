@@ -531,11 +531,13 @@ react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 �
 ## 📆 2021.11.08
 
 - `react-beautiful-dnd` 라이브러리를 통해서 `dev1_beautiful_dnd` branch에 적용하여 구현
-- Block 순서 변경 dnd 구현
-- Img block CRUD 구현
+- **Block 순서 변경 dnd 구현 및 요소의 높이가 다른 문제 개선**
+- **Img block CRUD 구현**
   - summaryNote 부분의 img의 경우 많은 이미지가 들어가는 경우 모든 이미지를 render 시키는 것은 초기 로딩이 느려질 우려가 있습니다.
   - 현재는 간단히, SummaryNote, DetailNote 모두 이미지를 표시하게 구성하였습니다.
   - 초기 로딩 속도를 우려하여 나중에는 SummaryNote의 경우 최상단의 이미지 최대 2개 정도를 한번에 모아 상단에 표시할 수 있도록 하여 개선해 볼 수 있을 듯 합니다.
+
+<br/>
 
 ### 발견된 문제점
 
@@ -543,3 +545,4 @@ react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 �
   - block에 대한 글로벌 state가 아닌 로컬 state로 변경하여 독립적인 state를 사용하도록 해야할 듯 합니다.
 - Drag and Drop에서 높이가 다른 요소의 경우 작은 높이의 요소가 자리가 변경되어도 clientOffset이 큰 요소에 위치함으로서 계속 변경되는 현상이 일어나게 됩니다.
   - target과 drag 요소간의 height를 사전에 비교하여 trigger 영역을 조정할 필요가 있습니다.
+    -> 아래의 요소의 높이 보다 위의 요소의 높이가 큰 경우, 위로 dnd 실행시 **위의 높이가 큰 요소의 45px 부분에만 트리거가 걸리게 하여 해결**
