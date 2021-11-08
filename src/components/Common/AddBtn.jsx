@@ -5,8 +5,17 @@ import {
 	ADD_BTN_ICON_FONT_SIZE,
 } from '../../constants/constants';
 
-const AddBtn = ({ Icon, eventHandler }) => {
-	return (
+const AddBtn = ({ Icon, eventHandler, isImgBtn }) => {
+	return isImgBtn ? (
+		<Icon
+			sx={{
+				fontSize: ADD_BTN_ICON_FONT_SIZE,
+				cursor: 'pointer',
+				color: ADD_BTN_ICON_COLOR,
+			}}
+			className="addBtn_icon"
+		/>
+	) : (
 		<button className="add_btn" type="button" onClick={eventHandler}>
 			<Icon
 				sx={{
