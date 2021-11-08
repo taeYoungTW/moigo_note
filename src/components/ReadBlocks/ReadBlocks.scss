@@ -30,6 +30,10 @@
 			overflow: hidden;
 		}
 	}
+
+	.read_img_block {
+		max-width: 100%;
+	}
 }
 
 .read_block.detail {
@@ -63,5 +67,9 @@
 			line-height: 17px;
 			@include newline;
 		}
+	}
+
+	.read_img_block {
+		max-width: 100%;
 	}
 }
