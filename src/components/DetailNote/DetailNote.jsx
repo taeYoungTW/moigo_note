@@ -17,7 +17,8 @@ import DeleteNoteBtn from '../Common/DeleteBtn';
 const DetailNote = ({ setIsEdit }) => {
 	// Global States, Actions ---------------------------------------
 	const { _modalNote } = useAppState();
-	const { _resetModalNote, _deleteNote } = useAppAction();
+	const { _resetModalNote, _deleteNote, _changeIsOnCreateNoteForm } =
+		useAppAction();
 
 	// Hooks ---------------------------------
 
@@ -30,7 +31,8 @@ const DetailNote = ({ setIsEdit }) => {
 
 	const handleSetEditBtnOnClick = useCallback(() => {
 		setIsEdit(true);
-	}, [setIsEdit]);
+		_changeIsOnCreateNoteForm(false); // _blocks를 같이 쓰기 때문에, 수정시 CreateNoteForm을 닫아 연동하여 표시될 _blocks를 막습니다.
+	}, [setIsEdit, _changeIsOnCreateNoteForm]);
 
 	const handleConfirmBtnOnClick = () => {
 		const id = _modalNote.id;
