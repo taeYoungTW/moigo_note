@@ -84,7 +84,7 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 				className="block_location_indicator"
 				style={{
 					height: '10px',
-					backgroundColor: '#f8613b',
+					backgroundColor: 'rgba(0, 122, 204, 0.8)',
 					opacity: 0.5,
 					display: isDragging ? '' : 'none',
 				}}
