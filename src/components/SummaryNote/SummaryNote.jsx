@@ -49,10 +49,12 @@ const SummaryNote = ({ note, isDragging }) => {
 			}}
 			style={{ opacity: isDragging ? 0 : 1 }}
 		>
-			<SummaryNoteImages noteId={note.id} />
 			<div className="summary_area">
-				{note.title && <h1 className="summary_title">{note.title}</h1>}
-				<ReadContent note={note} isDetailNote={false} />
+				<SummaryNoteImages noteId={note.id} />
+				<div className="summary_area_content">
+					{note.title && <h1 className="summary_title">{note.title}</h1>}
+					<ReadContent note={note} isDetailNote={false} />
+				</div>
 			</div>
 			<div className="ctrl_area">
 				<DeleteNoteBtn
