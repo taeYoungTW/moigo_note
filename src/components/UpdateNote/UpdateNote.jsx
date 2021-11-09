@@ -74,7 +74,10 @@ const UpdateNote = () => {
 				<CreateContent blocks={_blocks} isUpdateNote={true} />
 				<div className="ctrl_bar">
 					<div className="add_btns">
-						<ImgInput addEventHandler={handleAddBlockBtnOnClick}>
+						<ImgInput
+							addEventHandler={handleAddBlockBtnOnClick}
+							isUpdate={true}
+						>
 							<AddBtn Icon={InsertPhotoIcon} isImgBtn />
 						</ImgInput>
 						<AddBtn
