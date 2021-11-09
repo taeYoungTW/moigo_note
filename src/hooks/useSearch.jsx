@@ -19,6 +19,9 @@ const useSearch = (searchValue, targetNote) => {
 			if (value) {
 				for (let i = 0; i < blocks.length; i++) {
 					const curBlock = blocks[i];
+					if (curBlock.type === 'image') {
+						continue;
+					}
 					const curBlockText = curBlock?.text || curBlock?.content;
 					if (curBlockText.includes(value)) {
 						return true;
