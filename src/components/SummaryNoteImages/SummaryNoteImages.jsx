@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './SummaryNoteImages.scss';
 
 const SummaryNoteImages = ({ noteId }) => {
 	const [imgCount, setImgCount] = useState(0);
