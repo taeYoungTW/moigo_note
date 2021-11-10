@@ -1,12 +1,13 @@
 @import '../../styles/_variables.scss';
 
 .read_block {
+	margin: 10px 0;
 	.read_text_block {
 		@include newline;
 		font-size: 0.9rem;
 		color: $black-text-color;
 		font-weight: 300;
-		line-height: 28px;
+		line-height: 18px;
 	}
 
 	.read_checklist_block {
@@ -27,7 +28,7 @@
 			font-weight: 300;
 			font-size: 0.9rem;
 			line-height: 17px;
-			overflow: hidden;
+			@include newline;
 		}
 	}
 
