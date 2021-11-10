@@ -9,6 +9,7 @@ const ChecklistTextarea = ({
 	content,
 	isDone,
 	handleChecklistContentOnChange,
+	handleOnKeyDown,
 }) => {
 	const contentRef = useRef(null);
 
@@ -22,6 +23,7 @@ const ChecklistTextarea = ({
 			type="text"
 			value={content}
 			onChange={handleChecklistContentOnChange}
+			onKeyDown={handleOnKeyDown}
 			placeholder={ADD_LIST_TEXT}
 			rows={1}
 			ref={contentRef}
