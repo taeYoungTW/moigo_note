@@ -6,10 +6,12 @@ import PropTypes from 'prop-types';
 import { CTRL_BLOCK_ICON_FONT_SIZE } from '../../constants/constants';
 import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistTextarea from '../Common/ChecklistTextarea';
+import useAddBlock from '../../hooks/useAddBlock';
 
 const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 	// Global States, Actions ------------------------------------
-	const { _deleteBlock, _updateBlock } = useAppAction();
+	const { _addBlock, _deleteBlock, _updateBlock } = useAppAction();
+	const addBlock = useAddBlock(_addBlock);
 
 	// Event Handler --------------------------------------------
 	const handleCheckBoxOnChange = useCallback(
@@ -36,6 +38,18 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 		_deleteBlock(block.id);
 	}, [_deleteBlock, block]);
 
+	const handleOnKeyDown = (e) => {
+		const { keyCode, shiftKey } = e;
+		if (keyCode === 13 && !shiftKey) {
+			e.preventDefault();
+			addBlock('checklist');
+		}
+		if (keyCode === 13 && shiftKey) {
+			e.preventDefault();
+			_updateBlock({ ...block, content: (block.content += '\n') });
+		}
+	};
+
 	// Render ------------------------------------------
 	return (
 		<div className="create_block">
@@ -50,6 +64,7 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 					content={block.content}
 					isDone={block.isDone}
 					handleChecklistContentOnChange={handleChecklistContentOnChange}
+					handleOnKeyDown={handleOnKeyDown}
 				/>
 			</div>
 			<div className="btns">
