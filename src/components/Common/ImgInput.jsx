@@ -4,6 +4,7 @@ const ImgInput = ({ children, isUpdate, addEventHandler }) => {
 			target: { files },
 		} = e;
 		const aFile = files[0];
+
 		if (aFile) {
 			const reader = new FileReader();
 			reader.onload = (fihishedEvent) => {

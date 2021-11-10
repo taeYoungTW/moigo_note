@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
+/* 
+setState 값 비교 -> 최적화
+*/
+
 const useSearch = (searchValue, targetNote) => {
 	const [isDisplay, setIsDisplay] = useState(true);
 	const { title, blocks } = targetNote;

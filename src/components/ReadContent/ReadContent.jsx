@@ -5,13 +5,16 @@ import ReadImgBlock from '../ReadBlocks/ReadImgBlock';
 import ReadTextBlock from '../ReadBlocks/ReadTextBlock';
 import React, { useEffect, useState } from 'react';
 import reactDom from 'react-dom';
-
+/* 
+썸네일 이미지 컴포넌트
+*/
 const ReadContent = ({ note, isDetailNote }) => {
 	const _setUseError = useError();
 
 	const summaryNoteImagesRoot = document.querySelector(
 		`#summary_note_images_root_${note.id}`
 	);
+
 	const [hasMounted, setHasMounted] = useState(false);
 	useEffect(() => {
 		setHasMounted(true);

@@ -9,6 +9,7 @@ const ReadAllNotes = () => {
 	// Global States, Actions ---------------------------------------
 	const { _allNotes, _modalNote } = useAppState();
 	const { _setNotes } = useAppAction();
+
 	const moveNotes = useCallback(
 		(dragIndex, hoverIndex) => {
 			const newNotes = [..._allNotes];

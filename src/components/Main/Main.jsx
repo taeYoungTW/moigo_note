@@ -30,7 +30,6 @@ const Main = () => {
 		<main onClick={handleMainOnClick}>
 			<CreateNoteArea />
 			<ReadAllNotes />
-			<div id="confirm_root"></div>
 		</main>
 	);
 };

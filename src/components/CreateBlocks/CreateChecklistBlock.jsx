@@ -40,12 +40,14 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 
 	const handleOnKeyDown = (e) => {
 		const { keyCode, shiftKey } = e;
-		if (keyCode === 13 && !shiftKey) {
-			e.preventDefault();
+		if (keyCode !== 13) {
+			return;
+		}
+		e.preventDefault();
+		if (!shiftKey) {
 			addBlock('checklist');
 		}
-		if (keyCode === 13 && shiftKey) {
-			e.preventDefault();
+		if (shiftKey) {
 			_updateBlock({ ...block, content: (block.content += '\n') });
 		}
 	};

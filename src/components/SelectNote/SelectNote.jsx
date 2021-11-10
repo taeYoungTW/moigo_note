@@ -54,7 +54,7 @@ const SelectNote = ({ noteId }) => {
 					 * outline을 border로 하지 않은 이유
 					 * - border를 두껍게 하는 경우 content box가 작아져서 내용 표시가 변화됩니다.
 					 * - select 되었을 경우 해당 요소를 클릭해도 detailNote가 떠서는 안됩니다.
-					 *  - 요소를 앞에 두어 막음으로서 css 만으로 제어할 수 있습니다.
+					 * - 요소를 앞에 두어 막음으로서 css 만으로 제어할 수 있습니다.
 					 */}
 				</>
 			) : (
