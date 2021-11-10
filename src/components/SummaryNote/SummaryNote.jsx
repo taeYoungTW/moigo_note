@@ -11,8 +11,9 @@ import ReadContent from '../ReadContent/ReadContent';
 import SelectNote from '../SelectNote/SelectNote';
 import DeleteNoteBtn from '../Common/DeleteBtn';
 import useSearch from '../../hooks/useSearch';
+import SummaryNoteImages from '../SummaryNoteImages/SummaryNoteImages';
 
-const SummaryNote = ({ note }) => {
+const SummaryNote = ({ note, isDragging }) => {
 	// Global States & Actions --------------
 	const { _deleteSelectedNoteId, _setModalNote, _deleteNote } = useAppAction();
 	const { _selectedNoteIds, _searchInput } = useAppState();
@@ -46,10 +47,14 @@ const SummaryNote = ({ note }) => {
 			onClick={() => {
 				_setModalNote(note);
 			}}
+			style={{ opacity: isDragging ? 0 : 1 }}
 		>
 			<div className="summary_area">
-				{note.title && <h1 className="summary_title">{note.title}</h1>}
-				<ReadContent note={note} isDetailNote={false} />
+				<SummaryNoteImages noteId={note.id} />
+				<div className="summary_area_content">
+					{note.title && <h1 className="summary_title">{note.title}</h1>}
+					<ReadContent note={note} isDetailNote={false} />
+				</div>
 			</div>
 			<div className="ctrl_area">
 				<DeleteNoteBtn

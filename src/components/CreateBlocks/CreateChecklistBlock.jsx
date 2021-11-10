@@ -1,16 +1,17 @@
 import { useCallback } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MenuIcon from '@mui/icons-material/Menu';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import { CTRL_BLOCK_ICON_FONT_SIZE } from '../../constants/constants';
 import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistTextarea from '../Common/ChecklistTextarea';
+import useAddBlock from '../../hooks/useAddBlock';
 
-const CreateChecklistBlock = ({ block, isUpdate }) => {
+const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 	// Global States, Actions ------------------------------------
-	const { _deleteBlock, _updateBlock } = useAppAction();
+	const { _addBlock, _deleteBlock, _updateBlock } = useAppAction();
+	const addBlock = useAddBlock(_addBlock);
 
 	// Event Handler --------------------------------------------
 	const handleCheckBoxOnChange = useCallback(
@@ -37,6 +38,18 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 		_deleteBlock(block.id);
 	}, [_deleteBlock, block]);
 
+	const handleOnKeyDown = (e) => {
+		const { keyCode, shiftKey } = e;
+		if (keyCode === 13 && !shiftKey) {
+			e.preventDefault();
+			addBlock('checklist');
+		}
+		if (keyCode === 13 && shiftKey) {
+			e.preventDefault();
+			_updateBlock({ ...block, content: (block.content += '\n') });
+		}
+	};
+
 	// Render ------------------------------------------
 	return (
 		<div className="create_block">
@@ -51,15 +64,14 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 					content={block.content}
 					isDone={block.isDone}
 					handleChecklistContentOnChange={handleChecklistContentOnChange}
+					handleOnKeyDown={handleOnKeyDown}
 				/>
 			</div>
 			<div className="btns">
 				<button type="button" onClick={handleDeleteBtnOnClick}>
 					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 				</button>
-				<button type="button">
-					<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
-				</button>
+				{children}
 			</div>
 		</div>
 	);

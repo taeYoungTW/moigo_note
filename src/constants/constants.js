@@ -50,3 +50,8 @@ Error Messages
 */
 export const INVALID_BLOCK_TYPE_TEXT = 'Detected invalid Type of block!';
 export const NO_MATCHED_ID_IN_BLOCKS_TEXT = 'No Matched Id in _blocks!';
+
+/* 
+dnd type
+*/
+export const BLOCK_TYPE = 'BLOCK_DND';

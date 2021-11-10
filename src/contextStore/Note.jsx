@@ -107,6 +107,10 @@ const Note = () => {
 	 * - _updateNote : Update a specific Note of "_allNotes" state
 	 * - _updateChecklistOfNote : Update a specific ChecklistBlock of a specific Note (so, need noteId and block)
 	 */
+	const _setNotes = useCallback((newNotes) => {
+		setAllNotes([...newNotes]);
+	}, []);
+
 	const _addNote = useCallback(
 		(note) => {
 			_allNotes.unshift(note);
@@ -192,6 +196,7 @@ const Note = () => {
 		_changeIsOnCreateNoteForm,
 		_deleteNote,
 		_deleteNotes,
+		_setNotes,
 		_addSelectedNoteId,
 		_deleteSelectedNoteId,
 		_resetSelectedNoteIds,

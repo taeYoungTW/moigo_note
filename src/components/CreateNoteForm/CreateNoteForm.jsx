@@ -11,6 +11,7 @@ import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
 import CreateContent from '../CreateContent/CreateContent';
 import useAddBlock from '../../hooks/useAddBlock';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
+import ImgInput from '../Common/ImgInput';
 
 const CreateNoteForm = () => {
 	// Global States & Actions --------------------------
@@ -62,7 +63,9 @@ const CreateNoteForm = () => {
 			<CreateContent blocks={_blocks} isUpdateNote={false} />
 			<div className="ctrl_bar">
 				<div className="add_btns">
-					<AddBtn Icon={InsertPhotoIcon} />
+					<ImgInput addEventHandler={handleAddBlockBtnOnClick}>
+						<AddBtn Icon={InsertPhotoIcon} isImgBtn />
+					</ImgInput>
 					<AddBtn
 						Icon={FormatListBulletedIcon}
 						eventHandler={() => {

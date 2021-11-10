@@ -1,0 +1,23 @@
+@import '../../styles/_variables.scss';
+
+.summary_note_image_ctnr {
+	position: relative;
+	.summary_note_img {
+		width: 100%;
+		height: 130px;
+		object-fit: cover;
+		border-radius: 3px;
+	}
+	.summary_note_image_count {
+		@include absoulte_center_wh;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background-color: rgba(129, 199, 228, 0.7);
+		text-align: center;
+		line-height: 50px;
+		font-size: 1.1rem;
+		font-weight: 300;
+		color: #fff;
+	}
+}

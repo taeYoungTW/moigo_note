@@ -5,6 +5,7 @@ import AddBtn from '../Common/AddBtn';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAddBlock from '../../hooks/useAddBlock';
+import ImgInput from '../Common/ImgInput';
 
 const CreateNote = () => {
 	// Global States & Actions --------------------------
@@ -27,12 +28,9 @@ const CreateNote = () => {
 			>
 				{WRITE_NOTE_TEXT}
 			</button>
-			<AddBtn
-				Icon={InsertPhotoIcon}
-				eventHandler={() => {
-					handleAddBlockBtnOnClick('image');
-				}}
-			/>
+			<ImgInput addEventHandler={handleAddBlockBtnOnClick}>
+				<AddBtn Icon={InsertPhotoIcon} isImgBtn />
+			</ImgInput>
 			<AddBtn
 				Icon={FormatListBulletedIcon}
 				eventHandler={() => {

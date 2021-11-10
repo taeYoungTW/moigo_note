@@ -542,6 +542,68 @@ react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 �
 ### 발견된 문제점
 
 - UpdateNote와 CreateNoteForm의 \_blocks를 모두 같이 사용하기 때문에 CreateNoteForm을 사용하는 중에 특정 노트의 수정(Update)을 하는 경우 기존의 CreateNoteForm에 Update하는 \_blocks가 반영 되어 만들고 있던 자료가 사라집니다.
+  - block에 대한 글로벌 state가 아닌 로컬 state로 변경하여 독립적인 state를 사용하도록 해야할 듯 합니다. -> local state로 활용시 매우 복잡해지기 때문에 **\_blocks global state를 두가지로 나누어야 할듯 합니다. (CreateBlocks, UpdateBlocks)**
+  - **일단은, DetailNote의 수정 버튼을 클릭하는 경우 CreateNoteForm이 CreateNote 상태로 변경되게 설정하여, 간섭되어 표시되는 부분이 보이지 않게 하였습니다.**
+- Drag and Drop에서 높이가 다른 요소의 경우 작은 높이의 요소가 자리가 변경되어도 clientOffset이 큰 요소에 위치함으로서 계속 변경되는 현상이 일어나게 됩니다.
+  - target과 drag 요소간의 height를 사전에 비교하여 trigger 영역을 조정할 필요가 있습니다.
+    -> 아래의 요소의 높이 보다 위의 요소의 높이가 큰 경우, 위로 dnd 실행시 **위의 높이가 큰 요소의 45px 부분에만 트리거가 걸리게 하여 해결**
+
+<br/>
+
+## 📆 2021.11.09
+
+### 문제 해결
+
+- **Update 상태에서 이미지 추가시 CreateNoteForm이 활성화 되어 같이 이미지가 추가되던 문제 해결**
+  - 원인 : img 추가 버튼인 label, input의 htmlFor, id이 Update와 CreateNoteForm에서의 중복으로 인해 발생
+  - 이전에 인지하고 isUpdate prop을 통해 분류하도록 설계했지만, 정작 Update에서 isUpdate true를 주지 않았기에 true 값을 주어 해결
+- **img 블럭이 들어가 있는 노트의 search 로직 문제 해결**
+  - block type이 image인 경우 search for문에서 continue 시켜서 해결
+
+<br/>
+
+### 개선 및 구현
+
+<br/>
+
+- **기존 Block dnd 개선 : block location indicator 구현**
+  - img 같이 높이가 큰 요소의 경우 위치 파악하기가 어렵기 때문에 높이가 낮은 indicator을 통해서 손쉽게 위치를 확인하고 변경할 수 있습니다.
+- **SummaryNote 이미지 블럭 표현 구현**
+  - 이미지가 1개 이상인 경우 함께 포함된 이미지의 개수가 표시 됩니다.
+  - 기존에 있던 ReadContent를 재활용 하고 싶어, ReadContent의 img block을 return 하는 부분을 detailNote 인지 조건을 걸어, SummaryNote에서 요청한 ReadContent 인 경우 img block은 createPortal을 통해서 block들과 순서를 유지하여 보여지는게 아닌, 최상단으로 올려 표시되게 하였습니다.
+  - 또한, 제일 첫번째로 확인 되는 img block의 경우에만 summaryNote에서 표시되고 나머지는 display: none을 통해서 표시 되지 않습니다.
+  - 표시 되진 않지만, children으로는 인식이 되기 때문에 포탈 root를 ref로 받아 children에 접근하여 length를 확인하여 더 존재하는 이미지의 개수를 받아와 표시합니다.
+
+<br/>
+
+최종적으로 개선 사항 및 추가 요청하신 기능 구현을 끝내었습니다.
+
+- [x] CreatePortals를 통한 Modal 구현
+- [ ] useCallback 제거 : useCallback 사용 경고가 떠서 잠시 보류 합니다.
+- [x] 일부 코드 분할 및 구조 개선
+- [x] 노트의 제목, 체크리스트, 텍스트 내용 검색 기능
+- [x] dnd를 활용한 노트 순서 변경 (grid 형태)
+- [x] dnd를 활용한 블록 순서 변경 (list 형태)
+- [x] Image Block 구현
+
+<br/>
+
+아쉬운점
+
+- 컴포넌트를 더 잘게 쪼개고, 함수 정리 및 식별자 명 개선등의 여러가지 리팩토링 작업이 필요합니다.
+- dnd에서 motion을 넣지 못한게 조금 아쉽습니다.
+
+<br/>
+
+## 📆 2021.11.10
+
+- checklist block 개행 및 checklist 블록 추가
+
+  - onKeyDown event를 통해서 enter: checklist 추가, shift+enter: 개행 추가로 변경
+
+- block 위치 변경시 노션 처럼 제어하는 블록은 그대로 있고, hover시 indicator만 등장하여 위치가 어딘지 확인 가능합니다. 그리고, drop 상태시 실제로 변경 됩니다.
+
+- UpdateNote와 CreateNoteForm의 \_blocks를 모두 같이 사용하기 때문에 CreateNoteForm을 사용하는 중에 특정 노트의 수정(Update)을 하는 경우 기존의 CreateNoteForm에 Update하는 \_blocks가 반영 되어 만들고 있던 자료가 사라집니다.
   - block에 대한 글로벌 state가 아닌 로컬 state로 변경하여 독립적인 state를 사용하도록 해야할 듯 합니다.
 - Drag and Drop에서 높이가 다른 요소의 경우 작은 높이의 요소가 자리가 변경되어도 clientOffset이 큰 요소에 위치함으로서 계속 변경되는 현상이 일어나게 됩니다.
   - target과 drag 요소간의 height를 사전에 비교하여 trigger 영역을 조정할 필요가 있습니다.
