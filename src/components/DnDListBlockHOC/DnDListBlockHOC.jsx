@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
@@ -16,6 +16,10 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 	// Ref
 	const dropRef = useRef(null);
 
+	// Local States
+	const [isMe, setIsMe] = useState(false);
+	const [isBottomDragIndex, setIsBottomDragIndex] = useState(false);
+
 	const moveBlock = useCallback(
 		(dragIndex, hoverIndex) => {
 			const newBlocks = [..._blocks];
@@ -26,49 +30,34 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 		[_blocks, _initBlocks]
 	);
 
-	const [, drop] = useDrop({
+	const [{ isOver }, drop] = useDrop({
 		accept: BLOCK_TYPE,
+		collect: (monitor) => {
+			return { isOver: monitor.isOver() };
+		},
 		hover(dragItem, monitor) {
 			const { dragIndex } = dragItem;
+			setIsMe(false);
+			setIsBottomDragIndex(false);
+
 			if (!dropRef.current || dragIndex === index) {
+				setIsMe(true);
 				return;
 			}
 
-			const {
-				top: dropTop,
-				bottom: dropBottom,
-				height: dropHeight,
-			} = dropRef.current.getBoundingClientRect();
-			const { y: dragCursorY } = monitor.getClientOffset();
-
 			if (dragIndex > index) {
-				if (dropHeight > 10) {
-					if (dragCursorY < dropTop + 10) {
-						moveBlock(dragIndex, index);
-						dragItem.dragIndex = index;
-						return;
-					}
-					return;
-				}
+				setIsBottomDragIndex(true);
 			}
+		},
+		drop(dragItem, monitor) {
+			const { dragIndex } = dragItem;
 
-			if (dragIndex < index) {
-				if (dropHeight > 10) {
-					if (dragCursorY > dropBottom - 10) {
-						moveBlock(dragIndex, index);
-						dragItem.dragIndex = index;
-						return;
-					}
-					return;
-				}
-			}
-
-			// moveBlock(dragIndex, index);
-			// dragItem.dragIndex = index;
+			moveBlock(dragIndex, index);
+			dragItem.dragIndex = index;
 		},
 	});
 
-	const [{ isDragging }, drag, preview] = useDrag({
+	const [, drag, preview] = useDrag({
 		type: BLOCK_TYPE,
 		item: () => ({ dragId: id, dragIndex: index }),
 		collect: (monitor) => {
@@ -86,16 +75,25 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 					height: '10px',
 					backgroundColor: 'rgba(0, 122, 204, 0.8)',
 					opacity: 0.5,
-					display: isDragging ? '' : 'none',
+					display: isOver && !isMe && isBottomDragIndex ? '' : 'none',
 				}}
 			></div>
-			<div style={{ display: isDragging ? 'none' : '' }} ref={preview}>
+			<div ref={preview}>
 				<Component {...ComponentProp}>
 					<button type="button" ref={drag}>
 						<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
 					</button>
 				</Component>
 			</div>
+			<div
+				className="block_location_indicator"
+				style={{
+					height: '10px',
+					backgroundColor: 'rgba(0, 122, 204, 0.8)',
+					opacity: 0.5,
+					display: isOver && !isMe && !isBottomDragIndex ? '' : 'none',
+				}}
+			></div>
 		</div>
 	);
 };
