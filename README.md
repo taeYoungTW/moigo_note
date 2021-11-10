@@ -592,3 +592,13 @@ react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 �
 
 - 컴포넌트를 더 잘게 쪼개고, 함수 정리 및 식별자 명 개선등의 여러가지 리팩토링 작업이 필요합니다.
 - dnd에서 motion을 넣지 못한게 조금 아쉽습니다.
+
+<br/>
+
+## 📆 2021.11.10
+
+- checklist block 개행 및 checklist 블록 추가
+
+  - onKeyDown event를 통해서 enter: checklist 추가, shift+enter: 개행 추가로 변경
+
+- block 위치 변경시 노션 처럼 제어하는 블록은 그대로 있고, hover시 indicator만 등장하여 위치가 어딘지 확인 가능합니다. 그리고, drop 상태시 실제로 변경 됩니다.
