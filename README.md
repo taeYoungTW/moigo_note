@@ -602,3 +602,9 @@ react-dnd는 drop, drag 요소에 조금 더 까다로운 조건을 설정 할 �
   - onKeyDown event를 통해서 enter: checklist 추가, shift+enter: 개행 추가로 변경
 
 - block 위치 변경시 노션 처럼 제어하는 블록은 그대로 있고, hover시 indicator만 등장하여 위치가 어딘지 확인 가능합니다. 그리고, drop 상태시 실제로 변경 됩니다.
+
+- UpdateNote와 CreateNoteForm의 \_blocks를 모두 같이 사용하기 때문에 CreateNoteForm을 사용하는 중에 특정 노트의 수정(Update)을 하는 경우 기존의 CreateNoteForm에 Update하는 \_blocks가 반영 되어 만들고 있던 자료가 사라집니다.
+  - block에 대한 글로벌 state가 아닌 로컬 state로 변경하여 독립적인 state를 사용하도록 해야할 듯 합니다.
+- Drag and Drop에서 높이가 다른 요소의 경우 작은 높이의 요소가 자리가 변경되어도 clientOffset이 큰 요소에 위치함으로서 계속 변경되는 현상이 일어나게 됩니다.
+  - target과 drag 요소간의 height를 사전에 비교하여 trigger 영역을 조정할 필요가 있습니다.
+    -> 아래의 요소의 높이 보다 위의 요소의 높이가 큰 경우, 위로 dnd 실행시 **위의 높이가 큰 요소의 45px 부분에만 트리거가 걸리게 하여 해결**
