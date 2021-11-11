@@ -6,17 +6,13 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import './UpdateNote.scss';
 import { useCallback, useEffect, useState } from 'react';
-import {
-	COMPLETE_TEXT,
-	MODAL_NOTE_CLOSE_ICON_COLOR,
-	MODAL_NOTE_CLOSE_ICON_FONT_SIZE,
-	TITLE_TEXT,
-} from '../../constants/constants';
+import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
 import CreateContent from '../CreateContent/CreateContent';
 import useAddBlock from '../../hooks/useAddBlock';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import ImgInput from '../Common/ImgInput';
+import { MODAL_NOTE_CLOSE_ICON_STYLE } from '../../constants/iconStyles';
 
 const UpdateNote = () => {
 	// Global States, Actions ---------------------------------------
@@ -63,12 +59,7 @@ const UpdateNote = () => {
 						onChange={handleTitleInputOnChange}
 					/>
 					<button className="close_btn" onClick={_resetModalNote}>
-						<CloseIcon
-							sx={{
-								fontSize: MODAL_NOTE_CLOSE_ICON_FONT_SIZE,
-								color: MODAL_NOTE_CLOSE_ICON_COLOR,
-							}}
-						/>
+						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
 				<CreateContent blocks={_blocks} isUpdateNote={true} />
