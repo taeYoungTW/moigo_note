@@ -1,13 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import {
-	CTRL_BLOCK_ICON_FONT_SIZE,
-	WRITE_NOTE_TEXT,
-} from '../../constants/constants';
+import { WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
+import DeleteBtn from '../Common/DeleteBtn';
+import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 
 const CreateTextBlock = ({ block, children }) => {
 	// Global States, Actions ---------------------------------------
@@ -53,9 +51,10 @@ const CreateTextBlock = ({ block, children }) => {
 				autoFocus={true}
 			/>
 			<div className="btns">
-				<button type="button" onClick={handleDeleteBtnOnClick}>
-					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
-				</button>
+				<DeleteBtn
+					style={CTRL_BLOCK_ICON_STYLE}
+					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+				/>
 				{children}
 			</div>
 		</div>
