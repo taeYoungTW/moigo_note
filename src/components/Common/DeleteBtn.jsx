@@ -1,21 +1,15 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const DeleteNoteBtn = ({
-	className,
-	handleDeleteBtnOnClick,
-	fontSize,
-	color,
-}) => {
+const DeleteBtn = ({ className, handleDeleteBtnOnClick, style }) => {
 	return (
-		<button className={className} onClickCapture={handleDeleteBtnOnClick}>
-			<DeleteIcon
-				sx={{
-					fontSize,
-					color,
-				}}
-			/>
+		<button
+			type="button"
+			className={className}
+			onClickCapture={handleDeleteBtnOnClick}
+		>
+			<DeleteIcon sx={style} />
 		</button>
 	);
 };
 
-export default DeleteNoteBtn;
+export default DeleteBtn;
