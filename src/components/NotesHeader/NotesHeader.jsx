@@ -6,12 +6,12 @@ import PortalConfirm from '../Common/PortalConfirm';
 import {
 	COUNT_OF_SELECTED_NOTE_TEXT,
 	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
-	HEADER_ARROWBACK_ICON_COLOR,
-	HEADER_ARROWBACK_ICON_FONT_SIZE,
-	HEADER_DELETE_ICON_COLOR,
-	HEADER_DELETE_ICON_FONT_SIZE,
 } from '../../constants/constants';
-import DeleteNoteBtn from '../Common/DeleteBtn';
+import DeleteBtn from '../Common/DeleteBtn';
+import {
+	HEADER_ARROWBACK_ICON_STYLE,
+	HEADER_DELETE_ICON_STYLE,
+} from '../../constants/iconStyles';
 
 const NotesHeader = () => {
 	// Global States, Actions ---------------------------------------
@@ -37,23 +37,17 @@ const NotesHeader = () => {
 		<>
 			<div className="align_left">
 				<button className="cancel_btn" onClick={_resetSelectedNoteIds}>
-					<ArrowBackIcon
-						sx={{
-							fontSize: HEADER_ARROWBACK_ICON_FONT_SIZE,
-							color: HEADER_ARROWBACK_ICON_COLOR,
-						}}
-					/>
+					<ArrowBackIcon sx={HEADER_ARROWBACK_ICON_STYLE} />
 				</button>
 				<h2 className="selected_note_count">
 					{_selectedNoteIds.length}
 					{COUNT_OF_SELECTED_NOTE_TEXT}
 				</h2>
 			</div>
-			<DeleteNoteBtn
+			<DeleteBtn
 				className="delete_btn"
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
-				fontSize={HEADER_DELETE_ICON_FONT_SIZE}
-				color={HEADER_DELETE_ICON_COLOR}
+				style={HEADER_DELETE_ICON_STYLE}
 			/>
 			<PortalConfirm
 				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
