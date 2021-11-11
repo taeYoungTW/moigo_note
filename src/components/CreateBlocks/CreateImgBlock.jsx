@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppAction } from '../../contexts/AppStateContext';
-import { CTRL_BLOCK_ICON_FONT_SIZE } from '../../constants/constants';
+import DeleteBtn from '../Common/DeleteBtn';
+import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 
 const CreateImgBlock = ({ block, isUpdate, children }) => {
 	const { _deleteBlock } = useAppAction();
@@ -14,9 +14,10 @@ const CreateImgBlock = ({ block, isUpdate, children }) => {
 		<div className="create_block">
 			<img src={block.dataUrl} alt="img_block" className="img" />
 			<div className="btns">
-				<button type="button" onClick={handleDeleteBtnOnClick}>
-					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
-				</button>
+				<DeleteBtn
+					style={CTRL_BLOCK_ICON_STYLE}
+					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+				/>
 				{children}
 			</div>
 		</div>
