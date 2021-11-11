@@ -1,12 +1,12 @@
 import React from 'react';
-import { TEXT_DECORATION_VALUE } from '../../constants/constants';
+import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 
 const ChecklistContent = ({ isDone, content }) => {
 	return (
 		<div
 			className="content"
 			style={{
-				textDecoration: isDone && TEXT_DECORATION_VALUE,
+				textDecoration: isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
 		>
 			{content}
