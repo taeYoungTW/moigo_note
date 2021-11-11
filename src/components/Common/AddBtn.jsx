@@ -1,9 +1,6 @@
 import './AddBtn.scss';
 import PropTypes from 'prop-types';
-import {
-	ADD_BTN_ICON_COLOR,
-	ADD_BTN_ICON_FONT_SIZE,
-} from '../../constants/constants';
+import { ADD_BTN_ICON_STYLE } from '../../constants/iconStyles';
 
 const AddBtn = ({ Icon, eventHandler, isImgBtn }) => {
 	/*
@@ -12,24 +9,10 @@ const AddBtn = ({ Icon, eventHandler, isImgBtn }) => {
 	 * - html에서는 label 안에 button을 넣는 것을 하지 말라고 권장하고 있습니다. (MDN)
 	 */
 	return isImgBtn ? (
-		<Icon
-			sx={{
-				fontSize: ADD_BTN_ICON_FONT_SIZE,
-				cursor: 'pointer',
-				color: ADD_BTN_ICON_COLOR,
-			}}
-			className="addBtn_icon"
-		/>
+		<Icon sx={ADD_BTN_ICON_STYLE} className="addBtn_icon" />
 	) : (
 		<button className="add_btn" type="button" onClick={eventHandler}>
-			<Icon
-				sx={{
-					fontSize: ADD_BTN_ICON_FONT_SIZE,
-					cursor: 'pointer',
-					color: ADD_BTN_ICON_COLOR,
-				}}
-				className="addBtn_icon"
-			/>
+			<Icon sx={ADD_BTN_ICON_STYLE} className="addBtn_icon" />
 		</button>
 	);
 };
