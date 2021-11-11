@@ -1,8 +1,6 @@
 import { useRef } from 'react';
-import {
-	ADD_LIST_TEXT,
-	TEXT_DECORATION_VALUE,
-} from '../../constants/constants';
+import { ADD_LIST_TEXT } from '../../constants/constants';
+import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
 
 const ChecklistTextarea = ({
@@ -30,7 +28,7 @@ const ChecklistTextarea = ({
 			spellCheck={false}
 			autoFocus={true}
 			style={{
-				textDecoration: isDone && TEXT_DECORATION_VALUE,
+				textDecoration: isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
 		/>
 	);
