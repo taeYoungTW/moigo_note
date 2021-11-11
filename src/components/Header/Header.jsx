@@ -3,17 +3,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import MinimizeIcon from '@mui/icons-material/Minimize';
 import CropSquareIcon from '@mui/icons-material/CropSquare';
-import {
-	MOIGO_TEXT,
-	NOTE_TEXT,
-	SEARCH_ICON_COLOR,
-	SEARCH_ICON_FONT_SIZE,
-	SEARCH_ICON_MARGIN_RIGHT,
-	SEARCH_TEXT,
-} from '../../constants/constants';
+import { MOIGO_TEXT, NOTE_TEXT, SEARCH_TEXT } from '../../constants/constants';
 import CtrlWindowBtn from './CtrlWindowBtn';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback } from 'react';
+import { HEADER_SEARCH_ICON_STYLE } from '../../constants/iconStyles';
 
 const Header = () => {
 	// Global States, Actions ---------------------------------------
@@ -36,13 +30,7 @@ const Header = () => {
 					<h2 className="title">{NOTE_TEXT}</h2>
 				</div>
 				<div className="search_ctnr">
-					<SearchIcon
-						sx={{
-							fontSize: SEARCH_ICON_FONT_SIZE,
-							marginRight: SEARCH_ICON_MARGIN_RIGHT,
-							color: SEARCH_ICON_COLOR,
-						}}
-					/>
+					<SearchIcon sx={HEADER_SEARCH_ICON_STYLE} />
 					<input
 						className="search_input"
 						type="text"
