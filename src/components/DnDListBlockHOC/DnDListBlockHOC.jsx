@@ -2,11 +2,11 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
-import {
-	BLOCK_TYPE,
-	CTRL_BLOCK_ICON_FONT_SIZE,
-} from '../../constants/constants';
+import { BLOCK_TYPE } from '../../constants/constants';
 import MenuIcon from '@mui/icons-material/Menu';
+import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
+
+import './DnDListBlockHOC.scss';
 
 const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 	// Global States & Actions
@@ -70,27 +70,21 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 	return (
 		<div ref={drop(dropRef)}>
 			<div
-				className="block_location_indicator"
+				className="block-location-indicator"
 				style={{
-					height: '10px',
-					backgroundColor: 'rgba(0, 122, 204, 0.8)',
-					opacity: 0.5,
 					display: isOver && !isMe && isBottomDragIndex ? '' : 'none',
 				}}
 			></div>
 			<div ref={preview}>
 				<Component {...ComponentProp}>
 					<button type="button" ref={drag}>
-						<MenuIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
+						<MenuIcon sx={CTRL_BLOCK_ICON_STYLE} />
 					</button>
 				</Component>
 			</div>
 			<div
-				className="block_location_indicator"
+				className="block-location-indicator"
 				style={{
-					height: '10px',
-					backgroundColor: 'rgba(0, 122, 204, 0.8)',
-					opacity: 0.5,
 					display: isOver && !isMe && !isBottomDragIndex ? '' : 'none',
 				}}
 			></div>
