@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import { CTRL_BLOCK_ICON_FONT_SIZE } from '../../constants/constants';
+import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistTextarea from '../Common/ChecklistTextarea';
 import useAddBlock from '../../hooks/useAddBlock';
+import DeleteBtn from '../Common/DeleteBtn';
 
 const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 	// Global States, Actions ------------------------------------
@@ -70,9 +70,10 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 				/>
 			</div>
 			<div className="btns">
-				<button type="button" onClick={handleDeleteBtnOnClick}>
-					<DeleteIcon sx={{ fontSize: CTRL_BLOCK_ICON_FONT_SIZE }} />
-				</button>
+				<DeleteBtn
+					style={CTRL_BLOCK_ICON_STYLE}
+					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+				/>
 				{children}
 			</div>
 		</div>
