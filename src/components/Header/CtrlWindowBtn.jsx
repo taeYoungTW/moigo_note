@@ -1,14 +1,11 @@
 import PropTypes from 'prop-types';
-import { CTRL_HEADER_BTN_FONT_SIZE } from '../../constants/constants';
+import { CTRL_WINDOW_BTN_ICON_STYLE } from '../../constants/iconStyles';
 
 const CtrlWindowBtn = ({ Icon }) => {
 	// Render ---------------------------------
 	return (
 		<button className="ctrl_window_btn">
-			<Icon
-				sx={{ fontSize: CTRL_HEADER_BTN_FONT_SIZE, cursor: 'pointer' }}
-				className="ctrl_window_btn_icon"
-			/>
+			<Icon sx={CTRL_WINDOW_BTN_ICON_STYLE} className="ctrl_window_btn_icon" />
 		</button>
 	);
 };
