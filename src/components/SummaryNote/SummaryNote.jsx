@@ -3,15 +3,13 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import PortalConfirm from '../Common/PortalConfirm';
-import {
-	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
-	SUMMARY_NOTE_DELETE_ICON_FONT_SIZE,
-} from '../../constants/constants';
+import { DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT } from '../../constants/constants';
 import ReadContent from '../ReadContent/ReadContent';
 import SelectNote from '../SelectNote/SelectNote';
-import DeleteNoteBtn from '../Common/DeleteBtn';
+import DeleteBtn from '../Common/DeleteBtn';
 import useSearch from '../../hooks/useSearch';
 import SummaryNoteImages from '../SummaryNoteImages/SummaryNoteImages';
+import { SUMMARY_NOTE_DELETE_ICON_STYLE } from '../../constants/iconStyles';
 
 const SummaryNote = ({ note, isDragging }) => {
 	// Global States & Actions --------------
@@ -57,10 +55,10 @@ const SummaryNote = ({ note, isDragging }) => {
 				</div>
 			</div>
 			<div className="ctrl_area">
-				<DeleteNoteBtn
+				<DeleteBtn
 					className="del_summary_note_btn"
 					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
-					fontSize={SUMMARY_NOTE_DELETE_ICON_FONT_SIZE}
+					style={SUMMARY_NOTE_DELETE_ICON_STYLE}
 				/>
 				<SelectNote noteId={note.id} />
 			</div>
