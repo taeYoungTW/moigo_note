@@ -3,7 +3,7 @@ import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
-import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
+import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import DeleteBtn from '../Common/DeleteBtn';
 import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 
@@ -34,7 +34,7 @@ const CreateTextBlock = ({ block, children }) => {
 	}, [_deleteBlock, block]);
 
 	// hook : textarea auto height -----------------------------
-	useAutoHeightTextArea(textRef, textBlock.text);
+	useAutoHeightTextarea(textRef, textBlock.text);
 
 	// Render -------------------------------------------------------
 	return (
