@@ -5,13 +5,11 @@ import PropTypes from 'prop-types';
 import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistTextarea from '../Common/ChecklistTextarea';
-import useAddBlock from '../../hooks/useAddBlock';
 import DeleteBtn from '../Common/DeleteBtn';
 
 const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 	// Global States, Actions ------------------------------------
-	const { _addBlock, _deleteBlock, _updateBlock } = useAppAction();
-	const addBlock = useAddBlock(_addBlock);
+	const { _addTypeBlock, _deleteBlock, _updateBlock } = useAppAction();
 
 	// Event Handler --------------------------------------------
 	const handleCheckBoxOnChange = useCallback(
@@ -45,7 +43,7 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 		}
 		e.preventDefault();
 		if (!shiftKey) {
-			addBlock('checklist');
+			_addTypeBlock('checklist');
 		}
 		if (shiftKey) {
 			_updateBlock({ ...block, content: (block.content += '\n') });
