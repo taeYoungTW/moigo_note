@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { ADD_LIST_TEXT } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
-import useAutoHeightTextArea from '../../hooks/useAutoHeightTextArea';
+import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 
 const ChecklistTextarea = ({
 	content,
@@ -12,7 +12,7 @@ const ChecklistTextarea = ({
 	const contentRef = useRef(null);
 
 	// hook : textarea auto height -----------------------------
-	useAutoHeightTextArea(contentRef, content);
+	useAutoHeightTextarea(contentRef, content);
 
 	// Render ------------------------------------------
 	return (
