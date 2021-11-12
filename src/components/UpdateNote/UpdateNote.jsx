@@ -9,7 +9,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
 import CreateContent from '../CreateContent/CreateContent';
-import useAddBlock from '../../hooks/useAddBlock';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import ImgInput from '../Common/ImgInput';
 import { MODAL_NOTE_CLOSE_ICON_STYLE } from '../../constants/iconStyles';
@@ -17,8 +16,13 @@ import { MODAL_NOTE_CLOSE_ICON_STYLE } from '../../constants/iconStyles';
 const UpdateNote = () => {
 	// Global States, Actions ---------------------------------------
 	const { _blocks, _modalNote } = useAppState();
-	const { _resetModalNote, _updateNote, _initBlocks, _resetBlocks, _addBlock } =
-		useAppAction();
+	const {
+		_resetModalNote,
+		_updateNote,
+		_initBlocks,
+		_resetBlocks,
+		_addTypeBlock,
+	} = useAppAction();
 
 	// Local States ------------------------------------------------
 	const [note, setNote] = useState(_modalNote);
@@ -34,10 +38,15 @@ const UpdateNote = () => {
 		setNote((note) => ({ ...note, title: value }));
 	}, []);
 
-	const handleAddBlockBtnOnClick = useAddBlock(_addBlock); // hooks로 재사용 관리
+	const handleAddBlockBtnOnClick = useCallback(
+		(type, dataUrl) => {
+			_addTypeBlock(type, dataUrl);
+		},
+		[_addTypeBlock]
+	);
 
 	// useEffects ------------------------------------------------------
-	useAddDefaultBlock(handleAddBlockBtnOnClick, _blocks.length); // hooks로 재사용 관리
+	useAddDefaultBlock(_addTypeBlock, _blocks.length); // hooks로 재사용 관리
 
 	useEffect(() => {
 		_initBlocks([..._modalNote.blocks]);
@@ -66,7 +75,9 @@ const UpdateNote = () => {
 				<div className="ctrl_bar">
 					<div className="add_btns">
 						<ImgInput
-							addEventHandler={handleAddBlockBtnOnClick}
+							callback={(dataUrl) => {
+								handleAddBlockBtnOnClick('image', dataUrl);
+							}}
 							isUpdate={true}
 						>
 							<AddBtn Icon={InsertPhotoIcon} isImgBtn />
