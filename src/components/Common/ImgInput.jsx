@@ -1,4 +1,4 @@
-const ImgInput = ({ children, isUpdate, addEventHandler }) => {
+const ImgInput = ({ children, isUpdate, callback }) => {
 	const handleImgInputOnChange = (e) => {
 		const {
 			target: { files },
@@ -11,7 +11,7 @@ const ImgInput = ({ children, isUpdate, addEventHandler }) => {
 				const {
 					currentTarget: { result },
 				} = fihishedEvent;
-				addEventHandler('image', result);
+				callback(result);
 			};
 			reader.readAsDataURL(aFile);
 		}
