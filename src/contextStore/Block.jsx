@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { NO_MATCHED_ID_IN_BLOCKS_TEXT } from '../constants/constants';
+import {
+	INVALID_BLOCK_TYPE_TEXT,
+	NO_MATCHED_ID_IN_BLOCKS_TEXT,
+} from '../constants/constants';
 import useError from '../hooks/useError';
 
 // Manage Global States & Actions
@@ -44,29 +47,36 @@ const Block = () => {
 		setBlocks(blocks);
 	}, []);
 
-	const _addTypeBlock = useCallback((type, dataUrl) => {
-		switch (type) {
-			case 'text':
-				setBlocks((blocks) => [...blocks, { id: uuid(), type, text: '' }]);
-				break;
-			case 'checklist':
-				setBlocks((blocks) => [
-					...blocks,
-					{
-						id: uuid(),
-						type,
-						content: '',
-						isDone: false,
-					},
-				]);
-				break;
-			case 'image':
-				setBlocks((blocks) => [...blocks, { id: uuid(), type, dataUrl }]);
-				break;
-			default:
-				break;
-		}
-	}, []);
+	const _addTypeBlock = useCallback(
+		(type, dataUrl) => {
+			switch (type) {
+				case 'text':
+					setBlocks((blocks) => [...blocks, { id: uuid(), type, text: '' }]);
+					break;
+				case 'checklist':
+					setBlocks((blocks) => [
+						...blocks,
+						{
+							id: uuid(),
+							type,
+							content: '',
+							isDone: false,
+						},
+					]);
+					break;
+				case 'image':
+					setBlocks((blocks) => [...blocks, { id: uuid(), type, dataUrl }]);
+					break;
+				default:
+					_setUseError({
+						message: `${INVALID_BLOCK_TYPE_TEXT}, A wrong input: ${type}`,
+						location: '_addTypeBlock',
+					});
+					break;
+			}
+		},
+		[_setUseError]
+	);
 
 	const _deleteBlock = useCallback((blockId) => {
 		setBlocks((blocks) => blocks.filter((block) => block.id !== blockId));
