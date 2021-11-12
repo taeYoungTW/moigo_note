@@ -13,7 +13,7 @@ const useError = () => {
 
 	useEffect(() => {
 		if (_errorState.message || _errorState.code || _errorState.location) {
-			console.error('Error: ', _errorState);
+			console.error(`Error: ${_errorState.message} `, _errorState);
 		}
 	}, [_errorState]);
 
