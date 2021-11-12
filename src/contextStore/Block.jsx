@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import { NO_MATCHED_ID_IN_BLOCKS_TEXT } from '../constants/constants';
 import useError from '../hooks/useError';
 
@@ -31,7 +32,7 @@ const Block = () => {
 	 * ~~~~ About Blocks ~~~~
 	 * - _resetBlocks : Set "_blocks" to [] (Empty Array)
 	 * - _initBlocks : Set "_blocks" to already existed blocks of Note
-	 * - _addBlock : Add A specific Block to "_blocks"
+	 * - _addTypeBlock : Add A specific Block to "_blocks"
 	 * - _deleteBlock : Delete A specific Block from "_blocks"
 	 * - _updateBlock : Update A specific Block of "_blocks"
 	 */
@@ -43,8 +44,28 @@ const Block = () => {
 		setBlocks(blocks);
 	}, []);
 
-	const _addBlock = useCallback((block) => {
-		setBlocks((blocks) => [...blocks, block]);
+	const _addTypeBlock = useCallback((type, dataUrl) => {
+		switch (type) {
+			case 'text':
+				setBlocks((blocks) => [...blocks, { id: uuid(), type, text: '' }]);
+				break;
+			case 'checklist':
+				setBlocks((blocks) => [
+					...blocks,
+					{
+						id: uuid(),
+						type,
+						content: '',
+						isDone: false,
+					},
+				]);
+				break;
+			case 'image':
+				setBlocks((blocks) => [...blocks, { id: uuid(), type, dataUrl }]);
+				break;
+			default:
+				break;
+		}
 	}, []);
 
 	const _deleteBlock = useCallback((blockId) => {
@@ -76,11 +97,11 @@ const Block = () => {
 	// ------ Combine States & Actions ---------------
 	const combineStates = { _blocks };
 	const combineActions = {
-		_addBlock,
 		_deleteBlock,
 		_updateBlock,
 		_resetBlocks,
 		_initBlocks,
+		_addTypeBlock,
 	};
 
 	return { ...combineStates, ...combineActions };
