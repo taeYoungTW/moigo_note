@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-const useAddDefaultBlock = (handleAddBlockBtnOnClick, blocksLength) => {
+const useAddDefaultBlock = (addTypeBlockAction, blocksLength) => {
 	useEffect(() => {
 		if (blocksLength === 0) {
-			handleAddBlockBtnOnClick('text');
+			addTypeBlockAction('text');
 		}
-	}, [blocksLength, handleAddBlockBtnOnClick]);
+	}, [blocksLength, addTypeBlockAction]);
 };
 export default useAddDefaultBlock;
