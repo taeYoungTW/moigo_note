@@ -4,18 +4,18 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AddBtn from '../Common/AddBtn';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
-import useAddBlock from '../../hooks/useAddBlock';
 import ImgInput from '../Common/ImgInput';
 
 const CreateNote = () => {
 	// Global States & Actions --------------------------
-	const { _changeIsOnCreateNoteForm, _addBlock } = useAppAction();
+	const { _changeIsOnCreateNoteForm, _addTypeBlock } = useAppAction();
 
 	// Event Handler --------------------------
-	// hook을 사용한 Event Handler
-	const handleAddBlockBtnOnClick = useAddBlock(_addBlock, () => {
+
+	const handleAddBlockBtnOnClick = (type, dataUrl) => {
+		_addTypeBlock(type, dataUrl);
 		_changeIsOnCreateNoteForm(true);
-	});
+	};
 
 	// Render -----------------------
 	return (
@@ -28,7 +28,11 @@ const CreateNote = () => {
 			>
 				{WRITE_NOTE_TEXT}
 			</button>
-			<ImgInput addEventHandler={handleAddBlockBtnOnClick}>
+			<ImgInput
+				callback={(dataUrl) => {
+					handleAddBlockBtnOnClick('image', dataUrl);
+				}}
+			>
 				<AddBtn Icon={InsertPhotoIcon} isImgBtn />
 			</ImgInput>
 			<AddBtn
