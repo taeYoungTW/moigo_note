@@ -7,7 +7,7 @@ import TextFieldsIcon from '@mui/icons-material/TextFields';
 import './UpdateNote.scss';
 import { useCallback, useEffect, useState } from 'react';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
-import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
+import { emptyTextBlockFilter } from '../../utils/emptyTextBlockFilter';
 import CreateContent from '../CreateContent/CreateContent';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import ImgInput from '../Common/ImgInput';
@@ -29,7 +29,7 @@ const UpdateNote = () => {
 
 	// Event Handler ----------------------------------------------
 	const handleUpdateNoteBtnOnClick = useCallback(() => {
-		const filteredBlocks = filterEmptyTextBlock(_blocks);
+		const filteredBlocks = emptyTextBlockFilter(_blocks);
 		_updateNote({ ...note, blocks: [...filteredBlocks] });
 	}, [_updateNote, note, _blocks]);
 
