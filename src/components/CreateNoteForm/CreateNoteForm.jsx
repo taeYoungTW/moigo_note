@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
-import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
+import { emptyTextBlockFilter } from '../../utils/emptyTextBlockFilter';
 import CreateContent from '../CreateContent/CreateContent';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import ImgInput from '../Common/ImgInput';
@@ -26,7 +26,7 @@ const CreateNoteForm = () => {
 
 	// Event Handler ----------------------------------
 	const handleCreateNoteBtnOnClick = () => {
-		const filteredBlocks = filterEmptyTextBlock(_blocks);
+		const filteredBlocks = emptyTextBlockFilter(_blocks);
 		_addNote({ ...note, id: uuid(), blocks: [...filteredBlocks] });
 		_changeIsOnCreateNoteForm(false);
 	};
