@@ -3,20 +3,19 @@ import './CreateNoteForm.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { filterEmptyTextBlock } from '../../utils/filterEmptyTextBlock';
 import CreateContent from '../CreateContent/CreateContent';
-import useAddBlock from '../../hooks/useAddBlock';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import ImgInput from '../Common/ImgInput';
 
 const CreateNoteForm = () => {
 	// Global States & Actions --------------------------
 	const { _blocks } = useAppState();
-	const { _addNote, _changeIsOnCreateNoteForm, _addBlock, _resetBlocks } =
+	const { _addNote, _changeIsOnCreateNoteForm, _addTypeBlock, _resetBlocks } =
 		useAppAction();
 
 	// Local State -------------------------------------
@@ -37,10 +36,15 @@ const CreateNoteForm = () => {
 		setNote({ title: value });
 	};
 
-	const handleAddBlockBtnOnClick = useAddBlock(_addBlock); // hooks로 재사용 관리
+	const handleAddBlockBtnOnClick = useCallback(
+		(type, dataUrl) => {
+			_addTypeBlock(type, dataUrl);
+		},
+		[_addTypeBlock]
+	);
 
 	// useEffects ------------------------------------
-	useAddDefaultBlock(handleAddBlockBtnOnClick, _blocks.length); // hooks로 재사용 관리
+	useAddDefaultBlock(_addTypeBlock, _blocks.length); // hooks로 재사용 관리
 
 	useEffect(() => {
 		return () => {
@@ -63,7 +67,11 @@ const CreateNoteForm = () => {
 			<CreateContent blocks={_blocks} isUpdateNote={false} />
 			<div className="ctrl_bar">
 				<div className="add_btns">
-					<ImgInput addEventHandler={handleAddBlockBtnOnClick}>
+					<ImgInput
+						callback={(dataUrl) => {
+							handleAddBlockBtnOnClick('image', dataUrl);
+						}}
+					>
 						<AddBtn Icon={InsertPhotoIcon} isImgBtn />
 					</ImgInput>
 					<AddBtn
