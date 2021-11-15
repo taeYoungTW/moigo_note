@@ -22,15 +22,14 @@ const NotesHeader = () => {
 	const [isConfirmOn, setIsConfirmOn] = useState(false);
 
 	// Event Handler ----------------------------------------------
-	const handleDeleteConfirmBtnOnClick = useCallback(() => {
-		_deleteNotes(_selectedNoteIds);
-		_resetSelectedNoteIds();
-		setIsConfirmOn(false);
-	}, [_selectedNoteIds, _deleteNotes, _resetSelectedNoteIds]);
-
 	const handleDeleteBtnOnClick = useCallback(() => {
 		setIsConfirmOn(true);
 	}, []);
+
+	const confirmCallback = useCallback(() => {
+		_deleteNotes(_selectedNoteIds);
+		_resetSelectedNoteIds();
+	}, [_selectedNoteIds, _deleteNotes, _resetSelectedNoteIds]);
 
 	// Render ------------------------------------------------------
 	return (
@@ -53,7 +52,7 @@ const NotesHeader = () => {
 				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfirmOn}
-				confirmCallback={handleDeleteConfirmBtnOnClick}
+				confirmCallback={confirmCallback}
 			/>
 		</>
 	);
