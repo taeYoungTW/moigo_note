@@ -5,8 +5,16 @@ import CreateChecklistBlock from '../CreateBlocks/CreateChecklistBlock';
 import CreateImgBlock from '../CreateBlocks/CreateImgBlock';
 import CreateTextBlock from '../CreateBlocks/CreateTextBlock';
 import DnDListBlockHOC from '../DnDListBlockHOC/DnDListBlockHOC';
+import { useAppAction } from '../../contexts/AppStateContext';
+import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 
 const CreateContent = ({ blocks, isUpdateNote }) => {
+	// Global States & Actions --------------------------
+	const { _addTypeBlock } = useAppAction();
+
+	// Hooks -----------------------------------------
+	useAddDefaultBlock(_addTypeBlock, blocks.length);
+
 	const _setUseError = useError();
 
 	return (
@@ -17,7 +25,7 @@ const CreateContent = ({ blocks, isUpdateNote }) => {
 						return (
 							<DnDListBlockHOC
 								Component={CreateTextBlock}
-								ComponentProp={{ block: block }}
+								ComponentProp={{ block }}
 								key={block.id}
 								id={block.id}
 								index={i}
@@ -27,7 +35,7 @@ const CreateContent = ({ blocks, isUpdateNote }) => {
 						return (
 							<DnDListBlockHOC
 								Component={CreateChecklistBlock}
-								ComponentProp={{ block: block, isUpdate: isUpdateNote }}
+								ComponentProp={{ block, isUpdate: isUpdateNote }}
 								key={block.id}
 								id={block.id}
 								index={i}
@@ -37,7 +45,7 @@ const CreateContent = ({ blocks, isUpdateNote }) => {
 						return (
 							<DnDListBlockHOC
 								Component={CreateImgBlock}
-								ComponentProp={{ block: block, isUpdate: isUpdateNote }}
+								ComponentProp={{ block, isUpdate: isUpdateNote }}
 								key={block.id}
 								id={block.id}
 								index={i}
