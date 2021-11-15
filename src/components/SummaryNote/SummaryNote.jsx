@@ -28,9 +28,9 @@ const SummaryNote = ({ note, isDragging }) => {
 		setIsConfirmOn(true);
 	}, []);
 
-	const handleDeleteConfirmBtnOnClick = () => {
+	// Function ----------------------------
+	const confirmCallback = () => {
 		const id = note.id;
-		setIsConfirmOn(false);
 		_deleteNote(id);
 		const isSelected = _selectedNoteIds.includes(id);
 		if (isSelected) {
@@ -66,7 +66,7 @@ const SummaryNote = ({ note, isDragging }) => {
 				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfirmOn}
-				confirmCallback={handleDeleteConfirmBtnOnClick}
+				confirmCallback={confirmCallback}
 			/>
 		</article>
 	) : (
