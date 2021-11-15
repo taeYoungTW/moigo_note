@@ -5,7 +5,7 @@ import './CreateNoteArea.scss';
 
 const CreateNoteArea = () => {
 	// Global States & Actions --------------------------
-	const { _isOnCreateNoteForm } = useAppState();
+	const { _isCreateNoteFormOn } = useAppState();
 
 	// Render -----------------------
 	return (
@@ -16,7 +16,7 @@ const CreateNoteArea = () => {
 					e.stopPropagation();
 				}}
 			>
-				{_isOnCreateNoteForm ? <CreateNoteForm /> : <CreateNote />}
+				{_isCreateNoteFormOn ? <CreateNoteForm /> : <CreateNote />}
 			</div>
 		</section>
 	);
