@@ -3,7 +3,7 @@ import { useAppAction } from '../../contexts/AppStateContext';
 import DeleteBtn from '../Common/DeleteBtn';
 import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 
-const CreateImgBlock = ({ block, isUpdate, children }) => {
+const CreateImgBlock = ({ block, children }) => {
 	const { _deleteBlock } = useAppAction();
 
 	const handleDeleteBtnOnClick = useCallback(() => {
