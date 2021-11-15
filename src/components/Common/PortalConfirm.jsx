@@ -15,6 +15,7 @@ const PortalConfirm = ({
 
 	const handleConfirmBtnOnClick = () => {
 		confirmCallback();
+		setIsConfirmOn(false);
 	};
 
 	const confirmLocation = document.querySelector('#confirm_root');
