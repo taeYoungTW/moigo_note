@@ -5,8 +5,8 @@ import ReadAllNotes from '../ReadAllNotes/ReadAllNotes';
 import './Main.scss';
 const Main = () => {
 	// Global States, Actions ---------------------------------------
-	const { _changeIsOnCreateNoteForm } = useAppAction();
-	const { _blocks } = useAppState();
+	const { _setIsCreateNoteFormOn } = useAppAction();
+	const { _isCreateNoteFormOn, _blocks } = useAppState();
 
 	// Event Handler ----------------------------------------------
 	/* - handleMainOnClick
@@ -16,14 +16,18 @@ const Main = () => {
 	 * 조건: 블록의 개수가 1개 이면서, 해당 블럭의 text 또는 content의 내용이 없는 경우
 	 */
 	const handleMainOnClick = useCallback(() => {
+		if (!_isCreateNoteFormOn) {
+			return;
+		}
+
 		const firstBlock = _blocks[0];
 		if (
 			_blocks.length === 1 &&
 			(firstBlock.text === '' || firstBlock.content === '')
 		) {
-			_changeIsOnCreateNoteForm(false);
+			_setIsCreateNoteFormOn(false);
 		}
-	}, [_blocks, _changeIsOnCreateNoteForm]);
+	}, [_blocks, _setIsCreateNoteFormOn, _isCreateNoteFormOn]);
 
 	// Render -----------------------------------------------------
 	return (
