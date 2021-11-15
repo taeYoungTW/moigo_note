@@ -17,7 +17,7 @@ import {
 const DetailNote = ({ setIsEdit }) => {
 	// Global States, Actions ---------------------------------------
 	const { _modalNote } = useAppState();
-	const { _resetModalNote, _deleteNote, _changeIsOnCreateNoteForm } =
+	const { _resetModalNote, _deleteNote, _setIsCreateNoteFormOn } =
 		useAppAction();
 
 	// Hooks ---------------------------------
@@ -31,14 +31,13 @@ const DetailNote = ({ setIsEdit }) => {
 
 	const handleSetEditBtnOnClick = useCallback(() => {
 		setIsEdit(true);
-		_changeIsOnCreateNoteForm(false); // _blocks를 같이 쓰기 때문에, 수정시 CreateNoteForm을 닫아 연동하여 표시될 _blocks를 막습니다.
-	}, [setIsEdit, _changeIsOnCreateNoteForm]);
+		_setIsCreateNoteFormOn(false); // _blocks를 같이 쓰기 때문에, 수정시 CreateNoteForm을 닫아 연동하여 표시될 _blocks를 막습니다.
+	}, [setIsEdit, _setIsCreateNoteFormOn]);
 
-	const handleConfirmBtnOnClick = () => {
+	const confirmCallback = () => {
 		const id = _modalNote.id;
 		_deleteNote(id);
 		_resetModalNote();
-		setIsConfrimOn(false);
 	};
 
 	// Render -------------------------------------------------------
@@ -71,7 +70,7 @@ const DetailNote = ({ setIsEdit }) => {
 				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfrimOn}
-				confirmCallback={handleConfirmBtnOnClick}
+				confirmCallback={confirmCallback}
 			/>
 		</>
 	);
