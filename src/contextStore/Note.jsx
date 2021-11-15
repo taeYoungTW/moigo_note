@@ -5,7 +5,7 @@ const Note = () => {
 	/*
 	 * ------ Init State : useState ------------------
 	 */
-	const [_isOnCreateNoteForm, setIsOnCreateNoteForm] = useState(false); // ex. true or false
+	const [_isCreateNoteFormOn, setIsCreateNoteFormOn] = useState(false); // ex. true or false
 	const [_selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [_allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
 	const [_modalNote, setModalNote] = useState({}); // ex. {title, id, blocks}
@@ -23,13 +23,13 @@ const Note = () => {
 	}, []);
 	/*
 	 * ~~~~ About State of CreateNote Area ~~~~
-	 * - _changeIsOnCreateNoteForm : Change "isOn(focus)"
+	 * - _setIsCreateNoteFormOn : Change "isOn(focus)"
 	 * true : (CreateNote -> CreateNoteForm)
 	 * 									Or
 	 * false : (CreateNoteForm -> CreateNote)
 	 */
-	const _changeIsOnCreateNoteForm = useCallback((value) => {
-		setIsOnCreateNoteForm(value);
+	const _setIsCreateNoteFormOn = useCallback((value) => {
+		setIsCreateNoteFormOn(value);
 	}, []);
 	/**
 	 * ~~~~ About Selection ~~~~
@@ -186,14 +186,14 @@ const Note = () => {
 	// ------ Combine States & Actions ------
 	const combineStates = {
 		_allNotes,
-		_isOnCreateNoteForm,
+		_isCreateNoteFormOn,
 		_selectedNoteIds,
 		_modalNote,
 		_searchInput,
 	};
 	const combineActions = {
 		_addNote,
-		_changeIsOnCreateNoteForm,
+		_setIsCreateNoteFormOn,
 		_deleteNote,
 		_deleteNotes,
 		_setNotes,
