@@ -23,7 +23,7 @@ const AppStateProvider = ({ children }) => {
 // Global States PropTypes
 AppStateContext.Provider.propTypes = {
 	value: Proptypes.shape({
-		_isOnCreateNoteForm: Proptypes.bool,
+		_isCreateNoteFormOn: Proptypes.bool,
 		_selectedNoteIds: Proptypes.array,
 		_allNotes: Proptypes.array,
 		_modalNote: Proptypes.object,
