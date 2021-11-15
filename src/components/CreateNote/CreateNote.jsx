@@ -8,13 +8,13 @@ import ImgInput from '../Common/ImgInput';
 
 const CreateNote = () => {
 	// Global States & Actions --------------------------
-	const { _changeIsOnCreateNoteForm, _addTypeBlock } = useAppAction();
+	const { _setIsCreateNoteFormOn, _addTypeBlock } = useAppAction();
 
 	// Event Handler --------------------------
 
 	const handleAddBlockBtnOnClick = (type, dataUrl) => {
 		_addTypeBlock(type, dataUrl);
-		_changeIsOnCreateNoteForm(true);
+		_setIsCreateNoteFormOn(true);
 	};
 
 	// Render -----------------------
