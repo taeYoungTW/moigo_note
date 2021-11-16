@@ -4,7 +4,7 @@ import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 const ChecklistContent = ({ isDone, content }) => {
 	return (
 		<div
-			className="content"
+			className="checklist-content"
 			style={{
 				textDecoration: isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
