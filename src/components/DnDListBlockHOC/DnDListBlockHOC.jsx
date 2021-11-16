@@ -3,10 +3,9 @@ import { useDrag, useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
 import { BLOCK_TYPE } from '../../constants/constants';
-import MenuIcon from '@mui/icons-material/Menu';
-import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 
 import './DnDListBlockHOC.scss';
+import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
 
 const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 	// Global States & Actions
@@ -77,9 +76,7 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 			></div>
 			<div ref={preview}>
 				<Component {...ComponentProp}>
-					<button type="button" ref={drag}>
-						<MenuIcon sx={CTRL_BLOCK_ICON_STYLE} />
-					</button>
+					<BlockCtrlBtns blockId={ComponentProp.block.id} ref={drag} />
 				</Component>
 			</div>
 			<div
