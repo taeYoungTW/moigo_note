@@ -2,7 +2,8 @@ import React from 'react';
 import DnDListBlockHOC from '../DnDListBlockHOC/DnDListBlockHOC';
 import { useAppAction } from '../../contexts/AppStateContext';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
-import CreateBlock from '../CreateBlocks/CreateBlock';
+import CreateBlock from '../CreateBlock/CreateBlock';
+import './CreateContent.scss';
 
 const CreateContent = ({ blocks, isUpdateNote }) => {
 	// Global States & Actions --------------------------
@@ -18,8 +19,8 @@ const CreateContent = ({ blocks, isUpdateNote }) => {
 					Component={CreateBlock}
 					ComponentProp={{ block, isUpdateNote }}
 					key={block.id}
-					id={block.id}
-					index={i}
+					blockId={block.id}
+					blockIndex={i}
 				/>
 			))}
 		</div>
