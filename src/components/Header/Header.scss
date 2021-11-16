@@ -43,16 +43,3 @@
 		}
 	}
 }
-
-.window_ctrl {
-	padding-right: 15px;
-	.ctrl_window_btn {
-		width: 27px;
-		@include rm_btn_style;
-		color: $search-color;
-		.ctrl_window_btn_icon:hover {
-			color: $header-ctrl-hover-color;
-			transition: 0.2s;
-		}
-	}
-}
