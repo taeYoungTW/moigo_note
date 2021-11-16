@@ -1,0 +1,16 @@
+@import '../../styles/_variables.scss';
+
+.checklist_block_textarea {
+	flex-grow: 1;
+	resize: none;
+	overflow-y: hidden;
+	@include rm_input_style;
+	font-size: 0.9rem;
+
+	line-height: 21px;
+	color: $input-value-gray-color;
+
+	&::placeholder {
+		color: $input-value-default-color;
+	}
+}
