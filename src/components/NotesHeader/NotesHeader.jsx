@@ -2,7 +2,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './NotesHeader.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useCallback, useState } from 'react';
-import PortalConfirm from '../Common/PortalConfirm';
 import {
 	COUNT_OF_SELECTED_NOTE_TEXT,
 	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
@@ -12,6 +11,7 @@ import {
 	HEADER_ARROWBACK_ICON_STYLE,
 	HEADER_DELETE_ICON_STYLE,
 } from '../../constants/iconStyles';
+import PortalConfirm from '../PortalConfirm/PortalConfirm';
 
 const NotesHeader = () => {
 	// Global States, Actions ---------------------------------------

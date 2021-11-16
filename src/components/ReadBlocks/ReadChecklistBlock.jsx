@@ -1,8 +1,8 @@
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistContent from '../Common/ChecklistContent';
+import CheckBoxInput from '../CheckBoxInput/CheckBoxInput';
 
 const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 	// Global States, Actions ---------------------------------------
