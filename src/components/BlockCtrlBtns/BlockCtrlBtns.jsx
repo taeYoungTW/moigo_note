@@ -23,6 +23,6 @@ const BlockCtrlBtns = forwardRef(({ blockId }, ref) => {
 			</button>
 		</div>
 	);
-}, []);
+});
 
 export default BlockCtrlBtns;
