@@ -30,9 +30,8 @@ const DnDGridNoteHOC = ({ id, index, note, moveNotes, Component }) => {
 		},
 	});
 
-	drag(drop(noteRef));
 	return (
-		<div ref={noteRef}>
+		<div ref={drag(drop(noteRef))}>
 			<Component isDragging={isDragging} note={note} />
 		</div>
 	);
