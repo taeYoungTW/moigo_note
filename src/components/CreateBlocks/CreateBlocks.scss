@@ -51,24 +51,4 @@
 	.img {
 		max-width: 430px;
 	}
-
-	.btns {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-		button {
-			display: none;
-		}
-	}
-
-	&:hover {
-		background-color: $hover-block-bgc;
-		button {
-			display: inline-block;
-			@include rm_btn_style;
-			color: $gray-btn-color;
-			background-color: transparent;
-		}
-	}
 }
