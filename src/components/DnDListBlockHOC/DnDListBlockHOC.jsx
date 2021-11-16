@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
@@ -7,18 +7,16 @@ import { BLOCK_TYPE } from '../../constants/constants';
 import './DnDListBlockHOC.scss';
 import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
 
-const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
+const DnDListBlockHOC = ({ blockId, blockIndex, Component, ComponentProp }) => {
 	// Global States & Actions
 	const { _blocks } = useAppState();
 	const { _initBlocks } = useAppAction();
 
-	// Ref
-	const dropRef = useRef(null);
-
 	// Local States
-	const [isMe, setIsMe] = useState(false);
-	const [isBottomDragIndex, setIsBottomDragIndex] = useState(false);
+	const [isIndexSame, setIsIndexSame] = useState(false);
+	const [isBottomDrag, setIsBottomDrag] = useState(false);
 
+	// Functions
 	const moveBlock = useCallback(
 		(dragIndex, hoverIndex) => {
 			const newBlocks = [..._blocks];
@@ -29,49 +27,45 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 		[_blocks, _initBlocks]
 	);
 
+	// React-Dnd Hooks
 	const [{ isOver }, drop] = useDrop({
 		accept: BLOCK_TYPE,
 		collect: (monitor) => {
 			return { isOver: monitor.isOver() };
 		},
-		hover(dragItem, monitor) {
+		hover(dragItem) {
 			const { dragIndex } = dragItem;
-			setIsMe(false);
-			setIsBottomDragIndex(false);
+			setIsIndexSame(false);
+			setIsBottomDrag(false);
 
-			if (!dropRef.current || dragIndex === index) {
-				setIsMe(true);
+			if (dragIndex === blockIndex) {
+				setIsIndexSame(true);
 				return;
 			}
 
-			if (dragIndex > index) {
-				setIsBottomDragIndex(true);
+			if (dragIndex > blockIndex) {
+				setIsBottomDrag(true);
 			}
 		},
-		drop(dragItem, monitor) {
+		drop(dragItem) {
 			const { dragIndex } = dragItem;
 
-			moveBlock(dragIndex, index);
-			dragItem.dragIndex = index;
+			moveBlock(dragIndex, blockIndex);
+			dragItem.dragIndex = blockIndex;
 		},
 	});
 
 	const [, drag, preview] = useDrag({
 		type: BLOCK_TYPE,
-		item: () => ({ dragId: id, dragIndex: index }),
-		collect: (monitor) => {
-			return {
-				isDragging: monitor.isDragging(),
-			};
-		},
+		item: () => ({ dragId: blockId, dragIndex: blockIndex }),
 	});
 
 	return (
-		<div ref={drop(dropRef)}>
+		<div ref={drop}>
 			<div
 				className="block-location-indicator"
 				style={{
-					display: isOver && !isMe && isBottomDragIndex ? '' : 'none',
+					display: isOver && !isIndexSame && isBottomDrag ? '' : 'none',
 				}}
 			></div>
 			<div ref={preview}>
@@ -82,7 +76,7 @@ const DnDListBlockHOC = ({ id, index, Component, ComponentProp }) => {
 			<div
 				className="block-location-indicator"
 				style={{
-					display: isOver && !isMe && !isBottomDragIndex ? '' : 'none',
+					display: isOver && !isIndexSame && !isBottomDrag ? '' : 'none',
 				}}
 			></div>
 		</div>
