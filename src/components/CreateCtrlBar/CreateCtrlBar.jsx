@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import AddBtn from '../Common/AddBtn';
+import AddBlockBtn from '../Common/AddBlockBtn';
 import ImgInput from '../Common/ImgInput';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -28,15 +28,15 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName, isUpdate }) => {
 					}}
 					isUpdate={isUpdate}
 				>
-					<AddBtn Icon={InsertPhotoIcon} isImgBtn />
+					<AddBlockBtn Icon={InsertPhotoIcon} />
 				</ImgInput>
-				<AddBtn
+				<AddBlockBtn
 					Icon={FormatListBulletedIcon}
 					eventHandler={() => {
 						handleAddBlockBtnOnClick('checklist');
 					}}
 				/>
-				<AddBtn
+				<AddBlockBtn
 					Icon={TextFieldsIcon}
 					eventHandler={() => {
 						handleAddBlockBtnOnClick('text');
