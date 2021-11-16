@@ -1,10 +1,10 @@
 import './CreateNote.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AddBlockBtn from '../Common/AddBlockBtn';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
-import ImgInput from '../Common/ImgInput';
+import AddBlockBtn from '../AddBlockBtn/AddBlockBtn';
+import ImgInput from '../ImgInput/ImgInput';
 
 const CreateNote = () => {
 	// Global States & Actions --------------------------
