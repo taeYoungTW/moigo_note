@@ -1,0 +1,8 @@
+@import '../../styles/_variables.scss';
+
+.checklist {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	width: 430px;
+}
