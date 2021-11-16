@@ -2,14 +2,12 @@ import { useCallback } from 'react';
 import './CreateBlocks.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 import CheckBoxInput from '../Common/CheckBoxInput';
 import ChecklistTextarea from '../Common/ChecklistTextarea';
-import DeleteBtn from '../Common/DeleteBtn';
 
 const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 	// Global States, Actions ------------------------------------
-	const { _addTypeBlock, _deleteBlock, _updateBlock } = useAppAction();
+	const { _addTypeBlock, _updateBlock } = useAppAction();
 
 	// Event Handler --------------------------------------------
 	const handleCheckBoxOnChange = useCallback(
@@ -32,10 +30,6 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 		[_updateBlock, block]
 	);
 
-	const handleDeleteBtnOnClick = useCallback(() => {
-		_deleteBlock(block.id);
-	}, [_deleteBlock, block]);
-
 	const handleOnKeyDown = (e) => {
 		const { keyCode, shiftKey } = e;
 		if (keyCode !== 13) {
@@ -52,28 +46,19 @@ const CreateChecklistBlock = ({ block, isUpdate, children }) => {
 
 	// Render ------------------------------------------
 	return (
-		<div className="create_block">
-			<div className="checklist">
-				<CheckBoxInput
-					blockId={block.id}
-					isDone={block.isDone}
-					location={isUpdate ? 'updateNote' : 'createNoteForm'}
-					handleCheckBoxOnChange={handleCheckBoxOnChange}
-				/>
-				<ChecklistTextarea
-					content={block.content}
-					isDone={block.isDone}
-					handleChecklistContentOnChange={handleChecklistContentOnChange}
-					handleOnKeyDown={handleOnKeyDown}
-				/>
-			</div>
-			<div className="btns">
-				<DeleteBtn
-					style={CTRL_BLOCK_ICON_STYLE}
-					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
-				/>
-				{children}
-			</div>
+		<div className="checklist">
+			<CheckBoxInput
+				blockId={block.id}
+				isDone={block.isDone}
+				location={isUpdate ? 'updateNote' : 'createNoteForm'}
+				handleCheckBoxOnChange={handleCheckBoxOnChange}
+			/>
+			<ChecklistTextarea
+				content={block.content}
+				isDone={block.isDone}
+				handleChecklistContentOnChange={handleChecklistContentOnChange}
+				handleOnKeyDown={handleOnKeyDown}
+			/>
 		</div>
 	);
 };
