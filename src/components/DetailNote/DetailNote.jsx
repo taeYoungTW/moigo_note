@@ -2,7 +2,6 @@ import './DetailNote.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useCallback, useState } from 'react';
-import PortalConfirm from '../Common/PortalConfirm';
 import {
 	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
 	EDIT_TEXT,
@@ -13,6 +12,7 @@ import {
 	DETAIL_NOTE_DELETE_ICON_STYLE,
 	MODAL_NOTE_CLOSE_ICON_STYLE,
 } from '../../constants/iconStyles';
+import PortalConfirm from '../PortalConfirm/PortalConfirm';
 
 const DetailNote = ({ setIsEdit }) => {
 	// Global States, Actions ---------------------------------------
