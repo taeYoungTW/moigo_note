@@ -4,10 +4,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import MinimizeIcon from '@mui/icons-material/Minimize';
 import CropSquareIcon from '@mui/icons-material/CropSquare';
 import { MOIGO_TEXT, NOTE_TEXT, SEARCH_TEXT } from '../../constants/constants';
-import CtrlWindowBtn from './CtrlWindowBtn';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback } from 'react';
 import { HEADER_SEARCH_ICON_STYLE } from '../../constants/iconStyles';
+import CtrlWindowBtn from '../CtrlWindowBtn/CtrlWindowBtn';
 
 const Header = () => {
 	// Global States, Actions ---------------------------------------
