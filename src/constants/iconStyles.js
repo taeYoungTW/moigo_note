@@ -1,7 +1,8 @@
-export const ADD_BTN_ICON_STYLE = {
-	fontSize: 22,
+export const ADD_BLOCK_BTN_ICON_STYLE = {
+	fontSize: 23,
 	cursor: 'pointer',
 	color: '#2A394B',
+	margin: '0 6px',
 };
 
 export const CHECKBOX_ICON_STYLE = {
