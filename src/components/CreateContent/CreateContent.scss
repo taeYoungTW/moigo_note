@@ -1,0 +1,7 @@
+@import '../../styles/_variables.scss';
+
+.content {
+	max-height: $content-max-height;
+	overflow-y: scroll;
+	@include default_scrollbar;
+}
