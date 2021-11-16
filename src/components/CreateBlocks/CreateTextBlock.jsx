@@ -4,12 +4,10 @@ import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
-import DeleteBtn from '../Common/DeleteBtn';
-import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 
 const CreateTextBlock = ({ block, children }) => {
 	// Global States, Actions ---------------------------------------
-	const { _deleteBlock, _updateBlock } = useAppAction();
+	const { _updateBlock } = useAppAction();
 
 	// Local States ------------------------------------------------
 	const [textBlock, setTextBlock] = useState(block);
@@ -29,35 +27,22 @@ const CreateTextBlock = ({ block, children }) => {
 		[_updateBlock, setTextBlock, textBlock]
 	);
 
-	const handleDeleteBtnOnClick = useCallback(() => {
-		_deleteBlock(block.id);
-	}, [_deleteBlock, block]);
-
 	// hook : textarea auto height -----------------------------
 	useAutoHeightTextarea(textRef, textBlock.text);
 
 	// Render -------------------------------------------------------
 	return (
-		<div className="create_block">
-			<textarea
-				className="text_block_textarea"
-				type="text"
-				value={textBlock.text}
-				onChange={handleTextOnChange}
-				placeholder={WRITE_NOTE_TEXT}
-				rows={1}
-				ref={textRef}
-				spellCheck={false}
-				autoFocus={true}
-			/>
-			<div className="btns">
-				<DeleteBtn
-					style={CTRL_BLOCK_ICON_STYLE}
-					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
-				/>
-				{children}
-			</div>
-		</div>
+		<textarea
+			className="text_block_textarea"
+			type="text"
+			value={textBlock.text}
+			onChange={handleTextOnChange}
+			placeholder={WRITE_NOTE_TEXT}
+			rows={1}
+			ref={textRef}
+			spellCheck={false}
+			autoFocus={true}
+		/>
 	);
 };
 
