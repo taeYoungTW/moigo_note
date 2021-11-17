@@ -25,7 +25,12 @@ const Block = () => {
 	 *  	type: 'checklist',
 	 *  	isDone: false,
 	 *  	content: ''
-	 *	}
+	 *	},
+	 * 	{
+	 * 		id: '',
+	 * 		type: 'image',
+	 * 		dataUrl: ''
+	 * 	}
 	 *]
 	 */
 	const [_blocks, setBlocks] = useState([]);
@@ -104,6 +109,16 @@ const Block = () => {
 		[_blocks, _setUseError]
 	);
 
+	const _moveBlockToBottom = useCallback(
+		(targetBlockIndex) => {
+			const newBlocks = [..._blocks];
+			const [movedItem] = newBlocks.splice(targetBlockIndex, 1);
+			newBlocks.push(movedItem);
+			setBlocks(newBlocks);
+		},
+		[_blocks]
+	);
+
 	// ------ Combine States & Actions ---------------
 	const combineStates = { _blocks };
 	const combineActions = {
@@ -112,6 +127,7 @@ const Block = () => {
 		_resetBlocks,
 		_initBlocks,
 		_addTypeBlock,
+		_moveBlockToBottom,
 	};
 
 	return { ...combineStates, ...combineActions };
