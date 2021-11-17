@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useCallback, useState } from 'react';
 import {
-	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
+	DO_YOU_WANT_TO_DELETE_SELECTED_NOTES_TEXT,
 	EDIT_TEXT,
 } from '../../constants/constants';
 import ReadContent from '../ReadContent/ReadContent';
@@ -44,13 +44,17 @@ const DetailNote = ({ setIsEdit }) => {
 	return (
 		<>
 			<div className="detail_note">
-				<div className="title_ctnr">
+				<div className="title_container">
 					<h1 className="title">{_modalNote.title}</h1>
 					<button className="close_btn" onClick={_resetModalNote}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
-				<ReadContent note={_modalNote} isDetailNote={true} />
+				<ReadContent
+					blocks={_modalNote.blocks}
+					noteId={_modalNote.id}
+					isDetailNote={true}
+				/>
 				<div className="ctrl_bar">
 					<DeleteBtn
 						className="delete_btn"
@@ -67,7 +71,7 @@ const DetailNote = ({ setIsEdit }) => {
 				</div>
 			</div>
 			<PortalConfirm
-				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
+				question={DO_YOU_WANT_TO_DELETE_SELECTED_NOTES_TEXT}
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfrimOn}
 				confirmCallback={confirmCallback}

@@ -32,7 +32,7 @@ export const HEADER_SEARCH_ICON_STYLE = {
 	marginRight: '10px',
 };
 
-export const HEADER_ARROWBACK_ICON_STYLE = {
+export const HEADER_ARROW_BACK_ICON_STYLE = {
 	fontSize: 19,
 	color: '#767676',
 };

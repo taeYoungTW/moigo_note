@@ -4,11 +4,11 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { useCallback, useState } from 'react';
 import {
 	COUNT_OF_SELECTED_NOTE_TEXT,
-	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
+	DO_YOU_WANT_TO_DELETE_SELECTED_NOTES_TEXT,
 } from '../../constants/constants';
 import DeleteBtn from '../Common/DeleteBtn';
 import {
-	HEADER_ARROWBACK_ICON_STYLE,
+	HEADER_ARROW_BACK_ICON_STYLE,
 	HEADER_DELETE_ICON_STYLE,
 } from '../../constants/iconStyles';
 import PortalConfirm from '../PortalConfirm/PortalConfirm';
@@ -36,7 +36,7 @@ const NotesHeader = () => {
 		<>
 			<div className="align_left">
 				<button className="cancel_btn" onClick={_resetSelectedNoteIds}>
-					<ArrowBackIcon sx={HEADER_ARROWBACK_ICON_STYLE} />
+					<ArrowBackIcon sx={HEADER_ARROW_BACK_ICON_STYLE} />
 				</button>
 				<h2 className="selected_note_count">
 					{_selectedNoteIds.length}
@@ -49,7 +49,7 @@ const NotesHeader = () => {
 				style={HEADER_DELETE_ICON_STYLE}
 			/>
 			<PortalConfirm
-				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
+				question={DO_YOU_WANT_TO_DELETE_SELECTED_NOTES_TEXT}
 				isConfirmOn={isConfirmOn}
 				setIsConfirmOn={setIsConfirmOn}
 				confirmCallback={confirmCallback}
