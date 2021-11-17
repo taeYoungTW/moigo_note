@@ -42,23 +42,21 @@ const ReadChecklistBlock = ({ block, noteId, isDetailNote }) => {
 
 	// Render -----------------------------------------------------
 	return (
-		<div className={`read_block ${isDetailNote ? 'detail' : ''}`}>
-			<div className="read_checklist_block">
-				<div
-					onClick={(e) => {
-						e.stopPropagation();
-					}}
-					className="stopPropagation_el"
-				>
-					<CheckBoxInput
-						blockId={block.id}
-						isDone={block.isDone}
-						handleCheckBoxOnChange={handleCheckBoxOnChange}
-						location={isDetailNote ? 'detailNote' : 'summaryNote'}
-					/>
-				</div>
-				<ChecklistContent isDone={block.isDone} content={block.content} />
+		<div className="read_checklist_block">
+			<div
+				onClick={(e) => {
+					e.stopPropagation();
+				}}
+				className="stopPropagation_el"
+			>
+				<CheckBoxInput
+					blockId={block.id}
+					isDone={block.isDone}
+					handleCheckBoxOnChange={handleCheckBoxOnChange}
+					location={isDetailNote ? 'detailNote' : 'summaryNote'}
+				/>
 			</div>
+			<ChecklistContent isDone={block.isDone} content={block.content} />
 		</div>
 	);
 };
