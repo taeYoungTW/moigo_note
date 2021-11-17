@@ -3,8 +3,8 @@
 .summary_note {
 	width: $summary-note-width;
 	height: $summary-note-height;
-	background-color: $summary-note-ctnr-color;
-	border: solid 1px $summary-note-ctnr-border-color;
+	background-color: $summary-note-container-color;
+	border: solid 1px $summary-note-container-border-color;
 	@include default_border_radius;
 	display: flex;
 	flex-direction: column;

@@ -1,10 +1,10 @@
 @import '../../styles/_variables.scss';
 
-.confirm_ctnr {
+.confirm_container {
 	@include modal;
 
 	.confirm {
-		@include absoulte_center_wh;
+		@include absolute_center_wh;
 		@include default_border_radius;
 		background-color: $confirm-bgc;
 		padding: 30px;

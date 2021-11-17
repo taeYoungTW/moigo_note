@@ -4,7 +4,7 @@
 	display: flex;
 	align-items: center;
 
-	.title_ctnr {
+	.title_container {
 		display: flex;
 		align-items: center;
 		margin: 0 25px;
@@ -21,9 +21,9 @@
 		}
 	}
 
-	.search_ctnr {
-		width: $search-cntr-width;
-		height: $search-cntr-height;
+	.search_container {
+		width: $search-container-width;
+		height: $search-container-height;
 		display: flex;
 		align-items: center;
 		background-color: $search-bg-color;

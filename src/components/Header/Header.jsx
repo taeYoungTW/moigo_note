@@ -25,11 +25,11 @@ const Header = () => {
 	return (
 		<>
 			<div className="align_left">
-				<div className="title_ctnr">
+				<div className="title_container">
 					<h1 className="logo">{MOIGO_TEXT}</h1>
 					<h2 className="title">{NOTE_TEXT}</h2>
 				</div>
-				<div className="search_ctnr">
+				<div className="search_container">
 					<SearchIcon sx={HEADER_SEARCH_ICON_STYLE} />
 					<input
 						className="search_input"

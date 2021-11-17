@@ -1,7 +1,7 @@
 @import '../../styles/_variables.scss';
 
 .detail_note {
-	@include absoulte_center_wh;
+	@include absolute_center_wh;
 	@include default_border_radius;
 	background-color: $detail-note-color;
 	width: $detail-note-width;
@@ -10,7 +10,7 @@
 	flex-direction: column;
 	user-select: none;
 
-	.title_ctnr {
+	.title_container {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
