@@ -5,9 +5,9 @@ import CheckBoxInput from '../CheckBoxInput/CheckBoxInput';
 import ChecklistTextarea from '../ChecklistTextarea/ChecklistTextarea';
 import './CreateChecklistBlock.scss';
 
-const CreateChecklistBlock = ({ block, isUpdate }) => {
+const CreateChecklistBlock = ({ block, isUpdate, blockIndex }) => {
 	// Global States, Actions ------------------------------------
-	const { _addTypeBlock, _updateBlock } = useAppAction();
+	const { _addTypeBlock, _updateBlock, _moveBlockToBottom } = useAppAction();
 
 	// Event Handler --------------------------------------------
 	const handleCheckBoxOnChange = useCallback(
@@ -15,9 +15,12 @@ const CreateChecklistBlock = ({ block, isUpdate }) => {
 			const {
 				target: { checked },
 			} = e;
+			if (checked) {
+				_moveBlockToBottom(blockIndex);
+			}
 			_updateBlock({ ...block, isDone: checked });
 		},
-		[_updateBlock, block]
+		[_updateBlock, block, _moveBlockToBottom, blockIndex]
 	);
 
 	const handleChecklistContentOnChange = useCallback(
