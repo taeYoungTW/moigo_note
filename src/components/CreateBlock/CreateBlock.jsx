@@ -5,7 +5,7 @@ import CreateImgBlock from '../CreateImgBlock/CreateImgBlock';
 import CreateTextBlock from '../CreateTextBlock/CreateTextBlock';
 import './CreateBlock.scss';
 
-const CreateBlock = ({ block, isUpdateNote, children }) => {
+const CreateBlock = ({ block, isUpdateNote, children, blockIndex }) => {
 	// Hook ----------------------------
 	const _setUseError = useError();
 
@@ -15,7 +15,13 @@ const CreateBlock = ({ block, isUpdateNote, children }) => {
 			case 'text':
 				return <CreateTextBlock block={block} />;
 			case 'checklist':
-				return <CreateChecklistBlock block={block} isUpdate={isUpdateNote} />;
+				return (
+					<CreateChecklistBlock
+						block={block}
+						isUpdate={isUpdateNote}
+						blockIndex={blockIndex}
+					/>
+				);
 			case 'image':
 				return <CreateImgBlock block={block} />;
 			default:
