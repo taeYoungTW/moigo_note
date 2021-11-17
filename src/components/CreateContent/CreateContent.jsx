@@ -17,7 +17,7 @@ const CreateContent = ({ blocks, isUpdateNote }) => {
 			{blocks?.map((block, i) => (
 				<DnDListBlockHOC
 					Component={CreateBlock}
-					ComponentProp={{ block, isUpdateNote }}
+					ComponentProp={{ block, isUpdateNote, blockIndex: i }}
 					key={block.id}
 					blockId={block.id}
 					blockIndex={i}
