@@ -2,20 +2,20 @@
 
 // Header Size
 $header-height: 45px;
-$search-cntr-height: 30px;
-$search-cntr-width: 380px;
+$search-container-height: 30px;
+$search-container-width: 380px;
 
 // Main Size
 $main-height: 100vh;
 
 // Create Note Sizes
 $create-note-height: 100px;
-$create-note-ctnr-height: 45px;
-$create-note-ctnr-width: 550px;
+$create-note-container-height: 45px;
+$create-note-container-width: 550px;
 
 // Create Note Form Margin Size
 $create-note-form-margin: math.div(
-	calc($create-note-height - $create-note-ctnr-height),
+	calc($create-note-height - $create-note-container-height),
 	2
 );
 
@@ -24,7 +24,7 @@ $summary-note-width: 260px;
 $summary-note-height: 330px;
 
 // Detail Note Sizes
-$detail-note-width: $create-note-ctnr-width; // 550px
+$detail-note-width: $create-note-container-width; // 550px
 $detail-note-min-height: 150px;
 
 // Scrollbar
