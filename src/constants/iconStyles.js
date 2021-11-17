@@ -37,7 +37,7 @@ export const HEADER_ARROW_BACK_ICON_STYLE = {
 	color: '#767676',
 };
 
-export const SUMMARY_NOTE_CHECKCIRCLE_ICON_STYLE = {
+export const SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE = {
 	fontSize: 35,
 	color: '#81C7E4',
 };

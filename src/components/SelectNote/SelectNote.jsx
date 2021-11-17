@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { SUMMARY_NOTE_CHECKCIRCLE_ICON_STYLE } from '../../constants/iconStyles';
+import { SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE } from '../../constants/iconStyles';
 
 const SelectNote = ({ noteId }) => {
 	const { _selectedNoteIds } = useAppState();
@@ -39,7 +39,7 @@ const SelectNote = ({ noteId }) => {
 						className="now_select_on_btn"
 						onClick={handleUnselectBtnOnClick}
 					>
-						<CheckCircleIcon sx={SUMMARY_NOTE_CHECKCIRCLE_ICON_STYLE} />
+						<CheckCircleIcon sx={SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE} />
 					</button>
 					<div className="now_select_on_outline"></div>
 					{/*
@@ -51,7 +51,7 @@ const SelectNote = ({ noteId }) => {
 				</>
 			) : (
 				<button className="now_select_off_btn" onClick={handleSelectBtnOnClick}>
-					<CheckCircleOutlineIcon sx={SUMMARY_NOTE_CHECKCIRCLE_ICON_STYLE} />
+					<CheckCircleOutlineIcon sx={SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE} />
 				</button>
 			)}
 		</div>
