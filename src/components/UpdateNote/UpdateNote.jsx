@@ -4,60 +4,62 @@ import './UpdateNote.scss';
 import { useCallback, useEffect, useState } from 'react';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { emptyTextBlockFilter } from '../../utils/emptyTextBlockFilter';
-import CreateContent from '../CreateContent/CreateContent';
+import CreateBlocks from '../CreateBlocks/CreateBlocks';
 import { MODAL_NOTE_CLOSE_ICON_STYLE } from '../../constants/iconStyles';
 import CreateCtrlBar from '../CreateCtrlBar/CreateCtrlBar';
 
-const UpdateNote = () => {
+const UpdateNote = ({ note, setIsModalOn }) => {
 	// Global States, Actions ---------------------------------------
-	const { _blocks, _modalNote } = useAppState();
-	const { _resetModalNote, _updateNote, _initBlocks, _resetBlocks } =
-		useAppAction();
+	const { _blocks } = useAppState();
+	const { _updateNote, _initBlocks, _resetBlocks } = useAppAction();
 
 	// Local States ------------------------------------------------
-	const [note, setNote] = useState(_modalNote);
+	const [updateNote, setUpdateNote] = useState(note);
 
 	// Event Handler ----------------------------------------------
 	const handleUpdateNoteBtnOnClick = useCallback(() => {
 		const filteredBlocks = emptyTextBlockFilter(_blocks);
-		_updateNote({ ...note, blocks: [...filteredBlocks] });
-	}, [_updateNote, note, _blocks]);
+		_updateNote({ ...updateNote, blocks: [...filteredBlocks] });
+		setIsModalOn(false);
+	}, [_updateNote, updateNote, _blocks, setIsModalOn]);
 
 	const handleTitleInputOnChange = useCallback((e) => {
 		const { value } = e.target;
-		setNote((note) => ({ ...note, title: value }));
+		setUpdateNote((note) => ({ ...note, title: value }));
 	}, []);
+
+	const handleCloseBtnOnClick = useCallback(() => {
+		setIsModalOn(false);
+	}, [setIsModalOn]);
 
 	// useEffects ------------------------------------------------------
 
 	useEffect(() => {
-		_initBlocks([..._modalNote.blocks]);
-
+		_initBlocks([...note.blocks]);
 		return () => {
 			_resetBlocks();
 		};
-	}, [_modalNote, _initBlocks, _resetBlocks]);
+	}, [note, _initBlocks, _resetBlocks]);
 
 	return (
 		<>
-			<div className="update_note">
+			<div className="update-note">
 				<div className="title">
 					<input
 						type="text"
-						className="title_input"
-						value={note.title}
+						className="title-input"
+						value={updateNote.title}
 						placeholder={TITLE_TEXT}
 						onChange={handleTitleInputOnChange}
 					/>
-					<button className="close_btn" onClick={_resetModalNote}>
+					<button className="close-btn" onClick={handleCloseBtnOnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
-				<CreateContent blocks={_blocks} isUpdateNote={true} />
+				<CreateBlocks />
 				<CreateCtrlBar
 					handleSubmitBtnOnClick={handleUpdateNoteBtnOnClick}
 					submitBtnName={COMPLETE_TEXT}
-					isUpdate
 				/>
 			</div>
 		</>
