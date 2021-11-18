@@ -1,31 +1,39 @@
 import './SummaryNote.scss';
-import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import { useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import useSearch from '../../hooks/useSearch';
 import SummaryNoteContent from '../SummaryNoteContent/SummaryNoteContent';
 import SummaryNoteCtrl from '../SummaryNoteCtrl/SummaryNoteCtrl';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
+import ModalNote from '../ModalNote/ModalNote';
 
 const SummaryNote = forwardRef(({ note, isDragging }, dndRef) => {
 	// Global States & Actions --------------
-	const { _setModalNote } = useAppAction();
 	const { _searchInput } = useAppState();
 
 	// Hook --------------------------------------
 	const isDisplay = useSearch(_searchInput, note);
 
+	// Local State
+	const [isModalOn, setIsModalOn] = useState(false);
+
 	// Render -------------------------------------------
 	return (
 		<article
-			className="summary_note"
+			className="summary-note"
 			onClick={() => {
-				_setModalNote(note);
+				setIsModalOn(true);
 			}}
 			style={{ opacity: isDragging ? 0 : 1, display: isDisplay ? '' : 'none' }}
 			ref={dndRef}
 		>
 			<SummaryNoteContent note={note} />
 			<SummaryNoteCtrl note={note} />
+			{isModalOn ? (
+				<ModalNote note={note} setIsModalOn={setIsModalOn} />
+			) : (
+				<></>
+			)}
 		</article>
 	);
 });
