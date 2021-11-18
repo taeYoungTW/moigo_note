@@ -1,18 +1,17 @@
 @import '../../styles/_variables.scss';
 
-.ctrl_bar {
-	height: $create-note-container-height;
+.ctrl-bar {
+	height: 50px;
 	padding: 7px 10px;
 	border-top: 1px solid $split-color;
 	display: flex;
 	justify-content: space-between;
 
-	.add_btns {
+	.add-btns {
 		@include flex_align_center;
 	}
 
-	.update_submit_btn,
-	.create_submit_btn {
+	.submit-btn {
 		@include rm_btn_style;
 		background-color: $black-btn-color;
 		font-weight: 400;
