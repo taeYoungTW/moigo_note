@@ -1,6 +1,6 @@
 @import '../../styles/_variables.scss';
 
-.update_note {
+.update-note {
 	@include absolute_center_wh;
 	@include default_border_radius;
 	background-color: $detail-note-color;
@@ -18,7 +18,7 @@
 		height: 50px;
 		border-bottom: 1px solid $split-color;
 
-		.title_input {
+		.title-input {
 			@include rm_input_style;
 			height: 25px;
 			width: 450px;
@@ -36,15 +36,8 @@
 			}
 		}
 
-		.close_btn {
+		.close-btn {
 			@include rm_btn_style;
 		}
-	}
-
-	.content {
-		max-height: $content-max-height;
-		overflow-y: scroll;
-		@include default_scrollbar;
-		min-height: 50px;
 	}
 }
