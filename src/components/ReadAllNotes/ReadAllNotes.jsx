@@ -1,20 +1,19 @@
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import './ReadAllNotes.scss';
-import ModalNote from '../ModalNote/ModalNote';
 import DnDGridNoteHOC from '../DnDGridNoteHOC/DnDGridNoteHOC';
 import { useCallback } from 'react';
 import SummaryNote from '../SummaryNote/SummaryNote';
 
 const ReadAllNotes = () => {
 	// Global States, Actions ---------------------------------------
-	const { _allNotes, _modalNote } = useAppState();
+	const { _allNotes } = useAppState();
 	const { _setNotes } = useAppAction();
 
 	const moveNotes = useCallback(
 		(dragIndex, hoverIndex) => {
 			const newNotes = [..._allNotes];
-			const [dragedNote] = newNotes.splice(dragIndex, 1);
-			newNotes.splice(hoverIndex, 0, dragedNote);
+			const [draggedNote] = newNotes.splice(dragIndex, 1);
+			newNotes.splice(hoverIndex, 0, draggedNote);
 			_setNotes(newNotes);
 		},
 		[_allNotes, _setNotes]
@@ -32,7 +31,6 @@ const ReadAllNotes = () => {
 					note={note}
 				/>
 			))}
-			{_modalNote?.id && <ModalNote />}
 		</section>
 	);
 };
