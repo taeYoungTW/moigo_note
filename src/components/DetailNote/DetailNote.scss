@@ -1,6 +1,6 @@
 @import '../../styles/_variables.scss';
 
-.detail_note {
+.detail-note {
 	@include absolute_center_wh;
 	@include default_border_radius;
 	background-color: $detail-note-color;
