@@ -7,7 +7,7 @@ import TextFieldsIcon from '@mui/icons-material/TextFields';
 import { useAppAction } from '../../contexts/AppStateContext';
 import './CreateCtrlBar.scss';
 
-const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName, isUpdate }) => {
+const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 	// Global States & Actions --------------------------
 	const { _addTypeBlock } = useAppAction();
 
@@ -21,13 +21,12 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName, isUpdate }) => {
 
 	// Render ----------------------------------------
 	return (
-		<div className="ctrl_bar">
-			<div className="add_btns">
+		<div className="ctrl-bar">
+			<div className="add-btns">
 				<ImgInput
 					callback={(dataUrl) => {
 						_addTypeBlock('image', dataUrl);
 					}}
-					isUpdate={isUpdate}
 				>
 					<AddBlockBtn Icon={InsertPhotoIcon} />
 				</ImgInput>
@@ -47,7 +46,7 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName, isUpdate }) => {
 			<button
 				type="button"
 				onClick={handleSubmitBtnOnClick}
-				className={`${isUpdate ? 'update' : 'create'}_submit_btn`}
+				className="submit-btn"
 			>
 				{submitBtnName}
 			</button>
