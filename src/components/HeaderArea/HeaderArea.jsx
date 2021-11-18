@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppState } from '../../contexts/AppStateContext';
 import Header from '../Header/Header';
-import NotesHeader from '../NotesHeader/NotesHeader';
+import SelectedHeader from '../SelectedHeader/SelectedHeader';
 import './HeaderArea.scss';
 
 const HeaderArea = () => {
@@ -10,10 +10,8 @@ const HeaderArea = () => {
 
 	// Render -------------------------------------------------------
 	return (
-		<header className={_selectedNoteIds.length === 0 ? '' : 'note-header'}>
-			<div className="header-fixed">
-				{_selectedNoteIds.length === 0 ? <Header /> : <NotesHeader />}
-			</div>
+		<header>
+			{_selectedNoteIds.length === 0 ? <Header /> : <SelectedHeader />}
 		</header>
 	);
 };
