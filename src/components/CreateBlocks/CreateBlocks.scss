@@ -1,0 +1,8 @@
+@import '../../styles/_variables.scss';
+
+.create-blocks {
+	max-height: $content-max-height;
+	overflow-y: scroll;
+	min-height: 45px;
+	@include default_scrollbar;
+}
