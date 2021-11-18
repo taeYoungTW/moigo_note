@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ReadTextBlock = ({ block }) => {
 	// Render -------------------------------------------------------
-	return <div className="read_text_block">{block.text}</div>;
+	return <div className="read-text-block">{block.text}</div>;
 };
 
 // PropTypes ------------------------------------------------------

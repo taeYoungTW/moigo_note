@@ -10,8 +10,8 @@ const HeaderArea = () => {
 
 	// Render -------------------------------------------------------
 	return (
-		<header className={_selectedNoteIds.length === 0 ? '' : 'note_header'}>
-			<div className="header_fixed">
+		<header className={_selectedNoteIds.length === 0 ? '' : 'note-header'}>
+			<div className="header-fixed">
 				{_selectedNoteIds.length === 0 ? <Header /> : <NotesHeader />}
 			</div>
 		</header>

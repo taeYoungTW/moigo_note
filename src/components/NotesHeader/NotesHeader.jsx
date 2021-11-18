@@ -34,17 +34,17 @@ const NotesHeader = () => {
 	// Render ------------------------------------------------------
 	return (
 		<>
-			<div className="align_left">
-				<button className="cancel_btn" onClick={_resetSelectedNoteIds}>
+			<div className="align-left">
+				<button className="cancel-btn" onClick={_resetSelectedNoteIds}>
 					<ArrowBackIcon sx={HEADER_ARROW_BACK_ICON_STYLE} />
 				</button>
-				<h2 className="selected_note_count">
+				<h2 className="selected-note-count">
 					{_selectedNoteIds.length}
 					{COUNT_OF_SELECTED_NOTE_TEXT}
 				</h2>
 			</div>
 			<DeleteBtn
-				className="delete_btn"
+				className="delete-btn"
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 				style={HEADER_DELETE_ICON_STYLE}
 			/>

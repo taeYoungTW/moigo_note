@@ -6,7 +6,7 @@ import { CHECKBOX_ICON_STYLE } from '../../constants/iconStyles';
 const CheckBoxInput = ({ isDone, handleCheckBoxOnChange }) => {
 	return (
 		<>
-			<label className="checkbox_label">
+			<label className="checkbox-label">
 				{isDone ? (
 					<CheckBoxIcon sx={CHECKBOX_ICON_STYLE} />
 				) : (
@@ -14,7 +14,7 @@ const CheckBoxInput = ({ isDone, handleCheckBoxOnChange }) => {
 				)}
 				<input
 					type="checkbox"
-					className="checkbox_input"
+					className="checkbox-input"
 					checked={isDone}
 					onChange={handleCheckBoxOnChange}
 				/>

@@ -40,10 +40,10 @@ const CreateNoteForm = () => {
 
 	// Render ----------------------------------------
 	return (
-		<section className="create_note_form">
+		<section className="create-note-form">
 			<div className="title">
 				<input
-					className="title_input"
+					className="title-input"
 					type="text"
 					placeholder={TITLE_TEXT}
 					onChange={handleTitleInputOnChange}

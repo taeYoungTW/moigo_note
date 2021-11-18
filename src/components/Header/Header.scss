@@ -1,10 +1,10 @@
 @import '../../styles/variables.scss';
 
-.align_left {
+.align-left {
 	display: flex;
 	align-items: center;
 
-	.title_container {
+	.title-container {
 		display: flex;
 		align-items: center;
 		margin: 0 25px;
@@ -21,7 +21,7 @@
 		}
 	}
 
-	.search_container {
+	.search-container {
 		width: $search-container-width;
 		height: $search-container-height;
 		display: flex;
@@ -30,7 +30,7 @@
 		border-radius: 15px;
 		padding: 0 10px;
 
-		.search_input {
+		.search-input {
 			color: $search-color;
 			font-size: 0.9rem;
 			flex-grow: 1;

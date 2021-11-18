@@ -19,9 +19,9 @@ const CreateNote = () => {
 
 	// Render -----------------------
 	return (
-		<div className="create_note">
+		<div className="create-note">
 			<button
-				className="add_text_btn"
+				className="add-text-btn"
 				onClick={() => {
 					handleAddBlockBtnOnClick('text');
 				}}

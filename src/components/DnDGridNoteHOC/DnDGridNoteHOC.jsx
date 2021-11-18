@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-
-const NOTE_TYPE = 'NOTE_DND';
+import { NOTE_TYPE } from '../../constants/constants';
 
 const DnDGridNoteHOC = ({ id, index, note, moveNotes, Component }) => {
 	const noteRef = useRef(null);

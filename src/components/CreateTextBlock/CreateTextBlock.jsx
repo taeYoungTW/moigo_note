@@ -35,7 +35,7 @@ const CreateTextBlock = ({ block }) => {
 	// Render -------------------------------------------------------
 	return (
 		<textarea
-			className="text_block_textarea"
+			className="text-block-textarea"
 			type="text"
 			value={block.text}
 			onChange={handleTextOnChange}

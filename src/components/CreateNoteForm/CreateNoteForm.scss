@@ -1,6 +1,6 @@
 @import '../../styles/_variables.scss';
 
-.create_note_form {
+.create-note-form {
 	width: $create-note-container-width;
 	background-color: $create-note-container-color;
 	border: 1px solid $create-note-container-border-color;
@@ -12,7 +12,7 @@
 		border-bottom: 1px solid $split-color;
 		padding: 10px 15px;
 
-		.title_input {
+		.title-input {
 			@include rm_input_style;
 			height: 25px;
 			width: 450px;

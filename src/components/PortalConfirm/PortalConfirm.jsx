@@ -23,7 +23,7 @@ const PortalConfirm = ({
 	return ReactDOM.createPortal(
 		isConfirmOn ? (
 			<div
-				className="confirm_container"
+				className="confirm-container"
 				onClick={(e) => {
 					e.stopPropagation();
 				}}

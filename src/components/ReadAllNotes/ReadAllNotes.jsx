@@ -20,7 +20,7 @@ const ReadAllNotes = () => {
 	);
 	// Render -----------------------------------------------
 	return (
-		<section className="read_all_notes">
+		<section className="read-all-notes">
 			{_allNotes.map((note, i) => (
 				<DnDGridNoteHOC
 					key={note.id}

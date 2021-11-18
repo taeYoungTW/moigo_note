@@ -46,23 +46,23 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 	return (
 		<>
 			<div className="detail-note">
-				<div className="title_container">
+				<div className="title-container">
 					<h1 className="title">{note.title}</h1>
-					<button className="close_btn" onClick={handleCloseBtnOnClick}>
+					<button className="close-btn" onClick={handleCloseBtnOnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
 				<ReadBlocks blocks={note.blocks} noteId={note.id} />
-				<div className="ctrl_bar">
+				<div className="detail-note-ctrl-bar">
 					<DeleteBtn
-						className="delete_btn"
+						className="delete-btn"
 						handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 						style={DETAIL_NOTE_DELETE_ICON_STYLE}
 					/>
 					<button
 						type="button"
 						onClick={handleSetEditBtnOnClick}
-						className="edit_btn"
+						className="edit-btn"
 					>
 						{EDIT_TEXT}
 					</button>

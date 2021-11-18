@@ -29,7 +29,7 @@ const CreateBlock = ({ block, children, blockIndex }) => {
 
 	// render ----------------------------
 	return (
-		<div className="create_block">
+		<div className="create-block">
 			{blockRouter(block.type)}
 			{children}
 		</div>

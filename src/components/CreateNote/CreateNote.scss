@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.create_note {
+.create-note {
 	height: $create-note-container-height;
 	width: $create-note-container-width;
 	background-color: $create-note-container-color;
@@ -9,7 +9,7 @@
 	@include flex_align_center;
 	padding: 10px;
 
-	.add_text_btn {
+	.add-text-btn {
 		@include rm_btn_style;
 		text-align: left;
 		flex-grow: 1;

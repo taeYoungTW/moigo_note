@@ -12,7 +12,7 @@ const ModalNote = ({ note, setIsModalOn }) => {
 	// Render -------------------------------------------------------
 	return ReactDOM.createPortal(
 		<div
-			className="modal_note"
+			className="modal-note"
 			onClick={(e) => {
 				e.stopPropagation();
 			}}

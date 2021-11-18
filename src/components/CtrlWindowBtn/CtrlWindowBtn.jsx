@@ -5,8 +5,8 @@ import './CtrlWindowBtn.scss';
 const CtrlWindowBtn = ({ Icon }) => {
 	// Render ---------------------------------
 	return (
-		<button className="ctrl_window_btn">
-			<Icon sx={CTRL_WINDOW_BTN_ICON_STYLE} className="ctrl_window_btn_icon" />
+		<button className="ctrl-window-btn">
+			<Icon sx={CTRL_WINDOW_BTN_ICON_STYLE} className="ctrl-window-btn-icon" />
 		</button>
 	);
 };

@@ -24,22 +24,22 @@ const Header = () => {
 	);
 	return (
 		<>
-			<div className="align_left">
-				<div className="title_container">
+			<div className="align-left">
+				<div className="title-container">
 					<h1 className="logo">{MOIGO_TEXT}</h1>
 					<h2 className="title">{NOTE_TEXT}</h2>
 				</div>
-				<div className="search_container">
+				<div className="search-container">
 					<SearchIcon sx={HEADER_SEARCH_ICON_STYLE} />
 					<input
-						className="search_input"
+						className="search-input"
 						type="text"
 						placeholder={SEARCH_TEXT}
 						onChange={handleSearchInputOnChange}
 					/>
 				</div>
 			</div>
-			<div className="window_ctrl">
+			<div className="window-ctrl">
 				<CtrlWindowBtn Icon={MinimizeIcon} />
 				<CtrlWindowBtn Icon={CropSquareIcon} />
 				<CtrlWindowBtn Icon={CloseIcon} />

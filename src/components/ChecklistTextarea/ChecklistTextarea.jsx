@@ -17,7 +17,7 @@ const ChecklistTextarea = ({
 	// Render ------------------------------------------
 	return (
 		<textarea
-			className="checklist_block_textarea"
+			className="checklist-block-textarea"
 			type="text"
 			value={content}
 			onChange={handleChecklistContentOnChange}

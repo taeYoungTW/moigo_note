@@ -36,7 +36,7 @@ const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 		}
 	};
 
-	return <div className={'read_block'}>{blockRouter(block.type)}</div>;
+	return <div className="read-block">{blockRouter(block.type)}</div>;
 };
 
 export default ReadBlock;

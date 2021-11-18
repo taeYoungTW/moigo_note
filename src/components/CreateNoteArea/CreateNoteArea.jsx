@@ -9,9 +9,9 @@ const CreateNoteArea = () => {
 
 	// Render -----------------------
 	return (
-		<section className="create_note_area">
+		<section className="create-note-area">
 			<div
-				className="stopPropagation_el"
+				className="stopPropagation-el"
 				onClick={(e) => {
 					e.stopPropagation();
 				}}
