@@ -25,3 +25,4 @@ export const NO_MATCHED_ID_IN_BLOCKS_TEXT = 'No Matched Id in _blocks!';
 dnd type
 */
 export const BLOCK_TYPE = 'BLOCK_DND';
+export const NOTE_TYPE = 'NOTE_DND';
