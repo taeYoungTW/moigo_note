@@ -1,0 +1,12 @@
+@import '../../styles/_variables.scss';
+
+.read-checklist-block {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	.stopPropagation-el {
+		align-self: flex-start;
+		margin-top: 3px;
+	}
+}
