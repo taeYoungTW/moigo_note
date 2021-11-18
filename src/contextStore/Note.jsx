@@ -8,9 +8,7 @@ const Note = () => {
 	const [_isCreateNoteFormOn, setIsCreateNoteFormOn] = useState(false); // ex. true or false
 	const [_selectedNoteIds, setSelectedNoteIds] = useState([]); // ex. [ id, id, id, ...]
 	const [_allNotes, setAllNotes] = useState([]); // ex. [{title, id, blocks}, {title, id, blocks}, {title, id, blocks}, ... ]
-	const [_modalNote, setModalNote] = useState({}); // ex. {title, id, blocks}
 	const [_searchInput, setSearchInput] = useState('');
-
 	/*
 	 * ------ Actions: useCallback -------------------
 	 */
@@ -69,37 +67,6 @@ const Note = () => {
 	*/
 
 	/*
-	 * ~~~~ About Modal Note (ON/OFF) ~~~~
-	 * - _setModalNote : Add a specific Note to _modalNote (Global State) when user click the specific SummaryNote.
-	 * 									After that, ModalNote Component is rendered
-	 * - _resetModalNote : Reset _modalNote state
-	 * - _updateChecklistOfModalNote : Update A specific ChecklistBlock of _modalNote state
-	 */
-	const _setModalNote = useCallback((note) => {
-		setModalNote(note);
-	}, []);
-
-	const _resetModalNote = useCallback(() => {
-		setModalNote({});
-	}, []);
-
-	const _updateChecklistOfModalNote = useCallback(
-		(targetBlock) =>
-			setModalNote((detailNote) => {
-				const newBlocks = detailNote.blocks.map((block) => {
-					if (block.id === targetBlock.id) {
-						return { ...targetBlock };
-					} else {
-						return { ...block };
-					}
-				});
-
-				return { ...detailNote, blocks: newBlocks };
-			}),
-		[]
-	);
-
-	/*
 	 * ~~~~ About "_allNotes" state ~~~~
 	 * - _addNote : Add a specific Note to "_allNotes" state
 	 * - _deleteNote : Delete a specific Note from "_allNotes" state
@@ -110,6 +77,21 @@ const Note = () => {
 	const _setNotes = useCallback((newNotes) => {
 		setAllNotes([...newNotes]);
 	}, []);
+
+	const _moveBlockToBottomOfNote = useCallback(
+		(noteId, targetBlockIndex) => {
+			_allNotes.map((note) => {
+				if (note.id === noteId) {
+					const newNote = { ...note };
+					const [movedItem] = newNote.blocks.splice(targetBlockIndex, 1);
+					newNote.blocks.push(movedItem);
+					return newNote;
+				}
+				return note;
+			});
+		},
+		[_allNotes]
+	);
 
 	const _addNote = useCallback(
 		(note) => {
@@ -161,7 +143,6 @@ const Note = () => {
 			const newAllNotes = _allNotes.filter((note) => note.id !== newNote.id);
 			newAllNotes.unshift(newNote);
 			setAllNotes(newAllNotes);
-			setModalNote({});
 		},
 		[_allNotes]
 	);
@@ -188,7 +169,6 @@ const Note = () => {
 		_allNotes,
 		_isCreateNoteFormOn,
 		_selectedNoteIds,
-		_modalNote,
 		_searchInput,
 	};
 	const combineActions = {
@@ -200,12 +180,10 @@ const Note = () => {
 		_addSelectedNoteId,
 		_deleteSelectedNoteId,
 		_resetSelectedNoteIds,
-		_setModalNote,
-		_resetModalNote,
 		_updateNote,
 		_updateChecklistOfNote,
-		_updateChecklistOfModalNote,
 		_setSearchInput,
+		_moveBlockToBottomOfNote,
 	};
 
 	return { ...combineStates, ...combineActions };
