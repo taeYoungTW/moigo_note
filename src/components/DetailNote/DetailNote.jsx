@@ -45,14 +45,14 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 	// Render -------------------------------------------------------
 	return (
 		<>
-			<div className="detail_note">
+			<div className="detail-note">
 				<div className="title_container">
 					<h1 className="title">{note.title}</h1>
 					<button className="close_btn" onClick={handleCloseBtnOnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
-				<ReadBlocks blocks={note.blocks} noteId={note.id} isDetailNote={true} />
+				<ReadBlocks blocks={note.blocks} noteId={note.id} />
 				<div className="ctrl_bar">
 					<DeleteBtn
 						className="delete_btn"
