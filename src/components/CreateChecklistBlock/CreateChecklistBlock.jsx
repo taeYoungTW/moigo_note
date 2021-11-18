@@ -5,7 +5,7 @@ import CheckBoxInput from '../CheckBoxInput/CheckBoxInput';
 import ChecklistTextarea from '../ChecklistTextarea/ChecklistTextarea';
 import './CreateChecklistBlock.scss';
 
-const CreateChecklistBlock = ({ block, isUpdate, blockIndex }) => {
+const CreateChecklistBlock = ({ block, blockIndex }) => {
 	// Global States, Actions ------------------------------------
 	const { _addTypeBlock, _updateBlock, _moveBlockToBottom } = useAppAction();
 
@@ -53,7 +53,6 @@ const CreateChecklistBlock = ({ block, isUpdate, blockIndex }) => {
 			<CheckBoxInput
 				blockId={block.id}
 				isDone={block.isDone}
-				location={isUpdate ? 'updateNote' : 'createNoteForm'}
 				handleCheckBoxOnChange={handleCheckBoxOnChange}
 			/>
 			<ChecklistTextarea
@@ -69,7 +68,6 @@ const CreateChecklistBlock = ({ block, isUpdate, blockIndex }) => {
 // PropTypes ------------------------------------------------------
 CreateChecklistBlock.propTypes = {
 	block: PropTypes.object,
-	isUpdate: PropTypes.bool,
 };
 
 export default CreateChecklistBlock;
