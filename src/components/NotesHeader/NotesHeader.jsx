@@ -6,12 +6,12 @@ import {
 	COUNT_OF_SELECTED_NOTE_TEXT,
 	DO_YOU_WANT_TO_DELETE_SELECTED_NOTES_TEXT,
 } from '../../constants/constants';
-import DeleteBtn from '../Common/DeleteBtn';
 import {
 	HEADER_ARROW_BACK_ICON_STYLE,
 	HEADER_DELETE_ICON_STYLE,
 } from '../../constants/iconStyles';
 import PortalConfirm from '../PortalConfirm/PortalConfirm';
+import DeleteBtn from '../DeleteBtn/DeleteBtn';
 
 const NotesHeader = () => {
 	// Global States, Actions ---------------------------------------
