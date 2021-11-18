@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { emptyTextBlockFilter } from '../../utils/emptyTextBlockFilter';
-import CreateContent from '../CreateContent/CreateContent';
+import CreateBlocks from '../CreateBlocks/CreateBlocks';
 import CreateCtrlBar from '../CreateCtrlBar/CreateCtrlBar';
 
 const CreateNoteForm = () => {
@@ -50,7 +50,7 @@ const CreateNoteForm = () => {
 					value={note.title}
 				/>
 			</div>
-			<CreateContent blocks={_blocks} isUpdateNote={false} />
+			<CreateBlocks />
 			<CreateCtrlBar
 				handleSubmitBtnOnClick={handleCreateNoteBtnOnClick}
 				submitBtnName={COMPLETE_TEXT}
