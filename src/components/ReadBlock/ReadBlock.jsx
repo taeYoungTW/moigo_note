@@ -6,7 +6,7 @@ import ReadImgBlock from '../ReadImgBlock/ReadImgBlock';
 import ReadTextBlock from '../ReadTextBlock/ReadTextBlock';
 import './ReadBlock.scss';
 
-const ReadBlock = ({ block, noteId, isDetailNote, blockIndex }) => {
+const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 	const _setUseError = useError();
 
 	const blockRouter = (blockType) => {
@@ -23,7 +23,7 @@ const ReadBlock = ({ block, noteId, isDetailNote, blockIndex }) => {
 					/>
 				);
 			case 'image':
-				if (!isDetailNote) {
+				if (isSummaryNote) {
 					return <></>;
 				}
 				return <ReadImgBlock block={block} key={block.id} />;
@@ -36,11 +36,7 @@ const ReadBlock = ({ block, noteId, isDetailNote, blockIndex }) => {
 		}
 	};
 
-	return (
-		<div className={`read_block ${isDetailNote ? 'detail' : ''}`}>
-			{blockRouter(block.type)}
-		</div>
-	);
+	return <div className={'read_block'}>{blockRouter(block.type)}</div>;
 };
 
 export default ReadBlock;
