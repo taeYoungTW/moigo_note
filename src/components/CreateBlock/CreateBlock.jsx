@@ -5,7 +5,7 @@ import CreateImgBlock from '../CreateImgBlock/CreateImgBlock';
 import CreateTextBlock from '../CreateTextBlock/CreateTextBlock';
 import './CreateBlock.scss';
 
-const CreateBlock = ({ block, isUpdateNote, children, blockIndex }) => {
+const CreateBlock = ({ block, children, blockIndex }) => {
 	// Hook ----------------------------
 	const _setUseError = useError();
 
@@ -15,21 +15,13 @@ const CreateBlock = ({ block, isUpdateNote, children, blockIndex }) => {
 			case 'text':
 				return <CreateTextBlock block={block} />;
 			case 'checklist':
-				return (
-					<CreateChecklistBlock
-						block={block}
-						isUpdate={isUpdateNote}
-						blockIndex={blockIndex}
-					/>
-				);
+				return <CreateChecklistBlock block={block} blockIndex={blockIndex} />;
 			case 'image':
 				return <CreateImgBlock block={block} />;
 			default:
 				_setUseError({
 					message: INVALID_BLOCK_TYPE_TEXT,
-					location: `${
-						isUpdateNote ? 'UpdateNote' : 'CreateNoteForm'
-					}/CreateContent/CreateBlock`,
+					location: 'CreateBlock',
 				});
 				return <></>;
 		}
