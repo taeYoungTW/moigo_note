@@ -1,4 +1,4 @@
-const ImgInput = ({ children, isUpdate, callback }) => {
+const ImgInput = ({ children, callback }) => {
 	const handleImgInputOnChange = (e) => {
 		const {
 			target: { files },
@@ -7,28 +7,25 @@ const ImgInput = ({ children, isUpdate, callback }) => {
 
 		if (aFile) {
 			const reader = new FileReader();
-			reader.onload = (fihishedEvent) => {
+			reader.onload = (finishedEvent) => {
 				const {
 					currentTarget: { result },
-				} = fihishedEvent;
+				} = finishedEvent;
 				callback(result);
 			};
 			reader.readAsDataURL(aFile);
 		}
 	};
 	return (
-		<div className="img_input">
-			<label htmlFor={`${isUpdate ? 'update' : 'create'}-img-input`}>
-				{children}
-			</label>
+		<label>
+			{children}
 			<input
 				type="file"
 				accept=".jpg, .png"
 				onChange={handleImgInputOnChange}
 				style={{ display: 'none' }}
-				id={`${isUpdate ? 'update' : 'create'}-img-input`}
 			/>
-		</div>
+		</label>
 	);
 };
 
