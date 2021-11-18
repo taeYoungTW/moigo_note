@@ -30,9 +30,9 @@ const SummaryNoteCtrl = ({ note }) => {
 		}
 	};
 	return (
-		<div className="ctrl_area">
+		<div className="summary-note-ctrl-bar">
 			<DeleteBtn
-				className="del_summary_note_btn"
+				className="summary-note-delete-btn"
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 				style={SUMMARY_NOTE_DELETE_ICON_STYLE}
 			/>
