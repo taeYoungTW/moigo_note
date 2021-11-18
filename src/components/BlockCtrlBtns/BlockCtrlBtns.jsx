@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback } from 'react';
 import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 import { useAppAction } from '../../contexts/AppStateContext';
-import DeleteBtn from '../Common/DeleteBtn';
+import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import MenuIcon from '@mui/icons-material/Menu';
 import './BlockCtrlBtns.scss';
 
