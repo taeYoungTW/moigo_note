@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ReadContent from '../ReadContent/ReadContent';
-import SummaryNoteThumbnail from '../SummaryNoteImages/SummaryNoteThumbnail';
+import ReadBlocks from '../ReadBlocks/ReadBlocks';
+import SummaryNoteThumbnail from '../SummaryNoteThumbnail/SummaryNoteThumbnail';
+import './SummaryNoteContent.scss';
 
 const SummaryNoteContent = ({ note }) => {
 	// Local States -----------------------------------------------
@@ -34,15 +35,11 @@ const SummaryNoteContent = ({ note }) => {
 	}, [note]);
 
 	return (
-		<div className="summary_area">
+		<div className="summary-note-content">
 			{thumbnail.count !== 0 && <SummaryNoteThumbnail thumbnail={thumbnail} />}
-			<div className="summary_area_content">
-				{note.title && <h1 className="summary_title">{note.title}</h1>}
-				<ReadContent
-					blocks={restBlocks}
-					noteId={note.id}
-					isDetailNote={false}
-				/>
+			<div className="summary-note-title-blocks">
+				{note.title && <h1 className="summary-note-title">{note.title}</h1>}
+				<ReadBlocks blocks={note.blocks} noteId={note.id} isSummaryNote />
 			</div>
 		</div>
 	);
