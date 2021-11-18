@@ -18,7 +18,7 @@ const PortalConfirm = ({
 		setIsConfirmOn(false);
 	};
 
-	const confirmLocation = document.querySelector('#confirm_root');
+	const confirmRoot = document.querySelector('#confirm-root');
 
 	return ReactDOM.createPortal(
 		isConfirmOn ? (
@@ -43,7 +43,7 @@ const PortalConfirm = ({
 		) : (
 			<></>
 		),
-		confirmLocation
+		confirmRoot
 	);
 };
 
