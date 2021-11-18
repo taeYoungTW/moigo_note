@@ -16,6 +16,7 @@
 		align-items: center;
 		padding: 10px 15px;
 		height: 50px;
+		border-bottom: 1px solid $split-color;
 
 		.title {
 			height: 25px;
@@ -33,22 +34,13 @@
 		}
 	}
 
-	.detailNote_content {
-		flex-grow: 1;
-		border-top: 1px solid $split-color;
-		border-bottom: 1px solid $split-color;
-		padding: 10px 15px;
-		max-height: $content-max-height;
-		overflow-y: scroll;
-		@include default_scrollbar;
-	}
-
 	.ctrl_bar {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		height: 50px;
 		padding: 10px 15px;
+		border-top: 1px solid $split-color;
 
 		.delete_btn {
 			@include rm_btn_style;
