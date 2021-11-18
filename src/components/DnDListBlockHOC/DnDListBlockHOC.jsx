@@ -20,8 +20,8 @@ const DnDListBlockHOC = ({ blockId, blockIndex, Component, ComponentProp }) => {
 	const moveBlock = useCallback(
 		(dragIndex, hoverIndex) => {
 			const newBlocks = [..._blocks];
-			const [dragedBlock] = newBlocks.splice(dragIndex, 1);
-			newBlocks.splice(hoverIndex, 0, dragedBlock);
+			const [draggedBlock] = newBlocks.splice(dragIndex, 1);
+			newBlocks.splice(hoverIndex, 0, draggedBlock);
 			_initBlocks(newBlocks);
 		},
 		[_blocks, _initBlocks]
