@@ -23,8 +23,11 @@ const SummaryNoteSelector = ({ noteId }) => {
 	}, [_deleteSelectedNoteId, noteId]);
 
 	useEffect(() => {
-		setIsSelected(_selectedNoteIds.includes(noteId));
-	}, [_selectedNoteIds, noteId]);
+		const newIsSelected = _selectedNoteIds.includes(noteId);
+		if (newIsSelected !== isSelected) {
+			setIsSelected(newIsSelected);
+		}
+	}, [_selectedNoteIds, noteId, isSelected]);
 
 	return (
 		<div
