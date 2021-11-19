@@ -10,10 +10,7 @@ const ReadChecklistBlock = ({ block, noteId, blockIndex }) => {
 	const { _updateChecklistOfNote, _moveBlockToBottomOfNote } = useAppAction();
 
 	// Event Handler ----------------------------------------------
-	/* - handleCheckBoxOnChange
-	 * ReadChecklistBlock의 경우 DetailNote와 SummaryNote에서 공유되어 사용됩니다.
-	 * 기본적으로 "_allNotes"의 특정 note의 특정 checklistblock을 update합니다.
-	 */
+
 	const handleCheckBoxOnChange = useCallback(
 		(e) => {
 			const {
