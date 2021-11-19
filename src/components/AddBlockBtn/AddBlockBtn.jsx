@@ -4,8 +4,8 @@ import { ADD_BLOCK_BTN_ICON_STYLE } from '../../constants/iconStyles';
 
 const AddBlockBtn = ({ Icon, eventHandler }) => {
 	return (
-		<div className="add-btn-icon-container">
-			<Icon sx={ADD_BLOCK_BTN_ICON_STYLE} onClick={eventHandler} />
+		<div className="add-btn-icon-container" onClick={eventHandler}>
+			<Icon sx={ADD_BLOCK_BTN_ICON_STYLE} />
 		</div>
 	);
 };
