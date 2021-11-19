@@ -23,7 +23,7 @@ const Header = () => {
 		[_setSearchInput]
 	);
 	return (
-		<>
+		<div className="default-header">
 			<div className="align-left">
 				<div className="title-container">
 					<h1 className="logo">{MOIGO_TEXT}</h1>
@@ -44,7 +44,7 @@ const Header = () => {
 				<CtrlWindowBtn Icon={CropSquareIcon} />
 				<CtrlWindowBtn Icon={CloseIcon} />
 			</div>
-		</>
+		</div>
 	);
 };
 
