@@ -5,7 +5,7 @@ import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import MenuIcon from '@mui/icons-material/Menu';
 import './BlockCtrlBtns.scss';
 
-const BlockCtrlBtns = forwardRef(({ blockId }, ref) => {
+const BlockCtrlBtns = forwardRef(({ blockId }, dragRef) => {
 	const { _deleteBlock } = useAppAction();
 
 	const handleDeleteBtnOnClick = useCallback(() => {
@@ -18,7 +18,7 @@ const BlockCtrlBtns = forwardRef(({ blockId }, ref) => {
 				style={CTRL_BLOCK_ICON_STYLE}
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 			/>
-			<button type="button" ref={ref}>
+			<button type="button" ref={dragRef}>
 				<MenuIcon sx={CTRL_BLOCK_ICON_STYLE} />
 			</button>
 		</div>
