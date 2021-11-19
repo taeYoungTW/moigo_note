@@ -12,8 +12,10 @@ const SummaryNoteCtrl = ({ note }) => {
 	// Global States & Actions --------------
 	const { _deleteSelectedNoteId, _deleteNote } = useAppAction();
 	const { _selectedNoteIds } = useAppState();
+
 	// Local States --------------------------
 	const [isConfirmOn, setIsConfirmOn] = useState(false);
+
 	// Event Handler ----------------------------------------------
 	const handleDeleteBtnOnClick = useCallback((e) => {
 		e.stopPropagation();
