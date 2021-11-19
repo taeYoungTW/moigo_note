@@ -1,10 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { NOTE_TYPE } from '../../constants/constants';
+import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
-const DnDGridNoteHOC = ({ id, index, note, moveNotes, Component }) => {
+const DnDGridNoteHOC = ({ id, index, note, Component }) => {
+	// Global States, Actions ---------------------------------------
+	const { _setNotes } = useAppAction();
+	const { _allNotes } = useAppState();
+
+	// Function ----------------------
+	const moveNote = useCallback(
+		(dragIndex, hoverIndex) => {
+			const newNotes = [..._allNotes];
+			const [draggedNote] = newNotes.splice(dragIndex, 1);
+			newNotes.splice(hoverIndex, 0, draggedNote);
+			_setNotes(newNotes);
+		},
+		[_allNotes, _setNotes]
+	);
+
+	// Ref ------------------------------------------
 	const noteRef = useRef(null);
 
+	// React-dnd Hooks -------------------------------
 	const [, drop] = useDrop({
 		accept: NOTE_TYPE,
 		hover(dragItem, monitor) {
@@ -14,7 +32,7 @@ const DnDGridNoteHOC = ({ id, index, note, moveNotes, Component }) => {
 				return;
 			}
 
-			moveNotes(dragIndex, index);
+			moveNote(dragIndex, index);
 			dragItem.dragIndex = index;
 		},
 	});
