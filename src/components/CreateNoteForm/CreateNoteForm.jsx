@@ -13,21 +13,18 @@ const CreateNoteForm = () => {
 	const { _addNote, _setIsCreateNoteFormOn, _resetBlocks } = useAppAction();
 
 	// Local State -------------------------------------
-	const [note, setNote] = useState({
-		title: '',
-		blocks: [],
-	});
+	const [title, setTitle] = useState('');
 
 	// Event Handler ----------------------------------
 	const handleCreateNoteBtnOnClick = () => {
 		const filteredBlocks = emptyTextBlockFilter(_blocks);
-		_addNote({ ...note, id: uuid(), blocks: [...filteredBlocks] });
+		_addNote({ title, id: uuid(), blocks: [...filteredBlocks] });
 		_setIsCreateNoteFormOn(false);
 	};
 
 	const handleTitleInputOnChange = (e) => {
 		const { value } = e.target;
-		setNote({ title: value });
+		setTitle(value);
 	};
 
 	// useEffects ------------------------------------
@@ -47,7 +44,7 @@ const CreateNoteForm = () => {
 					type="text"
 					placeholder={TITLE_TEXT}
 					onChange={handleTitleInputOnChange}
-					value={note.title}
+					value={title}
 				/>
 			</div>
 			<CreateBlocks />
