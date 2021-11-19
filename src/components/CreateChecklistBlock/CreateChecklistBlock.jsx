@@ -7,9 +7,12 @@ import './CreateChecklistBlock.scss';
 
 const CreateChecklistBlock = ({ block, blockIndex }) => {
 	// Global States, Actions ------------------------------------
-	const { _addTypeBlock, _updateBlock, _moveBlockToBottom } = useAppAction();
+	const { _updateBlock, _moveBlockToBottom } = useAppAction();
 
 	// Event Handler --------------------------------------------
+	/* handleCheckBoxOnChange가 외부에서 전달하는 이유
+	 * CheckBoxInput의 경우 Read와 Create 모두 사용하기 때문에 onChange에 대한 이벤트 핸들러 로직이 다릅니다.
+	 */
 	const handleCheckBoxOnChange = useCallback(
 		(e) => {
 			const {
@@ -23,44 +26,14 @@ const CreateChecklistBlock = ({ block, blockIndex }) => {
 		[_updateBlock, block, _moveBlockToBottom, blockIndex]
 	);
 
-	const handleChecklistContentOnChange = useCallback(
-		(e) => {
-			const {
-				target: { value },
-			} = e;
-			_updateBlock({ ...block, content: value });
-		},
-		[_updateBlock, block]
-	);
-
-	const handleOnKeyDown = (e) => {
-		const { keyCode, shiftKey } = e;
-		if (keyCode !== 13) {
-			return;
-		}
-		e.preventDefault();
-		if (!shiftKey) {
-			_addTypeBlock('checklist');
-		}
-		if (shiftKey) {
-			_updateBlock({ ...block, content: (block.content += '\n') });
-		}
-	};
-
 	// Render ------------------------------------------
 	return (
 		<div className="checklist">
 			<CheckBoxInput
-				blockId={block.id}
 				isDone={block.isDone}
 				handleCheckBoxOnChange={handleCheckBoxOnChange}
 			/>
-			<ChecklistTextarea
-				content={block.content}
-				isDone={block.isDone}
-				handleChecklistContentOnChange={handleChecklistContentOnChange}
-				handleOnKeyDown={handleOnKeyDown}
-			/>
+			<ChecklistTextarea block={block} />
 		</div>
 	);
 };
