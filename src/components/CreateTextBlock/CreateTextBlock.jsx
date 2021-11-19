@@ -12,9 +12,6 @@ const CreateTextBlock = ({ block }) => {
 	// Local States ------------------------------------------------
 	// const [textBlock, setTextBlock] = useState(block);
 
-	// Ref --------------------------------------------------------
-	const textRef = useRef(null);
-
 	// Event Handler ----------------------------------------------
 	const handleTextOnChange = useCallback(
 		(e) => {
@@ -28,6 +25,9 @@ const CreateTextBlock = ({ block }) => {
 		},
 		[_updateBlock, block]
 	);
+
+	// Ref --------------------------------------------------------
+	const textRef = useRef(null);
 
 	// hook : textarea auto height -----------------------------
 	useAutoHeightTextarea(textRef, block.text);
