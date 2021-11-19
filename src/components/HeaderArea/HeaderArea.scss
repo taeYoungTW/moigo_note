@@ -1,18 +1,13 @@
 @import '../../styles/_variables.scss';
 
 header {
+	min-width: $header-min-width;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 99;
 
-	.header-fixed {
-		background-color: $header-color;
-		height: $header-height;
-
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+	background-color: $header-color;
+	height: $header-height;
 }
