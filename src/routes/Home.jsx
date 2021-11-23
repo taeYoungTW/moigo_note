@@ -3,7 +3,7 @@ import Main from '../components/Main/Main';
 
 const Home = () => {
 	return (
-		<div className="note_app">
+		<div className="note-app">
 			<HeaderArea />
 			<Main />
 		</div>

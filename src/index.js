@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Router from './routes/router';
+import Router from './routes/Router';
 import reportWebVitals from './reportWebVitals';
 import { AppStateProvider } from './contexts/AppStateContext';
 

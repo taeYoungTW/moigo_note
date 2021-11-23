@@ -1,58 +1,51 @@
 @import '../../styles/variables.scss';
 
-.align_left {
+.default-header {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 
-	.title_ctnr {
+	.align-left {
 		display: flex;
 		align-items: center;
-		margin: 0 25px;
-		color: $header-logo-color;
-		user-select: none;
 
-		.logo {
-			font-size: 1.1rem;
-			margin-right: 10px;
-		}
-		.title {
-			font-size: 0.8rem;
-			font-weight: 500;
-		}
-	}
+		.title-container {
+			display: flex;
+			align-items: center;
+			margin: 0 25px;
+			color: $header-logo-color;
+			user-select: none;
 
-	.search_ctnr {
-		width: $search_cntr_width;
-		height: $search_cntr_height;
-		display: flex;
-		align-items: center;
-		background-color: $search-bg-color;
-		border-radius: 15px;
-		padding: 0 10px;
-
-		.search_input {
-			color: $search-color;
-			font-size: 0.9rem;
-			flex-grow: 1;
-			@include rm_input_style;
-			&::placeholder {
-				color: black;
+			.logo {
+				font-size: 1.1rem;
+				margin-right: 10px;
+			}
+			.title {
+				font-size: 0.8rem;
 				font-weight: 500;
-				font-size: 0.9rem;
 			}
 		}
-	}
-}
 
-.window_ctrl {
-	padding-right: 15px;
-	.ctrl_window_btn {
-		width: 27px;
-		@include rm_btn_style;
-		color: $search-color;
-		.ctrl_window_btn_icon:hover {
-			color: $header-ctrl-hover-color;
-			transition: 0.2s;
+		.search-container {
+			width: $search-container-width;
+			height: $search-container-height;
+			display: flex;
+			align-items: center;
+			background-color: $search-bg-color;
+			border-radius: 15px;
+			padding: 0 10px;
+
+			.search-input {
+				color: $search-color;
+				font-size: 0.9rem;
+				flex-grow: 1;
+				@include rm_input_style;
+				&::placeholder {
+					color: black;
+					font-weight: 500;
+					font-size: 0.9rem;
+				}
+			}
 		}
 	}
 }

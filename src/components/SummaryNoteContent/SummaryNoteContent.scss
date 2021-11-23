@@ -1,0 +1,21 @@
+@import '../../styles/_variables.scss';
+
+.summary-note-content {
+	height: 280px;
+	overflow-x: hidden;
+	@include default_scrollbar;
+
+	.summary-note-title-blocks {
+		padding: 0 15px;
+
+		.summary-note-title {
+			margin-top: 30px;
+			margin-bottom: 20px;
+			font-size: 1.2rem;
+			font-weight: 400;
+			color: $black-text-color;
+			@include newline;
+			width: $summary-block-width;
+		}
+	}
+}

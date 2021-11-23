@@ -1,67 +1,18 @@
 @import '../../styles/_variables.scss';
 
-.read_block {
-	.read_text_block {
-		@include newline;
-		font-size: 0.9rem;
-		color: $black-text-color;
-		font-weight: 300;
-		line-height: 28px;
-	}
-
-	.read_checklist_block {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 10px;
-		.stopPropagation_el {
-			align-self: flex-start;
-			margin-top: 3px;
-			.checkbox_input {
-				display: none;
-			}
-		}
-		.content {
-			flex-grow: 1;
-			color: $black-text-color;
-			font-weight: 300;
-			font-size: 0.9rem;
-			line-height: 17px;
-			overflow: hidden;
-		}
+.detail-note {
+	.read-blocks {
+		flex-grow: 1;
+		padding: 10px 15px;
+		max-height: $content-max-height;
+		overflow: hidden;
+		overflow-y: scroll;
+		@include default_scrollbar;
 	}
 }
 
-.read_block.detail {
-	margin: 10px 0;
-	.read_text_block {
-		@include newline;
-		font-size: 0.9rem;
-		color: $black-text-color;
-		font-weight: 300;
-		line-height: 18px;
-	}
-
-	.read_checklist_block {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 10px;
-
-		.stopPropagation_el {
-			align-self: flex-start;
-			margin-top: 3px;
-			.checkbox_input {
-				display: none;
-			}
-		}
-		.content {
-			flex-grow: 1;
-			color: $black-text-color;
-			font-weight: 300;
-			font-size: 0.9rem;
-			line-height: 17px;
-			@include newline;
-		}
+.summary-note {
+	.read-blocks {
+		overflow: hidden;
 	}
 }

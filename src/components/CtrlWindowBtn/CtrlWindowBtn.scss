@@ -1,0 +1,14 @@
+@import '../../styles/_variables.scss';
+
+.window-ctrl {
+	padding-right: 15px;
+	.ctrl-window-btn {
+		width: 27px;
+		@include rm_btn_style;
+		color: $search-color;
+		.ctrl-window-btn-icon:hover {
+			color: $header-ctrl-hover-color;
+			transition: 0.2s;
+		}
+	}
+}

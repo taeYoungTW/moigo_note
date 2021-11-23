@@ -1,19 +1,24 @@
 import { useAppState } from '../../contexts/AppStateContext';
-import SummaryNote from '../SummaryNote/SummaryNote';
 import './ReadAllNotes.scss';
-import ModalNote from '../ModalNote/ModalNote';
+import DnDGridNoteHOC from '../DnDGridNoteHOC/DnDGridNoteHOC';
+import SummaryNote from '../SummaryNote/SummaryNote';
 
 const ReadAllNotes = () => {
 	// Global States, Actions ---------------------------------------
-	const { _allNotes, _modalNote } = useAppState();
+	const { _allNotes } = useAppState();
 
 	// Render -----------------------------------------------
 	return (
-		<section className="read_all_notes">
-			{_allNotes.map((note) => (
-				<SummaryNote note={note} key={note.id} />
+		<section className="read-all-notes">
+			{_allNotes.map((note, i) => (
+				<DnDGridNoteHOC
+					key={note.id}
+					id={note.id}
+					index={i}
+					Component={SummaryNote}
+					note={note}
+				/>
 			))}
-			{_modalNote?.id && <ModalNote />}
 		</section>
 	);
 };

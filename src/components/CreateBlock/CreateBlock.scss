@@ -1,0 +1,9 @@
+@import '../../styles/_variables.scss';
+
+.create-block {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 15px;
+	min-height: 45px;
+}

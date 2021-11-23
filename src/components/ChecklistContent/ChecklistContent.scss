@@ -1,0 +1,10 @@
+@import '../../styles/_variables.scss';
+
+.checklist-content {
+	flex-grow: 1;
+	color: $black-text-color;
+	font-weight: 300;
+	font-size: 0.9rem;
+	line-height: 17px;
+	@include newline;
+}

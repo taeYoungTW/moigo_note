@@ -1,5 +1,9 @@
 import { useCallback, useState } from 'react';
-import { NO_MATCHED_ID_IN_BLOCKS_TEXT } from '../constants/constants';
+import { v4 as uuid } from 'uuid';
+import {
+	INVALID_BLOCK_TYPE_TEXT,
+	NO_MATCHED_ID_IN_BLOCKS_TEXT,
+} from '../constants/constants';
 import useError from '../hooks/useError';
 
 // Manage Global States & Actions
@@ -21,7 +25,12 @@ const Block = () => {
 	 *  	type: 'checklist',
 	 *  	isDone: false,
 	 *  	content: ''
-	 *	}
+	 *	},
+	 * 	{
+	 * 		id: '',
+	 * 		type: 'image',
+	 * 		dataUrl: ''
+	 * 	}
 	 *]
 	 */
 	const [_blocks, setBlocks] = useState([]);
@@ -31,7 +40,7 @@ const Block = () => {
 	 * ~~~~ About Blocks ~~~~
 	 * - _resetBlocks : Set "_blocks" to [] (Empty Array)
 	 * - _initBlocks : Set "_blocks" to already existed blocks of Note
-	 * - _addBlock : Add A specific Block to "_blocks"
+	 * - _addTypeBlock : Add A specific Block to "_blocks"
 	 * - _deleteBlock : Delete A specific Block from "_blocks"
 	 * - _updateBlock : Update A specific Block of "_blocks"
 	 */
@@ -43,9 +52,36 @@ const Block = () => {
 		setBlocks(blocks);
 	}, []);
 
-	const _addBlock = useCallback((block) => {
-		setBlocks((blocks) => [...blocks, block]);
-	}, []);
+	const _addTypeBlock = useCallback(
+		(type, dataUrl) => {
+			switch (type) {
+				case 'text':
+					setBlocks((blocks) => [...blocks, { id: uuid(), type, text: '' }]);
+					break;
+				case 'checklist':
+					setBlocks((blocks) => [
+						...blocks,
+						{
+							id: uuid(),
+							type,
+							content: '',
+							isDone: false,
+						},
+					]);
+					break;
+				case 'image':
+					setBlocks((blocks) => [...blocks, { id: uuid(), type, dataUrl }]);
+					break;
+				default:
+					_setUseError({
+						message: `${INVALID_BLOCK_TYPE_TEXT}, A wrong input: ${type}`,
+						location: '_addTypeBlock',
+					});
+					break;
+			}
+		},
+		[_setUseError]
+	);
 
 	const _deleteBlock = useCallback((blockId) => {
 		setBlocks((blocks) => blocks.filter((block) => block.id !== blockId));
@@ -73,14 +109,25 @@ const Block = () => {
 		[_blocks, _setUseError]
 	);
 
+	const _moveBlockToBottom = useCallback(
+		(targetBlockIndex) => {
+			const newBlocks = [..._blocks];
+			const [movedItem] = newBlocks.splice(targetBlockIndex, 1);
+			newBlocks.push(movedItem);
+			setBlocks(newBlocks);
+		},
+		[_blocks]
+	);
+
 	// ------ Combine States & Actions ---------------
 	const combineStates = { _blocks };
 	const combineActions = {
-		_addBlock,
 		_deleteBlock,
 		_updateBlock,
 		_resetBlocks,
 		_initBlocks,
+		_addTypeBlock,
+		_moveBlockToBottom,
 	};
 
 	return { ...combineStates, ...combineActions };
