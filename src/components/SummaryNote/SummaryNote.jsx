@@ -1,80 +1,42 @@
 import './SummaryNote.scss';
-import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import { useCallback, useState } from 'react';
+import { useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import PortalConfirm from '../Common/PortalConfirm';
-import {
-	DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT,
-	SUMMARY_NOTE_DELETE_ICON_FONT_SIZE,
-} from '../../constants/constants';
-import ReadContent from '../ReadContent/ReadContent';
-import SelectNote from '../SelectNote/SelectNote';
-import DeleteNoteBtn from '../Common/DeleteBtn';
 import useSearch from '../../hooks/useSearch';
-import SummaryNoteImages from '../SummaryNoteImages/SummaryNoteImages';
+import SummaryNoteContent from '../SummaryNoteContent/SummaryNoteContent';
+import SummaryNoteCtrl from '../SummaryNoteCtrl/SummaryNoteCtrl';
+import { forwardRef, useState } from 'react';
+import ModalNote from '../ModalNote/ModalNote';
 
-const SummaryNote = ({ note, isDragging }) => {
+const SummaryNote = forwardRef(({ note, isDragging }, dndRef) => {
 	// Global States & Actions --------------
-	const { _deleteSelectedNoteId, _setModalNote, _deleteNote } = useAppAction();
-	const { _selectedNoteIds, _searchInput } = useAppState();
+	const { _searchInput } = useAppState();
 
 	// Hook --------------------------------------
 	const isDisplay = useSearch(_searchInput, note);
 
-	// Local States --------------------------
-	const [isConfirmOn, setIsConfirmOn] = useState(false);
-
-	// Event Handler ----------------------------------------------
-	const handleDeleteBtnOnClick = useCallback((e) => {
-		e.stopPropagation();
-		setIsConfirmOn(true);
-	}, []);
-
-	const handleDeleteConfirmBtnOnClick = () => {
-		const id = note.id;
-		setIsConfirmOn(false);
-		_deleteNote(id);
-		const isSelected = _selectedNoteIds.includes(id);
-		if (isSelected) {
-			_deleteSelectedNoteId(id);
-		}
-	};
+	// Local State
+	const [isModalOn, setIsModalOn] = useState(false);
 
 	// Render -------------------------------------------
-	return isDisplay ? (
+	return (
 		<article
-			className="summary_note"
+			className="summary-note"
 			onClick={() => {
-				_setModalNote(note);
+				setIsModalOn(true);
 			}}
-			style={{ opacity: isDragging ? 0 : 1 }}
+			style={{ opacity: isDragging ? 0 : 1, display: isDisplay ? '' : 'none' }}
+			ref={dndRef}
 		>
-			<div className="summary_area">
-				<SummaryNoteImages noteId={note.id} />
-				<div className="summary_area_content">
-					{note.title && <h1 className="summary_title">{note.title}</h1>}
-					<ReadContent note={note} isDetailNote={false} />
-				</div>
-			</div>
-			<div className="ctrl_area">
-				<DeleteNoteBtn
-					className="del_summary_note_btn"
-					handleDeleteBtnOnClick={handleDeleteBtnOnClick}
-					fontSize={SUMMARY_NOTE_DELETE_ICON_FONT_SIZE}
-				/>
-				<SelectNote noteId={note.id} />
-			</div>
-			<PortalConfirm
-				question={DO_YOU_WANT_TO_DELETE_SLECTED_NOTES_TEXT}
-				isConfirmOn={isConfirmOn}
-				setIsConfirmOn={setIsConfirmOn}
-				confirmCallback={handleDeleteConfirmBtnOnClick}
-			/>
+			<SummaryNoteContent note={note} />
+			<SummaryNoteCtrl note={note} />
+			{isModalOn ? (
+				<ModalNote note={note} setIsModalOn={setIsModalOn} />
+			) : (
+				<></>
+			)}
 		</article>
-	) : (
-		<></>
 	);
-};
+});
 
 SummaryNote.propTypes = {
 	note: PropTypes.object,

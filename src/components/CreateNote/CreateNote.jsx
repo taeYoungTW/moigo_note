@@ -1,37 +1,41 @@
 import './CreateNote.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AddBtn from '../Common/AddBtn';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
-import useAddBlock from '../../hooks/useAddBlock';
-import ImgInput from '../Common/ImgInput';
+import AddBlockBtn from '../AddBlockBtn/AddBlockBtn';
+import ImgInput from '../ImgInput/ImgInput';
 
 const CreateNote = () => {
 	// Global States & Actions --------------------------
-	const { _changeIsOnCreateNoteForm, _addBlock } = useAppAction();
+	const { _setIsCreateNoteFormOn, _addTypeBlock } = useAppAction();
 
 	// Event Handler --------------------------
-	// hook을 사용한 Event Handler
-	const handleAddBlockBtnOnClick = useAddBlock(_addBlock, () => {
-		_changeIsOnCreateNoteForm(true);
-	});
+
+	const handleAddBlockBtnOnClick = (type, dataUrl) => {
+		_addTypeBlock(type, dataUrl);
+		_setIsCreateNoteFormOn(true);
+	};
 
 	// Render -----------------------
 	return (
-		<div className="create_note">
+		<div className="create-note">
 			<button
-				className="add_text_btn"
+				className="add-text-btn"
 				onClick={() => {
 					handleAddBlockBtnOnClick('text');
 				}}
 			>
 				{WRITE_NOTE_TEXT}
 			</button>
-			<ImgInput addEventHandler={handleAddBlockBtnOnClick}>
-				<AddBtn Icon={InsertPhotoIcon} isImgBtn />
+			<ImgInput
+				callback={(dataUrl) => {
+					handleAddBlockBtnOnClick('image', dataUrl);
+				}}
+			>
+				<AddBlockBtn Icon={InsertPhotoIcon} />
 			</ImgInput>
-			<AddBtn
+			<AddBlockBtn
 				Icon={FormatListBulletedIcon}
 				eventHandler={() => {
 					handleAddBlockBtnOnClick('checklist');

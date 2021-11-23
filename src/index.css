@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
 body {
-	min-width: 850px;
+	min-width: 870px;
 	margin: 0;
 	height: 100vh;
 	overflow-y: hidden;
@@ -21,7 +21,3 @@ code {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
-/* 
-header-z-index : 99
-*/

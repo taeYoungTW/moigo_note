@@ -1,0 +1,34 @@
+@import '../../styles/_variables.scss';
+
+.confirm-container {
+	@include modal;
+
+	.confirm {
+		@include absolute_center_wh;
+		@include default_border_radius;
+		background-color: $confirm-bgc;
+		padding: 30px;
+		.question {
+			font-size: 0.9rem;
+			font-weight: 500;
+			width: 250px;
+			margin: 0;
+			margin-bottom: 30px;
+		}
+
+		.btns {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			button {
+				@include rm_btn_style;
+				background-color: $black-btn-color;
+				font-weight: 400;
+				color: $white-text-color;
+				font-size: 0.8rem;
+				padding: 0 13px;
+				height: 28px;
+			}
+		}
+	}
+}

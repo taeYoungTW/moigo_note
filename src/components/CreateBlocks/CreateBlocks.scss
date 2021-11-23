@@ -1,74 +1,8 @@
 @import '../../styles/_variables.scss';
 
-.create_block {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 15px;
-	height: fit-content;
-	.text_block_textarea {
-		resize: none;
-		overflow-y: hidden;
-		@include rm_input_style;
-		font-size: 0.9rem;
-		line-height: 21px;
-		color: $input-value-gray-color;
-		width: 430px;
-
-		&::placeholder {
-			color: $input-value-default-color;
-		}
-	}
-
-	.checklist {
-		display: flex;
-		justify-content: space-between;
-		gap: 10px;
-		width: 430px;
-
-		.checkbox_input {
-			display: none;
-		}
-		.checkbox_label {
-			margin-top: 3px;
-		}
-		.checklist_block_textarea {
-			flex-grow: 1;
-			resize: none;
-			overflow-y: hidden;
-			@include rm_input_style;
-			font-size: 0.9rem;
-
-			line-height: 21px;
-			color: $input-value-gray-color;
-
-			&::placeholder {
-				color: $input-value-default-color;
-			}
-		}
-	}
-
-	.img {
-		max-width: 430px;
-	}
-
-	.btns {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-		button {
-			display: none;
-		}
-	}
-
-	&:hover {
-		background-color: $hover-block-bgc;
-		button {
-			display: inline-block;
-			@include rm_btn_style;
-			color: $gray-btn-color;
-			background-color: transparent;
-		}
-	}
+.create-blocks {
+	max-height: $content-max-height;
+	overflow-y: scroll;
+	min-height: 45px;
+	@include default_scrollbar;
 }
