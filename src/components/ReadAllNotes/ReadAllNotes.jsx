@@ -2,6 +2,7 @@ import { useAppState } from '../../contexts/AppStateContext';
 import './ReadAllNotes.scss';
 import DnDGridNoteHOC from '../DnDGridNoteHOC/DnDGridNoteHOC';
 import SummaryNote from '../SummaryNote/SummaryNote';
+import DragNoteLayer from '../DragNoteLayer/DragNoteLayer';
 
 const ReadAllNotes = () => {
 	// Global States, Actions ---------------------------------------
@@ -19,6 +20,7 @@ const ReadAllNotes = () => {
 					note={note}
 				/>
 			))}
+			<DragNoteLayer />
 		</section>
 	);
 };
