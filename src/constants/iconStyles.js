@@ -13,7 +13,7 @@ export const CHECKBOX_ICON_STYLE = {
 export const CHECKLIST_CONTENT_DECORATION_VALUE =
 	'solid line-through #767676 1px';
 
-export const CTRL_BLOCK_ICON_STYLE = { fontSize: 18 };
+export const CTRL_BLOCK_ICON_STYLE = { fontSize: 18, color: '#767676' };
 
 export const HEADER_DELETE_ICON_STYLE = {
 	fontSize: 19,
