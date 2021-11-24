@@ -5,7 +5,6 @@
 	background-color: $create-note-container-color;
 	border: 1px solid $create-note-container-border-color;
 	@include default_border_radius;
-	margin: $create-note-form-margin;
 
 	.title {
 		height: $create-note-container-height;
