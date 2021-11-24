@@ -1,10 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-
 import { ItemTypes } from '../../constants/constants';
-
-import './DnDListBlockHOC.scss';
 import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 
@@ -33,7 +30,7 @@ const DnDListBlockHOC = ({ block, blockIndex, Component, ComponentProp }) => {
 			return { isOver: monitor.isOver() };
 		},
 		hover(dragItem, monitor) {
-			const { dragIndex } = dragItem;
+			const { dragIndex, blockHeight } = dragItem;
 
 			if (dragIndex === blockIndex) {
 				return;
@@ -45,20 +42,12 @@ const DnDListBlockHOC = ({ block, blockIndex, Component, ComponentProp }) => {
 
 			const hoverBoundingRect = currentRef.current?.getBoundingClientRect();
 
-			const { bottom, top } = hoverBoundingRect;
-			const dropMiddleY = top + (bottom - top) / 2;
-			const dragClientY = monitor.getClientOffset().y;
+			const { bottom: dropBottom } = hoverBoundingRect;
+			const cursorClientY = monitor.getClientOffset().y;
 
 			// 위에서 아래로 이동하는 경우
 			if (dragIndex < blockIndex) {
-				if (dragClientY < dropMiddleY) {
-					return;
-				}
-			}
-
-			// 아래에서 위로 이동하는 경우
-			if (dragIndex > blockIndex) {
-				if (dragClientY > dropMiddleY) {
+				if (cursorClientY < dropBottom - blockHeight) {
 					return;
 				}
 			}
