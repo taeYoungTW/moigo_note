@@ -2,8 +2,11 @@ import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import { createPortal } from 'react-dom';
 import { ItemTypes } from '../../constants/constants';
-import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
+import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 import CreateBlock from '../CreateBlock/CreateBlock';
+import MenuIcon from '@mui/icons-material/Menu';
+import DeleteIcon from '@mui/icons-material/Delete';
+import './DragBlockLayer.scss';
 
 const DragBlockLayer = () => {
 	const { itemType, item, currentOffset, initialOffset } = useDragLayer(
@@ -26,13 +29,17 @@ const DragBlockLayer = () => {
 						className="block-drag-layer"
 						style={{
 							width: '546px',
-							transform: `translate(${initialOffset?.x - 500}px, ${
-								currentOffset?.y
+							backgroundColor: '#f1f9fc',
+							transform: `translate(${initialOffset?.x - 501}px, ${
+								currentOffset?.y - item.blockHeight / 2
 							}px)`,
 						}}
 					>
 						<CreateBlock block={item.block}>
-							<BlockCtrlBtns />
+							<div className="block-drag-layer-ctrl-btns">
+								<DeleteIcon sx={CTRL_BLOCK_ICON_STYLE} />
+								<MenuIcon sx={CTRL_BLOCK_ICON_STYLE} />
+							</div>
 						</CreateBlock>
 					</div>
 				);
