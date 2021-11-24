@@ -1,0 +1,9 @@
+@import '../../styles/_variables.scss';
+
+.block-drag-layer-ctrl-btns {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 22px;
+	margin-right: 5px;
+}
