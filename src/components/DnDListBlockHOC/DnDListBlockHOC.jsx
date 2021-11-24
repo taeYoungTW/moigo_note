@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
-import { BLOCK_TYPE } from '../../constants/constants';
+import { ItemTypes } from '../../constants/constants';
 
 import './DnDListBlockHOC.scss';
 import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
@@ -29,7 +29,7 @@ const DnDListBlockHOC = ({ blockId, blockIndex, Component, ComponentProp }) => {
 
 	// React-Dnd Hooks
 	const [{ isOver }, drop] = useDrop({
-		accept: BLOCK_TYPE,
+		accept: ItemTypes.BLOCK,
 		collect: (monitor) => {
 			return { isOver: monitor.isOver() };
 		},
@@ -56,7 +56,7 @@ const DnDListBlockHOC = ({ blockId, blockIndex, Component, ComponentProp }) => {
 	});
 
 	const [, drag, preview] = useDrag({
-		type: BLOCK_TYPE,
+		type: ItemTypes.BLOCK,
 		item: () => ({ dragId: blockId, dragIndex: blockIndex }),
 	});
 
