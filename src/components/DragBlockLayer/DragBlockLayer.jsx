@@ -30,6 +30,7 @@ const DragBlockLayer = () => {
 						style={{
 							width: '546px',
 							backgroundColor: '#f1f9fc',
+							opacity: 0.8,
 							transform: `translate(${initialOffset?.x - 501}px, ${
 								currentOffset?.y - item.blockHeight / 2
 							}px)`,
