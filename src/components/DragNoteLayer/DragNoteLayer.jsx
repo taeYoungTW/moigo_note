@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDragLayer } from 'react-dnd';
+import { createPortal } from 'react-dom';
 import { ItemTypes } from '../../constants/constants';
 import SummaryNote from '../SummaryNote/SummaryNote';
 // import './DragNoteLayer.scss';
@@ -34,23 +35,9 @@ const DragNoteLayer = () => {
 		}
 	};
 
-	return (
-		<div
-			className="drag-layer-area"
-			style={{
-				position: 'fixed',
-				pointerEvents: 'none',
-				left: 0,
-				top: 0,
-				width: '100%',
-				height: '100%',
-				zIndex: 100,
-			}}
-			/* js의 style에 주지 않고 SCSS로 지정하는 경우, zIndex 문제가 발생 함 */
-		>
-			{renderItem()}
-		</div>
-	);
+	const dragLayoutRoot = document.querySelector('#drag-layout-root');
+
+	return createPortal(renderItem(), dragLayoutRoot);
 };
 
 export default DragNoteLayer;
