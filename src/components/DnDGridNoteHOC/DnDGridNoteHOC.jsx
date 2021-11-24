@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { NOTE_TYPE } from '../../constants/constants';
+import { getEmptyImage } from 'react-dnd-html5-backend';
+import { ItemTypes } from '../../constants/constants';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 
 const DnDGridNoteHOC = ({ id, index, note, Component }) => {
@@ -24,7 +25,7 @@ const DnDGridNoteHOC = ({ id, index, note, Component }) => {
 
 	// React-dnd Hooks -------------------------------
 	const [, drop] = useDrop({
-		accept: NOTE_TYPE,
+		accept: ItemTypes.NOTE,
 		hover(dragItem, monitor) {
 			const { dragIndex } = dragItem;
 
@@ -37,15 +38,17 @@ const DnDGridNoteHOC = ({ id, index, note, Component }) => {
 		},
 	});
 
-	const [{ isDragging }, drag] = useDrag({
-		type: NOTE_TYPE,
-		item: () => ({ dragId: id, dragIndex: index }),
+	const [{ isDragging }, drag, preview] = useDrag({
+		type: ItemTypes.NOTE,
+		item: () => ({ dragId: id, dragIndex: index, note }),
 		collect: (monitor) => {
 			return {
 				isDragging: monitor.isDragging(),
 			};
 		},
 	});
+
+	preview(getEmptyImage());
 
 	return (
 		<Component isDragging={isDragging} note={note} ref={drag(drop(noteRef))} />
