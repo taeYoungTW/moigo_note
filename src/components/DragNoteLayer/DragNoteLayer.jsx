@@ -3,9 +3,9 @@ import { useDragLayer } from 'react-dnd';
 import { createPortal } from 'react-dom';
 import { ItemTypes } from '../../constants/constants';
 import SummaryNote from '../SummaryNote/SummaryNote';
-// import './DragNoteLayer.scss';
 
 const DragNoteLayer = () => {
+	// react-dnd hook ---------------------------------------------
 	const { itemType, item, currentOffset, isDragging } = useDragLayer(
 		(monitor) => ({
 			item: monitor.getItem(),
@@ -15,6 +15,7 @@ const DragNoteLayer = () => {
 		})
 	);
 
+	//  Function ---------------------------------------------
 	const renderItem = () => {
 		switch (itemType) {
 			case ItemTypes.NOTE:
@@ -35,8 +36,10 @@ const DragNoteLayer = () => {
 		}
 	};
 
+	// CreatePortal -----------------------------------------------
 	const dragLayoutRoot = document.querySelector('#drag-layout-root');
 
+	// render ----------------------------------------------------
 	return createPortal(renderItem(), dragLayoutRoot);
 };
 
