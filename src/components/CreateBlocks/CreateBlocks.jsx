@@ -1,4 +1,3 @@
-import DnDListBlockHOC from '../DnDListBlockHOC/DnDListBlockHOC';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import CreateBlock from '../CreateBlock/CreateBlock';
@@ -18,13 +17,7 @@ const CreateBlocks = () => {
 	return (
 		<div className="create-blocks">
 			{_blocks?.map((block, i) => (
-				<DnDListBlockHOC
-					Component={CreateBlock}
-					ComponentProp={{ block, blockIndex: i }}
-					key={block.id}
-					blockIndex={i}
-					block={block}
-				/>
+				<CreateBlock block={block} index={i} key={block.id} />
 			))}
 			<DragBlockLayer />
 		</div>
