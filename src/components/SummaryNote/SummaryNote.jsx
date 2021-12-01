@@ -1,18 +1,32 @@
 import './SummaryNote.scss';
-import { useAppState } from '../../contexts/AppStateContext';
+import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import useSearch from '../../hooks/useSearch';
 import SummaryNoteContent from '../SummaryNoteContent/SummaryNoteContent';
 import SummaryNoteCtrl from '../SummaryNoteCtrl/SummaryNoteCtrl';
-import { forwardRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import ModalNote from '../ModalNote/ModalNote';
+import useDnDGridNote from '../../hooks/useDnDGridNote';
 
-const SummaryNote = forwardRef(({ note, isDragging }, dndRef) => {
+const SummaryNote = ({ note, index }) => {
 	// Global States & Actions --------------
-	const { _searchInput } = useAppState();
+	const { _searchInput, _allNotes } = useAppState();
+	const { _setNotes } = useAppAction();
+
+	// Function for useDnDGridNote ----------------------
+	const moveNote = useCallback(
+		(dragIndex, hoverIndex) => {
+			const newNotes = [..._allNotes];
+			const [draggedNote] = newNotes.splice(dragIndex, 1);
+			newNotes.splice(hoverIndex, 0, draggedNote);
+			_setNotes(newNotes);
+		},
+		[_allNotes, _setNotes]
+	);
 
 	// Hook --------------------------------------
 	const isDisplay = useSearch(_searchInput, note);
+	const { dndRef, isDragging } = useDnDGridNote(index, note, moveNote);
 
 	// Local State
 	const [isModalOn, setIsModalOn] = useState(false);
@@ -36,7 +50,7 @@ const SummaryNote = forwardRef(({ note, isDragging }, dndRef) => {
 			)}
 		</article>
 	);
-});
+};
 
 SummaryNote.propTypes = {
 	note: PropTypes.object,
