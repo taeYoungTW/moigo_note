@@ -71,18 +71,13 @@ const DnDListBlockHOC = ({ block, blockIndex, Component, ComponentProp }) => {
 
 	preview(getEmptyImage());
 	return (
-		<div ref={drop}>
-			<div
-				style={{
-					opacity: isDragging ? 0 : 1,
-				}}
-				ref={currentRef}
-			>
-				<Component {...ComponentProp}>
-					<BlockCtrlBtns blockId={ComponentProp.block.id} ref={drag} />
-				</Component>
-			</div>
-		</div>
+		<Component
+			{...ComponentProp}
+			isDragging={isDragging}
+			ref={drop(currentRef)}
+		>
+			<BlockCtrlBtns blockId={ComponentProp.block.id} ref={drag} />
+		</Component>
 	);
 };
 
