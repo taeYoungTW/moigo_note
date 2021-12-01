@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './DragBlockLayer.scss';
 
 const DragBlockLayer = () => {
+	// react-dnd hook ---------------------------------------------------
 	const { itemType, item, currentOffset, initialOffset } = useDragLayer(
 		(monitor) => ({
 			item: monitor.getItem(),
@@ -19,8 +20,10 @@ const DragBlockLayer = () => {
 		})
 	);
 
+	// Target DOM El for CreatePortal ---------------------------------------------------
 	const dragLayoutRoot = document.querySelector('#drag-layout-root');
 
+	// Function ---------------------------------------------------
 	const renderItem = () => {
 		switch (itemType) {
 			case ItemTypes.BLOCK:
@@ -28,11 +31,8 @@ const DragBlockLayer = () => {
 					<div
 						className="block-drag-layer"
 						style={{
-							width: '546px',
-							backgroundColor: '#f1f9fc',
-							opacity: 0.8,
 							transform: `translate(${initialOffset?.x - 501}px, ${
-								currentOffset?.y - item.blockHeight / 2
+								currentOffset?.y - item.blockHeight / 2 + 10
 							}px)`,
 						}}
 					>
@@ -49,6 +49,7 @@ const DragBlockLayer = () => {
 		}
 	};
 
+	// Render ---------------------------------------------------
 	return createPortal(renderItem(), dragLayoutRoot);
 };
 
