@@ -1,14 +1,14 @@
 @import '../../styles/_variables.scss';
 
-.summary-note-content {
+.container {
 	height: 280px;
 	overflow-x: hidden;
 	@include default_scrollbar;
 
-	.summary-note-title-blocks {
+	.title-box {
 		padding: 0 15px;
 
-		.summary-note-title {
+		.title {
 			margin-top: 30px;
 			margin-bottom: 20px;
 			font-size: 1.2rem;

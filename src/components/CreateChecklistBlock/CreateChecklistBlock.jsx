@@ -3,7 +3,7 @@ import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import CheckBoxInput from '../CheckBoxInput/CheckBoxInput';
 import ChecklistTextarea from '../ChecklistTextarea/ChecklistTextarea';
-import './CreateChecklistBlock.scss';
+import styles from './CreateChecklistBlock.scss';
 
 const CreateChecklistBlock = ({ block, blockIndex }) => {
 	// Global States, Actions ------------------------------------
@@ -28,7 +28,7 @@ const CreateChecklistBlock = ({ block, blockIndex }) => {
 
 	// Render ------------------------------------------
 	return (
-		<div className="checklist">
+		<div className={styles.checklist}>
 			<CheckBoxInput
 				isDone={block.isDone}
 				handleCheckBoxOnChange={handleCheckBoxOnChange}

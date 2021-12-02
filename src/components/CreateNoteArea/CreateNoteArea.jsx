@@ -1,7 +1,7 @@
 import { useAppState } from '../../contexts/AppStateContext';
 import CreateNote from '../CreateNote/CreateNote';
 import CreateNoteForm from '../CreateNoteForm/CreateNoteForm';
-import './CreateNoteArea.scss';
+import styles from './CreateNoteArea.scss';
 
 const CreateNoteArea = () => {
 	// Global States & Actions --------------------------
@@ -9,7 +9,7 @@ const CreateNoteArea = () => {
 
 	// Render -----------------------
 	return (
-		<section className="create-note-area">
+		<section className={styles.createNoteArea}>
 			<div
 				className="stopPropagation-el"
 				onClick={(e) => {

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ChecklistContent from '../ChecklistContent/ChecklistContent';
 import CheckBoxInput from '../CheckBoxInput/CheckBoxInput';
-import './ReadChecklistBlock.scss';
+import styles from './ReadChecklistBlock.scss';
 
 const ReadChecklistBlock = ({ block, noteId, blockIndex }) => {
 	// Global States, Actions ---------------------------------------
@@ -35,12 +35,12 @@ const ReadChecklistBlock = ({ block, noteId, blockIndex }) => {
 
 	// Render -----------------------------------------------------
 	return (
-		<div className="read-checklist-block">
+		<div className={styles.readChecklistBlock}>
 			<div
 				onClick={(e) => {
 					e.stopPropagation();
 				}}
-				className="stopPropagation-el"
+				className={styles.stopPropagation}
 			>
 				<CheckBoxInput
 					isDone={block.isDone}

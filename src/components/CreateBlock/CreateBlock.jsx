@@ -7,7 +7,7 @@ import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
 import CreateChecklistBlock from '../CreateChecklistBlock/CreateChecklistBlock';
 import CreateImgBlock from '../CreateImgBlock/CreateImgBlock';
 import CreateTextBlock from '../CreateTextBlock/CreateTextBlock';
-import './CreateBlock.scss';
+import styles from './CreateBlock.scss';
 
 const CreateBlock = ({ block, index }) => {
 	// Global States & Actions ---------------------------------------
@@ -54,7 +54,7 @@ const CreateBlock = ({ block, index }) => {
 	// render ----------------------------
 	return (
 		<div
-			className="create-block"
+			className={styles.createBlock}
 			ref={dropRef}
 			style={{
 				opacity: isDragging ? 0 : 1,

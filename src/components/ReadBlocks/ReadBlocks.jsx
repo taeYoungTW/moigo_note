@@ -1,9 +1,9 @@
 import ReadBlock from '../ReadBlock/ReadBlock';
-import './ReadBlocks.scss';
 
-const ReadBlocks = ({ noteId, blocks, isSummaryNote }) => {
+const ReadBlocks = ({ noteId, blocks, isSummaryNote, className }) => {
+	// console.log(styles);
 	return (
-		<div className="read-blocks">
+		<div className={className}>
 			{blocks.map((block, blockIndex) => (
 				<ReadBlock
 					key={block.id}

@@ -1,4 +1,4 @@
-import './CreateNote.scss';
+import styles from './CreateNote.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useAppAction } from '../../contexts/AppStateContext';
@@ -19,9 +19,9 @@ const CreateNote = () => {
 
 	// Render -----------------------
 	return (
-		<div className="create-note">
+		<div className={styles.createNote}>
 			<button
-				className="add-text-btn"
+				className={styles.addTextBtn}
 				onClick={() => {
 					handleAddBlockBtnOnClick('text');
 				}}

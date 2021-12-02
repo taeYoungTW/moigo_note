@@ -6,4 +6,24 @@
 	align-items: center;
 	padding: 10px 15px;
 	min-height: 45px;
+	.button {
+		display: none;
+	}
+
+	.block-ctrl-btns {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+	}
+
+	&:hover {
+		background-color: $hover-block-bgc;
+		.button {
+			display: inline-block;
+			@include rm_btn_style;
+			color: $gray-btn-color;
+			background-color: transparent;
+		}
+	}
 }

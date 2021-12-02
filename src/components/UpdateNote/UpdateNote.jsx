@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import './UpdateNote.scss';
+import styles from './UpdateNote.scss';
 import { useCallback, useEffect, useState } from 'react';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { emptyTextBlockFilter } from '../../utils/emptyTextBlockFilter';
@@ -43,16 +43,16 @@ const UpdateNote = ({ note, setIsModalOn }) => {
 
 	return (
 		<>
-			<div className="update-note">
-				<div className="title">
+			<div className={styles.updateNote}>
+				<div className={styles.titleBox}>
 					<input
 						type="text"
-						className="title-input"
+						className={styles.titleInput}
 						value={updateNote.title}
 						placeholder={TITLE_TEXT}
 						onChange={handleTitleInputOnChange}
 					/>
-					<button className="close-btn" onClick={handleCloseBtnOnClick}>
+					<button className={styles.closeBtn} onClick={handleCloseBtnOnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>

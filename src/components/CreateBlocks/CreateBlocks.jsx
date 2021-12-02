@@ -1,7 +1,7 @@
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import CreateBlock from '../CreateBlock/CreateBlock';
-import './CreateBlocks.scss';
+import styles from './CreateBlocks.scss';
 import DragBlockLayer from '../DragBlockLayer/DragBlockLayer';
 
 const CreateBlocks = () => {
@@ -15,7 +15,7 @@ const CreateBlocks = () => {
 	useAddDefaultBlock(_addTypeBlock, _blocks.length);
 
 	return (
-		<div className="create-blocks">
+		<div className={styles.createBlocks}>
 			{_blocks?.map((block, i) => (
 				<CreateBlock block={block} index={i} key={block.id} />
 			))}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import UpdateNote from '../UpdateNote/UpdateNote';
 import DetailNote from '../DetailNote/DetailNote';
-import './ModalNote.scss';
+import styles from './ModalNote.scss';
 import ReactDOM from 'react-dom';
 
 const ModalNote = ({ note, setIsModalOn }) => {
@@ -12,7 +12,7 @@ const ModalNote = ({ note, setIsModalOn }) => {
 	// Render -------------------------------------------------------
 	return ReactDOM.createPortal(
 		<div
-			className="modal-note"
+			className={styles.modalNote}
 			onClick={(e) => {
 				e.stopPropagation();
 			}}

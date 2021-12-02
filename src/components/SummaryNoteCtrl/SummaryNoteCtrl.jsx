@@ -6,7 +6,7 @@ import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import PortalConfirm from '../PortalConfirm/PortalConfirm';
 import SummaryNoteSelector from '../SummaryNoteSelector/SummaryNoteSelector';
 
-import './SummaryNoteCtrl.scss';
+import styles from '../SummaryNote/SummaryNote.scss';
 
 const SummaryNoteCtrl = ({ note }) => {
 	// Global States & Actions --------------
@@ -32,9 +32,9 @@ const SummaryNoteCtrl = ({ note }) => {
 		}
 	};
 	return (
-		<div className="summary-note-ctrl-bar">
+		<div className={styles.summaryNoteCtrlBar}>
 			<DeleteBtn
-				className="summary-note-delete-btn"
+				className={styles.deleteBtn}
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 				style={SUMMARY_NOTE_DELETE_ICON_STYLE}
 			/>

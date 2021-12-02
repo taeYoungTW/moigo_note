@@ -1,4 +1,4 @@
-import './Header.scss';
+import styles from './Header.scss';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import MinimizeIcon from '@mui/icons-material/Minimize';
@@ -23,23 +23,23 @@ const Header = () => {
 		[_setSearchInput]
 	);
 	return (
-		<div className="default-header">
-			<div className="align-left">
-				<div className="title-container">
-					<h1 className="logo">{MOIGO_TEXT}</h1>
-					<h2 className="title">{NOTE_TEXT}</h2>
+		<div className={styles.defaultHeader}>
+			<div className={styles.alignLeft}>
+				<div className={styles.titleContainer}>
+					<h1 className={styles.logo}>{MOIGO_TEXT}</h1>
+					<h2 className={styles.title}>{NOTE_TEXT}</h2>
 				</div>
-				<div className="search-container">
+				<div className={styles.searchContainer}>
 					<SearchIcon sx={HEADER_SEARCH_ICON_STYLE} />
 					<input
-						className="search-input"
+						className={styles.searchInput}
 						type="text"
 						placeholder={SEARCH_TEXT}
 						onChange={handleSearchInputOnChange}
 					/>
 				</div>
 			</div>
-			<div className="window-ctrl">
+			<div className={styles.windowCtrlBtns}>
 				<CtrlWindowBtn Icon={MinimizeIcon} />
 				<CtrlWindowBtn Icon={CropSquareIcon} />
 				<CtrlWindowBtn Icon={CloseIcon} />

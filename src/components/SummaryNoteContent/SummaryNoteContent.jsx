@@ -1,14 +1,19 @@
 import ReadBlocks from '../ReadBlocks/ReadBlocks';
 import SummaryNoteThumbnail from '../SummaryNoteThumbnail/SummaryNoteThumbnail';
-import './SummaryNoteContent.scss';
-
+import styles from './SummaryNoteContent.scss';
+import readBlocksStyles from '../ReadBlocks/ReadBlocks.scss';
 const SummaryNoteContent = ({ note }) => {
 	return (
-		<div className="summary-note-content">
+		<div className={styles.container}>
 			<SummaryNoteThumbnail blocks={note.blocks} />
-			<div className="summary-note-title-blocks">
-				{note.title && <h1 className="summary-note-title">{note.title}</h1>}
-				<ReadBlocks blocks={note.blocks} noteId={note.id} isSummaryNote />
+			<div className={styles.titleBox}>
+				{note.title && <h1 className={styles.title}>{note.title}</h1>}
+				<ReadBlocks
+					blocks={note.blocks}
+					noteId={note.id}
+					isSummaryNote
+					className={readBlocksStyles.summaryNote}
+				/>
 			</div>
 		</div>
 	);

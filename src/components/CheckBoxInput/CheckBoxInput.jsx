@@ -1,11 +1,11 @@
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import './CheckBoxInput.scss';
+import styles from './CheckBoxInput.scss';
 import { CHECKBOX_ICON_STYLE } from '../../constants/iconStyles';
 
 const CheckBoxInput = ({ isDone, handleCheckBoxOnChange }) => {
 	return (
-		<label className="checkbox-label">
+		<label className={styles.checkboxLabel}>
 			{isDone ? (
 				<CheckBoxIcon sx={CHECKBOX_ICON_STYLE} />
 			) : (
@@ -13,7 +13,7 @@ const CheckBoxInput = ({ isDone, handleCheckBoxOnChange }) => {
 			)}
 			<input
 				type="checkbox"
-				className="checkbox-input"
+				className={styles.checkboxInput}
 				checked={isDone}
 				onChange={handleCheckBoxOnChange}
 			/>

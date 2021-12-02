@@ -1,4 +1,4 @@
-import './SelectedHeader.scss';
+import styles from './SelectedHeader.scss';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
 	COUNT_OF_SELECTED_NOTE_TEXT,
@@ -33,18 +33,18 @@ const SelectedHeader = () => {
 
 	// Render ------------------------------------------------------
 	return (
-		<div className="selected-header">
-			<div className="align-left">
-				<button className="cancel-btn" onClick={_resetSelectedNoteIds}>
+		<div className={styles.selectedHeader}>
+			<div className={styles.alignLeft}>
+				<button className={styles.cancelBtn} onClick={_resetSelectedNoteIds}>
 					<ArrowBackIcon sx={HEADER_ARROW_BACK_ICON_STYLE} />
 				</button>
-				<h2 className="selected-note-count">
+				<h2 className={styles.selectedNoteCount}>
 					{_selectedNoteIds.length}
 					{COUNT_OF_SELECTED_NOTE_TEXT}
 				</h2>
 			</div>
 			<DeleteBtn
-				className="delete-btn"
+				className={styles.deleteBtn}
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 				style={HEADER_DELETE_ICON_STYLE}
 			/>

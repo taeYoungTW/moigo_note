@@ -1,4 +1,4 @@
-import './CreateNoteForm.scss';
+import styles from './CreateNoteForm.scss';
 import { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
@@ -37,10 +37,10 @@ const CreateNoteForm = () => {
 
 	// Render ----------------------------------------
 	return (
-		<section className="create-note-form">
-			<div className="title">
+		<section className={styles.createNoteForm}>
+			<div className={styles.title}>
 				<input
-					className="title-input"
+					className={styles.titleInput}
 					type="text"
 					placeholder={TITLE_TEXT}
 					onChange={handleTitleInputOnChange}

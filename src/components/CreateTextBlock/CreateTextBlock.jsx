@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import './CreateTextBlock.scss';
+import styles from './CreateTextBlock.scss';
 import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
@@ -35,7 +35,7 @@ const CreateTextBlock = ({ block }) => {
 	// Render -------------------------------------------------------
 	return (
 		<textarea
-			className="text-block-textarea"
+			className={styles.textBlockTextarea}
 			type="text"
 			value={block.text}
 			onChange={handleTextOnChange}

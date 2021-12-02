@@ -1,4 +1,4 @@
-import './SummaryNote.scss';
+import styles from './SummaryNote.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import useSearch from '../../hooks/useSearch';
@@ -34,7 +34,7 @@ const SummaryNote = ({ note, index }) => {
 	// Render -------------------------------------------
 	return (
 		<article
-			className="summary-note"
+			className={styles.summaryNote}
 			onClick={() => {
 				setIsModalOn(true);
 			}}

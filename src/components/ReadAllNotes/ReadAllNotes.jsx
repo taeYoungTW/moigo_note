@@ -1,5 +1,5 @@
 import { useAppState } from '../../contexts/AppStateContext';
-import './ReadAllNotes.scss';
+import styles from './ReadAllNotes.scss';
 import SummaryNote from '../SummaryNote/SummaryNote';
 import DragNoteLayer from '../DragNoteLayer/DragNoteLayer';
 
@@ -9,7 +9,7 @@ const ReadAllNotes = () => {
 
 	// Render -----------------------------------------------
 	return (
-		<section className="read-all-notes">
+		<section className={styles.readAllNotes}>
 			{_allNotes.map((note, i) => (
 				<SummaryNote key={note.id} index={i} note={note} />
 			))}

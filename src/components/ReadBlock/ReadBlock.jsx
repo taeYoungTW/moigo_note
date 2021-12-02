@@ -4,7 +4,7 @@ import useError from '../../hooks/useError';
 import ReadChecklistBlock from '../ReadChecklistBlock/ReadChecklistBlock';
 import ReadImgBlock from '../ReadImgBlock/ReadImgBlock';
 import ReadTextBlock from '../ReadTextBlock/ReadTextBlock';
-import './ReadBlock.scss';
+import styles from './ReadBlock.scss';
 
 const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 	const _setUseError = useError();
@@ -36,7 +36,7 @@ const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 		}
 	};
 
-	return <div className="read-block">{blockRouter(block.type)}</div>;
+	return <div className={styles.readBlock}>{blockRouter(block.type)}</div>;
 };
 
 export default ReadBlock;

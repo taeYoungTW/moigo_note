@@ -5,7 +5,7 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import { useAppAction } from '../../contexts/AppStateContext';
-import './CreateCtrlBar.scss';
+import styles from './CreateCtrlBar.scss';
 
 const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 	// Global States & Actions --------------------------
@@ -21,8 +21,8 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 
 	// Render ----------------------------------------
 	return (
-		<div className="ctrl-bar">
-			<div className="add-btns">
+		<div className={styles.ctrlBar}>
+			<div className={styles.addBtns}>
 				<ImgInput
 					callback={(dataUrl) => {
 						_addTypeBlock('image', dataUrl);
@@ -46,7 +46,7 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 			<button
 				type="button"
 				onClick={handleSubmitBtnOnClick}
-				className="submit-btn"
+				className={styles.submitBtn}
 			>
 				{submitBtnName}
 			</button>

@@ -1,4 +1,5 @@
-import './DetailNote.scss';
+import styles from './DetailNote.scss';
+import readBlocksStyles from '../ReadBlocks/ReadBlocks.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppAction } from '../../contexts/AppStateContext';
 import { useCallback, useState } from 'react';
@@ -45,24 +46,28 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 	// Render -------------------------------------------------------
 	return (
 		<>
-			<div className="detail-note">
-				<div className="title-container">
-					<h1 className="title">{note.title}</h1>
-					<button className="close-btn" onClick={handleCloseBtnOnClick}>
+			<div className={styles.detailNote}>
+				<div className={styles.titleContainer}>
+					<h1 className={styles.title}>{note.title}</h1>
+					<button className={styles.closeBtn} onClick={handleCloseBtnOnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
-				<ReadBlocks blocks={note.blocks} noteId={note.id} />
-				<div className="detail-note-ctrl-bar">
+				<ReadBlocks
+					blocks={note.blocks}
+					noteId={note.id}
+					className={readBlocksStyles.detailNote}
+				/>
+				<div className={styles.ctrlBar}>
 					<DeleteBtn
-						className="delete-btn"
+						className={styles.deleteBtn}
 						handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 						style={DETAIL_NOTE_DELETE_ICON_STYLE}
 					/>
 					<button
 						type="button"
 						onClick={handleSetEditBtnOnClick}
-						className="edit-btn"
+						className={styles.editBtn}
 					>
 						{EDIT_TEXT}
 					</button>

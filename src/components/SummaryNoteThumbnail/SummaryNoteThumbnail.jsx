@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './SummaryNoteThumbnail.scss';
+import styles from './SummaryNoteThumbnail.scss';
 
 const SummaryNoteThumbnail = ({ blocks }) => {
 	// Local States -----------------------------------------------
@@ -29,14 +29,14 @@ const SummaryNoteThumbnail = ({ blocks }) => {
 
 	return (
 		thumbnail.count !== 0 && (
-			<div className="summary-note-thumbnail-container">
+			<div className={styles.container}>
 				<img
-					className="summary-note-thumbnail"
+					className={styles.thumbnail}
 					src={thumbnail.dataUrl}
 					alt="summary-note-thumbnail"
 				/>
 				<div
-					className="summary-note-img-count"
+					className={styles.imgCount}
 					style={{
 						display: thumbnail.count < 2 ? 'none' : '',
 					}}

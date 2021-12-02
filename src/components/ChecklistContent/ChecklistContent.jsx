@@ -1,11 +1,11 @@
 import React from 'react';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
-import './ChecklistContent.scss';
+import styles from './ChecklistContent.scss';
 
 const ChecklistContent = ({ isDone, content }) => {
 	return (
 		<div
-			className="checklist-content"
+			className={styles.checklistContent}
 			style={{
 				textDecoration: isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}

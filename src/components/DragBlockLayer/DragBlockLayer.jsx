@@ -6,9 +6,10 @@ import { CTRL_BLOCK_ICON_STYLE } from '../../constants/iconStyles';
 import CreateBlock from '../CreateBlock/CreateBlock';
 import MenuIcon from '@mui/icons-material/Menu';
 import DeleteIcon from '@mui/icons-material/Delete';
-import './DragBlockLayer.scss';
+import styles from './DragBlockLayer.scss';
 
 const DragBlockLayer = () => {
+	console.log(styles);
 	// react-dnd hook ---------------------------------------------------
 	const { itemType, item, currentOffset, initialOffset } = useDragLayer(
 		(monitor) => ({
@@ -29,19 +30,18 @@ const DragBlockLayer = () => {
 			case ItemTypes.BLOCK:
 				return (
 					<div
-						className="block-drag-layer"
+						className={styles.dragLayer}
 						style={{
 							transform: `translate(${initialOffset?.x - 501}px, ${
 								currentOffset?.y - item.blockHeight / 2 + 10
 							}px)`,
 						}}
 					>
-						<CreateBlock block={item.block}>
-							<div className="block-drag-layer-ctrl-btns">
-								<DeleteIcon sx={CTRL_BLOCK_ICON_STYLE} />
-								<MenuIcon sx={CTRL_BLOCK_ICON_STYLE} />
-							</div>
-						</CreateBlock>
+						<CreateBlock block={item.block} />
+						<div className={styles.dragLayerCtrlBtns}>
+							<DeleteIcon sx={CTRL_BLOCK_ICON_STYLE} />
+							<MenuIcon sx={CTRL_BLOCK_ICON_STYLE} />
+						</div>
 					</div>
 				);
 			default:

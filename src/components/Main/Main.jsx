@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import CreateNoteArea from '../CreateNoteArea/CreateNoteArea';
 import ReadAllNotes from '../ReadAllNotes/ReadAllNotes';
-import './Main.scss';
+import styles from './Main.scss';
 const Main = () => {
 	// Global States, Actions ---------------------------------------
 	const { _setIsCreateNoteFormOn } = useAppAction();
@@ -26,7 +26,7 @@ const Main = () => {
 
 	// Render -----------------------------------------------------
 	return (
-		<main onClick={handleMainOnClick}>
+		<main className={styles.main} onClick={handleMainOnClick}>
 			<CreateNoteArea />
 			<ReadAllNotes />
 		</main>

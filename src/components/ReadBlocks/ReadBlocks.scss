@@ -1,18 +1,14 @@
 @import '../../styles/_variables.scss';
 
 .detail-note {
-	.read-blocks {
-		flex-grow: 1;
-		padding: 10px 15px;
-		max-height: $content-max-height;
-		overflow: hidden;
-		overflow-y: scroll;
-		@include default_scrollbar;
-	}
+	flex-grow: 1;
+	padding: 10px 15px;
+	max-height: $content-max-height;
+	overflow: hidden;
+	overflow-y: scroll;
+	@include default_scrollbar;
 }
 
 .summary-note {
-	.read-blocks {
-		overflow: hidden;
-	}
+	overflow: hidden;
 }

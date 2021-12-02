@@ -1,9 +1,9 @@
-import './ReadTextBlock.scss';
+import styles from './ReadTextBlock.scss';
 import PropTypes from 'prop-types';
 
 const ReadTextBlock = ({ block }) => {
 	// Render -------------------------------------------------------
-	return <div className="read-text-block">{block.text}</div>;
+	return <div className={styles.readTextBlock}>{block.text}</div>;
 };
 
 // PropTypes ------------------------------------------------------

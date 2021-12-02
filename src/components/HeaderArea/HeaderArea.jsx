@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppState } from '../../contexts/AppStateContext';
 import Header from '../Header/Header';
 import SelectedHeader from '../SelectedHeader/SelectedHeader';
-import './HeaderArea.scss';
+import styles from './HeaderArea.scss';
 
 const HeaderArea = () => {
 	// Global States, Actions ---------------------------------------
@@ -10,7 +10,7 @@ const HeaderArea = () => {
 
 	// Render -------------------------------------------------------
 	return (
-		<header>
+		<header className={styles.headerArea}>
 			{_selectedNoteIds.length === 0 ? <Header /> : <SelectedHeader />}
 		</header>
 	);

@@ -3,7 +3,7 @@ import { ADD_LIST_TEXT } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
-import './ChecklistTextarea.scss';
+import styles from './ChecklistTextarea.scss';
 const ChecklistTextarea = ({ block }) => {
 	// Global Actions ------------------------------------
 	const { _addTypeBlock, _updateBlock } = useAppAction();
@@ -42,7 +42,7 @@ const ChecklistTextarea = ({ block }) => {
 	// Render ------------------------------------------
 	return (
 		<textarea
-			className="checklist-block-textarea"
+			className={styles.checklistBlockTextarea}
 			type="text"
 			value={block.content}
 			onChange={handleChecklistContentOnChange}
