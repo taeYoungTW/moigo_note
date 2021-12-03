@@ -18,11 +18,11 @@
 		justify-content: flex-end;
 
 		.delete-btn,
-		.now-select-off-btn {
+		.select-btn {
 			display: none;
 		}
 
-		.now-select-on-btn {
+		.unselect-btn {
 			@include rm_btn_style;
 			position: absolute;
 			right: -25px;
@@ -32,7 +32,7 @@
 			z-index: 3;
 		}
 
-		.now-select-on-outline {
+		.selected-outline {
 			position: absolute;
 			left: 0;
 			right: 0;
@@ -56,13 +56,14 @@
 				margin-top: 10px;
 			}
 
-			.now-select-off-btn {
+			.select-btn {
 				@include rm_btn_style;
 				position: absolute;
 				right: -25px;
 				top: -15px;
 				display: block;
 				cursor: pointer;
+				z-index: 3;
 			}
 		}
 	}
