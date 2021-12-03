@@ -1,16 +1,20 @@
 import { useCallback, useRef } from 'react';
 import styles from './CreateTextBlock.scss';
-import { useAppAction } from '../../contexts/AppStateContext';
+import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import { WRITE_NOTE_TEXT } from '../../constants/constants';
+import { BlockTypes, WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
+import {
+	handleBlockWithBackspaceKey,
+	handleBlockWithEnterKey,
+} from '../../utils/handleBlockOnkeyDown';
+import useFocusPrevBlock from '../../hooks/useFocusPrevBlock';
 
-const CreateTextBlock = ({ block }) => {
+const CreateTextBlock = ({ block, blockIndex }) => {
 	// Global States, Actions ---------------------------------------
-	const { _updateBlock } = useAppAction();
-
-	// Local States ------------------------------------------------
-	// const [textBlock, setTextBlock] = useState(block);
+	const { _updateBlock, _deleteBlock, _setIndexToFocus, _addTypeBlock } =
+		useAppAction();
+	const { _indexToFocus } = useAppState();
 
 	// Event Handler ----------------------------------------------
 	const handleTextOnChange = useCallback(
@@ -19,18 +23,29 @@ const CreateTextBlock = ({ block }) => {
 				target: { value },
 			} = e;
 			_updateBlock({ ...block, text: value });
-			// setTextBlock((block) => {
-			// 	return { ...block, text: value };
-			// });
 		},
 		[_updateBlock, block]
 	);
+
+	const handleOnKeyDown = (e) => {
+		handleBlockWithBackspaceKey(e, block.text, () => {
+			_deleteBlock(block.id);
+			_setIndexToFocus(blockIndex - 1);
+		});
+
+		handleBlockWithEnterKey(
+			e,
+			() => _updateBlock({ ...block, text: (block.text += '\n') }),
+			() => _addTypeBlock(BlockTypes.TEXT)
+		);
+	};
 
 	// Ref --------------------------------------------------------
 	const textRef = useRef(null);
 
 	// hook : textarea auto height -----------------------------
 	useAutoHeightTextarea(textRef, block.text);
+	useFocusPrevBlock(blockIndex, _indexToFocus, textRef.current);
 
 	// Render -------------------------------------------------------
 	return (
@@ -38,6 +53,7 @@ const CreateTextBlock = ({ block }) => {
 			className={styles.textBlockTextarea}
 			type="text"
 			value={block.text}
+			onKeyDown={handleOnKeyDown}
 			onChange={handleTextOnChange}
 			placeholder={WRITE_NOTE_TEXT}
 			rows={1}
