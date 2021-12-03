@@ -3,6 +3,10 @@ import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
+import {
+	handleBlockWithBackspaceKey,
+	handleBlockWithEnterKey,
+} from '../../utils/handleBlockOnkeyDown';
 import styles from './ChecklistTextarea.scss';
 const ChecklistTextarea = ({ block, blockIndex }) => {
 	// Global Actions ------------------------------------
@@ -22,27 +26,16 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 	);
 
 	const handleOnKeyDown = (e) => {
-		const { keyCode, shiftKey } = e;
-		// Delete Block & Focus a before block
-		if (!block.content && keyCode === 8) {
+		handleBlockWithBackspaceKey(e, block.content, () => {
 			_deleteBlock(block.id);
 			_setIndexToFocus(blockIndex - 1);
-			return;
-		}
+		});
 
-		// About Enter key
-		if (keyCode === 13) {
-			e.preventDefault(); // Prevent make newline when you press Enter key
-			if (!shiftKey) {
-				_addTypeBlock(BlockTypes.CHECKLIST);
-				return;
-			}
-			if (shiftKey) {
-				_updateBlock({ ...block, content: (block.content += '\n') });
-				return;
-			}
-			return;
-		}
+		handleBlockWithEnterKey(
+			e,
+			() => _updateBlock({ ...block, content: (block.content += '\n') }),
+			() => _addTypeBlock(BlockTypes.CHECKLIST)
+		);
 	};
 
 	useEffect(() => {
