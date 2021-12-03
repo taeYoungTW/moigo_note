@@ -28,7 +28,7 @@ const CreateBlock = ({ block, index }) => {
 	const blockRouter = (BlockType) => {
 		switch (BlockType) {
 			case BlockTypes.TEXT:
-				return <CreateTextBlock block={block} />;
+				return <CreateTextBlock block={block} blockIndex={index} />;
 			case BlockTypes.CHECKLIST:
 				return <CreateChecklistBlock block={block} blockIndex={index} />;
 			case BlockTypes.IMAGE:
