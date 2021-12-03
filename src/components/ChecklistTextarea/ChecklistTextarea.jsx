@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
+import { ADD_LIST_TEXT } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
@@ -28,14 +28,14 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 
 	const handleOnKeyDown = (e) => {
 		handleBlockWithBackspaceKey(e, block.content, () => {
-			_deleteBlock(block.id);
 			_setIndexToFocus(blockIndex - 1);
+			_deleteBlock(block.id);
 		});
 
 		handleBlockWithEnterKey(
 			e,
 			() => _updateBlock({ ...block, content: (block.content += '\n') }),
-			() => _addTypeBlock(BlockTypes.CHECKLIST, undefined, blockIndex + 1)
+			() => _addTypeBlock(block.type, undefined, blockIndex + 1)
 		);
 	};
 

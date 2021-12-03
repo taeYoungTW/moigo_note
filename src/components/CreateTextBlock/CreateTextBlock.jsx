@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import styles from './CreateTextBlock.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import { BlockTypes, WRITE_NOTE_TEXT } from '../../constants/constants';
+import { WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import {
 	handleBlockWithBackspaceKey,
@@ -29,14 +29,14 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 
 	const handleOnKeyDown = (e) => {
 		handleBlockWithBackspaceKey(e, block.text, () => {
-			_deleteBlock(block.id);
 			_setIndexToFocus(blockIndex - 1);
+			_deleteBlock(block.id);
 		});
 
 		handleBlockWithEnterKey(
 			e,
 			() => _updateBlock({ ...block, text: (block.text += '\n') }),
-			() => _addTypeBlock(BlockTypes.TEXT, undefined, blockIndex + 1)
+			() => _addTypeBlock(block.type, undefined, blockIndex + 1)
 		);
 	};
 
