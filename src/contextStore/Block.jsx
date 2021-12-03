@@ -35,6 +35,14 @@ const Block = () => {
 	 *]
 	 */
 	const [_blocks, setBlocks] = useState([]);
+	const [_indexToFocus, setIndexToFocus] = useState(0);
+
+	/*
+	 * About focus
+	 */
+	const _setIndexToFocus = useCallback((index) => {
+		setIndexToFocus(index);
+	}, []);
 
 	/*
 	 * ------ Actions: useCallback ------------------
@@ -121,7 +129,7 @@ const Block = () => {
 	);
 
 	// ------ Combine States & Actions ---------------
-	const combineStates = { _blocks };
+	const combineStates = { _blocks, _indexToFocus };
 	const combineActions = {
 		_deleteBlock,
 		_updateBlock,
@@ -129,6 +137,7 @@ const Block = () => {
 		_initBlocks,
 		_addTypeBlock,
 		_moveBlockToBottom,
+		_setIndexToFocus,
 	};
 
 	return { ...combineStates, ...combineActions };
