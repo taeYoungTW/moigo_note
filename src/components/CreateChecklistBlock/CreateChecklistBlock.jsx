@@ -33,7 +33,7 @@ const CreateChecklistBlock = ({ block, blockIndex }) => {
 				isDone={block.isDone}
 				handleCheckBoxOnChange={handleCheckBoxOnChange}
 			/>
-			<ChecklistTextarea block={block} />
+			<ChecklistTextarea block={block} blockIndex={blockIndex} />
 		</div>
 	);
 };
