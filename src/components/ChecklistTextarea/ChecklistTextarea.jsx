@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
+import useFocusPrevBlock from '../../hooks/useFocusPrevBlock';
 import {
 	handleBlockWithBackspaceKey,
 	handleBlockWithEnterKey,
@@ -38,17 +39,12 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 		);
 	};
 
-	useEffect(() => {
-		if (_indexToFocus === blockIndex) {
-			contentRef.current.focus();
-		}
-	}, [_indexToFocus, blockIndex]);
-
 	// Ref ---------------------------------------------------
 	const contentRef = useRef(null);
 
 	// hook : textarea auto height -----------------------------
 	useAutoHeightTextarea(contentRef, block.content);
+	useFocusPrevBlock(blockIndex, _indexToFocus, contentRef.current);
 
 	// Render ------------------------------------------
 	return (
