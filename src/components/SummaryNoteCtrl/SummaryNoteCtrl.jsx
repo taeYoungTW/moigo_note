@@ -5,8 +5,7 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import PortalConfirm from '../PortalConfirm/PortalConfirm';
 import SummaryNoteSelector from '../SummaryNoteSelector/SummaryNoteSelector';
-
-import styles from '../SummaryNote/SummaryNote.scss';
+import hoverStyles from '../SummaryNote/SummaryNote.scss';
 
 const SummaryNoteCtrl = ({ note }) => {
 	// Global States & Actions --------------
@@ -32,9 +31,9 @@ const SummaryNoteCtrl = ({ note }) => {
 		}
 	};
 	return (
-		<div className={styles.summaryNoteCtrlBar}>
+		<div className={hoverStyles.summaryNoteCtrlBar}>
 			<DeleteBtn
-				className={styles.deleteBtn}
+				className={hoverStyles.deleteBtn}
 				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
 				style={SUMMARY_NOTE_DELETE_ICON_STYLE}
 			/>

@@ -3,7 +3,7 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE } from '../../constants/iconStyles';
-import styles from '../SummaryNote/SummaryNote.scss';
+import hoverStyles from '../SummaryNote/SummaryNote.scss';
 
 const SummaryNoteSelector = ({ noteId }) => {
 	const { _selectedNoteIds } = useAppState();
@@ -40,12 +40,12 @@ const SummaryNoteSelector = ({ noteId }) => {
 			{isSelected ? (
 				<>
 					<button
-						className={styles.nowSelectOnBtn}
+						className={hoverStyles.unselectBtn}
 						onClick={handleUnselectBtnOnClick}
 					>
 						<CheckCircleIcon sx={SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE} />
 					</button>
-					<div className={styles.nowSelectOnOutline}></div>
+					<div className={hoverStyles.selectedOutline}></div>
 					{/*
 					 * outline을 border로 하지 않은 이유
 					 * - border를 두껍게 하는 경우 content box가 작아져서 내용 표시가 변화됩니다.
@@ -55,7 +55,7 @@ const SummaryNoteSelector = ({ noteId }) => {
 				</>
 			) : (
 				<button
-					className={styles.nowSelectOffBtn}
+					className={hoverStyles.selectBtn}
 					onClick={handleSelectBtnOnClick}
 				>
 					<CheckCircleOutlineIcon sx={SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE} />
