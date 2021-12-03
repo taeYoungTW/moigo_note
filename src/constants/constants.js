@@ -28,3 +28,12 @@ export const ItemTypes = {
 	BLOCK: 'BLOCK_DND',
 	NOTE: 'NOTE_DND',
 };
+
+/* 
+block Type
+*/
+export const BlockTypes = {
+	TEXT: 'Text',
+	CHECKLIST: 'Checklist',
+	IMAGE: 'Image',
+};
