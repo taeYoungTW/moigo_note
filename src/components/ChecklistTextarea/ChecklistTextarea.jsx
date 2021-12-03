@@ -1,12 +1,14 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
-import { useAppAction } from '../../contexts/AppStateContext';
+import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import styles from './ChecklistTextarea.scss';
-const ChecklistTextarea = ({ block }) => {
+const ChecklistTextarea = ({ block, blockIndex }) => {
 	// Global Actions ------------------------------------
-	const { _addTypeBlock, _updateBlock } = useAppAction();
+	const { _indexToFocus } = useAppState();
+	const { _addTypeBlock, _updateBlock, _deleteBlock, _setIndexToFocus } =
+		useAppAction();
 
 	// Event Handler ------------------------------------
 	const handleChecklistContentOnChange = useCallback(
@@ -21,17 +23,33 @@ const ChecklistTextarea = ({ block }) => {
 
 	const handleOnKeyDown = (e) => {
 		const { keyCode, shiftKey } = e;
-		if (keyCode !== 13) {
+		// Delete Block & Focus a before block
+		if (!block.content && keyCode === 8) {
+			_deleteBlock(block.id);
+			_setIndexToFocus(blockIndex - 1);
 			return;
 		}
-		e.preventDefault();
-		if (!shiftKey) {
-			_addTypeBlock(BlockTypes.CHECKLIST);
-		}
-		if (shiftKey) {
-			_updateBlock({ ...block, content: (block.content += '\n') });
+
+		// About Enter key
+		if (keyCode === 13) {
+			e.preventDefault(); // Prevent make newline when you press Enter key
+			if (!shiftKey) {
+				_addTypeBlock(BlockTypes.CHECKLIST);
+				return;
+			}
+			if (shiftKey) {
+				_updateBlock({ ...block, content: (block.content += '\n') });
+				return;
+			}
+			return;
 		}
 	};
+
+	useEffect(() => {
+		if (_indexToFocus === blockIndex) {
+			contentRef.current.focus();
+		}
+	}, [_indexToFocus, blockIndex]);
 
 	// Ref ---------------------------------------------------
 	const contentRef = useRef(null);
@@ -51,7 +69,7 @@ const ChecklistTextarea = ({ block }) => {
 			rows={1}
 			ref={contentRef}
 			spellCheck={false}
-			autoFocus={true}
+			autoFocus
 			style={{
 				textDecoration: block.isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
