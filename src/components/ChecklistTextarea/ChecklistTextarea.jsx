@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { ADD_LIST_TEXT } from '../../constants/constants';
+import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
@@ -26,7 +26,7 @@ const ChecklistTextarea = ({ block }) => {
 		}
 		e.preventDefault();
 		if (!shiftKey) {
-			_addTypeBlock('checklist');
+			_addTypeBlock(BlockTypes.CHECKLIST);
 		}
 		if (shiftKey) {
 			_updateBlock({ ...block, content: (block.content += '\n') });

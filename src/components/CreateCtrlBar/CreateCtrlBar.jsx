@@ -6,6 +6,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import { useAppAction } from '../../contexts/AppStateContext';
 import styles from './CreateCtrlBar.scss';
+import { BlockTypes } from '../../constants/constants';
 
 const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 	// Global States & Actions --------------------------
@@ -25,7 +26,7 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 			<div className={styles.addBtns}>
 				<ImgInput
 					callback={(dataUrl) => {
-						_addTypeBlock('image', dataUrl);
+						_addTypeBlock(BlockTypes.IMAGE, dataUrl);
 					}}
 				>
 					<AddBlockBtn Icon={InsertPhotoIcon} />
@@ -33,13 +34,13 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 				<AddBlockBtn
 					Icon={FormatListBulletedIcon}
 					eventHandler={() => {
-						handleAddBlockBtnOnClick('checklist');
+						handleAddBlockBtnOnClick(BlockTypes.CHECKLIST);
 					}}
 				/>
 				<AddBlockBtn
 					Icon={TextFieldsIcon}
 					eventHandler={() => {
-						handleAddBlockBtnOnClick('text');
+						handleAddBlockBtnOnClick(BlockTypes.TEXT);
 					}}
 				/>
 			</div>

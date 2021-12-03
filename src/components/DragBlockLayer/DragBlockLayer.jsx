@@ -9,7 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styles from './DragBlockLayer.scss';
 
 const DragBlockLayer = () => {
-	console.log(styles);
 	// react-dnd hook ---------------------------------------------------
 	const { itemType, item, currentOffset, initialOffset } = useDragLayer(
 		(monitor) => ({

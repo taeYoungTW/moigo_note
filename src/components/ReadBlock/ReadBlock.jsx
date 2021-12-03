@@ -1,5 +1,5 @@
 import React from 'react';
-import { INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
+import { BlockTypes, INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
 import useError from '../../hooks/useError';
 import ReadChecklistBlock from '../ReadChecklistBlock/ReadChecklistBlock';
 import ReadImgBlock from '../ReadImgBlock/ReadImgBlock';
@@ -11,9 +11,9 @@ const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 
 	const blockRouter = (blockType) => {
 		switch (blockType) {
-			case 'text':
+			case BlockTypes.TEXT:
 				return <ReadTextBlock block={block} key={block.id} />;
-			case 'checklist':
+			case BlockTypes.CHECKLIST:
 				return (
 					<ReadChecklistBlock
 						block={block}
@@ -22,7 +22,7 @@ const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 						blockIndex={blockIndex}
 					/>
 				);
-			case 'image':
+			case BlockTypes.IMAGE:
 				if (isSummaryNote) {
 					return <></>;
 				}

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
+import { BlockTypes } from '../constants/constants';
 
 const useAddDefaultBlock = (addTypeBlockAction, blocksLength) => {
 	useEffect(() => {
 		if (blocksLength === 0) {
-			addTypeBlockAction('text');
+			addTypeBlockAction(BlockTypes.TEXT);
 		}
 	}, [blocksLength, addTypeBlockAction]);
 };

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
+import { BlockTypes, INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useDnDListBlock from '../../hooks/useDnDListBlock';
 import useError from '../../hooks/useError';
@@ -27,11 +27,11 @@ const CreateBlock = ({ block, index }) => {
 
 	const blockRouter = (BlockType) => {
 		switch (BlockType) {
-			case 'text':
+			case BlockTypes.TEXT:
 				return <CreateTextBlock block={block} />;
-			case 'checklist':
+			case BlockTypes.CHECKLIST:
 				return <CreateChecklistBlock block={block} blockIndex={index} />;
-			case 'image':
+			case BlockTypes.IMAGE:
 				return <CreateImgBlock block={block} />;
 			default:
 				_setUseError({

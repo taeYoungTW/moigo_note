@@ -2,7 +2,7 @@ import styles from './CreateNote.scss';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useAppAction } from '../../contexts/AppStateContext';
-import { WRITE_NOTE_TEXT } from '../../constants/constants';
+import { BlockTypes, WRITE_NOTE_TEXT } from '../../constants/constants';
 import AddBlockBtn from '../AddBlockBtn/AddBlockBtn';
 import ImgInput from '../ImgInput/ImgInput';
 
@@ -23,14 +23,14 @@ const CreateNote = () => {
 			<button
 				className={styles.addTextBtn}
 				onClick={() => {
-					handleAddBlockBtnOnClick('text');
+					handleAddBlockBtnOnClick(BlockTypes.TEXT);
 				}}
 			>
 				{WRITE_NOTE_TEXT}
 			</button>
 			<ImgInput
 				callback={(dataUrl) => {
-					handleAddBlockBtnOnClick('image', dataUrl);
+					handleAddBlockBtnOnClick(BlockTypes.IMAGE, dataUrl);
 				}}
 			>
 				<AddBlockBtn Icon={InsertPhotoIcon} />
@@ -38,7 +38,7 @@ const CreateNote = () => {
 			<AddBlockBtn
 				Icon={FormatListBulletedIcon}
 				eventHandler={() => {
-					handleAddBlockBtnOnClick('checklist');
+					handleAddBlockBtnOnClick(BlockTypes.CHECKLIST);
 				}}
 			/>
 		</div>

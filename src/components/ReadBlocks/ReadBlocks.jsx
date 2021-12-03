@@ -1,7 +1,6 @@
 import ReadBlock from '../ReadBlock/ReadBlock';
 
 const ReadBlocks = ({ noteId, blocks, isSummaryNote, className }) => {
-	// console.log(styles);
 	return (
 		<div className={className}>
 			{blocks.map((block, blockIndex) => (

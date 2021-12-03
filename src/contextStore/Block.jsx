@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import {
+	BlockTypes,
 	INVALID_BLOCK_TYPE_TEXT,
 	NO_MATCHED_ID_IN_BLOCKS_TEXT,
 } from '../constants/constants';
@@ -55,10 +56,10 @@ const Block = () => {
 	const _addTypeBlock = useCallback(
 		(type, dataUrl) => {
 			switch (type) {
-				case 'text':
+				case BlockTypes.TEXT:
 					setBlocks((blocks) => [...blocks, { id: uuid(), type, text: '' }]);
 					break;
-				case 'checklist':
+				case BlockTypes.CHECKLIST:
 					setBlocks((blocks) => [
 						...blocks,
 						{
@@ -69,7 +70,7 @@ const Block = () => {
 						},
 					]);
 					break;
-				case 'image':
+				case BlockTypes.IMAGE:
 					setBlocks((blocks) => [...blocks, { id: uuid(), type, dataUrl }]);
 					break;
 				default:

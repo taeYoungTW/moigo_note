@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BlockTypes } from '../../constants/constants';
 import styles from './SummaryNoteThumbnail.scss';
 
 const SummaryNoteThumbnail = ({ blocks }) => {
@@ -11,7 +12,7 @@ const SummaryNoteThumbnail = ({ blocks }) => {
 		let firstImg = {};
 
 		for (let i = 0; i < blocks.length; i++) {
-			if (blocks[i].type === 'image') {
+			if (blocks[i].type === BlockTypes.IMAGE) {
 				if (count === 0) {
 					firstImg = blocks[i].dataUrl;
 				}

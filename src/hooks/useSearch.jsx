@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { BlockTypes } from '../constants/constants';
 
 const useSearch = (searchValue, targetNote) => {
 	const [isDisplay, setIsDisplay] = useState(true);
@@ -19,7 +20,7 @@ const useSearch = (searchValue, targetNote) => {
 			if (value) {
 				for (let i = 0; i < blocks.length; i++) {
 					const curBlock = blocks[i];
-					if (curBlock.type === 'image') {
+					if (curBlock.type === BlockTypes.IMAGE) {
 						continue;
 					}
 					const curBlockText = curBlock?.text || curBlock?.content;
