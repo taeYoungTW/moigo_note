@@ -62,31 +62,50 @@ const Block = () => {
 	}, []);
 
 	const _addTypeBlock = useCallback(
-		(type, dataUrl) => {
-			switch (type) {
-				case BlockTypes.TEXT:
-					setBlocks((blocks) => [...blocks, { id: uuid(), type, text: '' }]);
-					break;
-				case BlockTypes.CHECKLIST:
-					setBlocks((blocks) => [
-						...blocks,
-						{
+		(type, dataUrl = '', indexToAdd) => {
+			// _addTypeBlock : Main Logic --------------------------------------------
+			if (indexToAdd) {
+				setBlockAtIndex(blockObjectRouter(type, dataUrl), indexToAdd);
+			} else {
+				setLastBlock(blockObjectRouter(type, dataUrl));
+			}
+
+			// _addTypeBlock : Local functions ----------------------------------------
+			function blockObjectRouter(type, dataUrl) {
+				switch (type) {
+					case BlockTypes.TEXT:
+						return { id: uuid(), type, text: '' };
+					case BlockTypes.CHECKLIST:
+						return {
 							id: uuid(),
 							type,
 							content: '',
 							isDone: false,
-						},
-					]);
-					break;
-				case BlockTypes.IMAGE:
-					setBlocks((blocks) => [...blocks, { id: uuid(), type, dataUrl }]);
-					break;
-				default:
-					_setUseError({
-						message: `${INVALID_BLOCK_TYPE_TEXT}, A wrong input: ${type}`,
-						location: '_addTypeBlock',
-					});
-					break;
+						};
+					case BlockTypes.IMAGE:
+						return { id: uuid(), type, dataUrl };
+					default:
+						_setUseError({
+							message: `${INVALID_BLOCK_TYPE_TEXT}, A wrong input: ${type}`,
+							location: '_addTypeBlock',
+						});
+						return undefined;
+				}
+			}
+
+			function setLastBlock(blockObject) {
+				if (!blockObject) {
+					return;
+				}
+				setBlocks((blocks) => [...blocks, blockObject]);
+			}
+
+			function setBlockAtIndex(blockObject, indexToAdd) {
+				setBlocks((blocks) => {
+					const newBlocks = [...blocks];
+					newBlocks.splice(indexToAdd, 0, blockObject);
+					return newBlocks;
+				});
 			}
 		},
 		[_setUseError]
