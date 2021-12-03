@@ -35,7 +35,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 		handleBlockWithEnterKey(
 			e,
 			() => _updateBlock({ ...block, content: (block.content += '\n') }),
-			() => _addTypeBlock(BlockTypes.CHECKLIST)
+			() => _addTypeBlock(BlockTypes.CHECKLIST, undefined, blockIndex + 1)
 		);
 	};
 

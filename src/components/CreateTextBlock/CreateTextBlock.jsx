@@ -36,7 +36,7 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 		handleBlockWithEnterKey(
 			e,
 			() => _updateBlock({ ...block, text: (block.text += '\n') }),
-			() => _addTypeBlock(BlockTypes.TEXT)
+			() => _addTypeBlock(BlockTypes.TEXT, undefined, blockIndex + 1)
 		);
 	};
 
