@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import styles from './UpdateNote.scss';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { COMPLETE_TEXT, TITLE_TEXT } from '../../constants/constants';
 import { emptyTextBlockFilter } from '../../utils/emptyTextBlockFilter';
 import CreateBlocks from '../CreateBlocks/CreateBlocks';
@@ -11,7 +11,7 @@ import CreateCtrlBar from '../CreateCtrlBar/CreateCtrlBar';
 const UpdateNote = ({ note, setIsModalOn }) => {
 	// Global States, Actions ---------------------------------------
 	const { _blocks } = useAppState();
-	const { _updateNote, _initBlocks, _resetBlocks } = useAppAction();
+	const { _updateNote } = useAppAction();
 
 	// Local States ------------------------------------------------
 	const [updateNote, setUpdateNote] = useState(note);
@@ -31,15 +31,6 @@ const UpdateNote = ({ note, setIsModalOn }) => {
 	const handleCloseBtnOnClick = useCallback(() => {
 		setIsModalOn(false);
 	}, [setIsModalOn]);
-
-	// useEffects ------------------------------------------------------
-
-	useEffect(() => {
-		_initBlocks([...note.blocks]);
-		return () => {
-			_resetBlocks();
-		};
-	}, [note, _initBlocks, _resetBlocks]);
 
 	return (
 		<>
