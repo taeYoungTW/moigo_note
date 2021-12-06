@@ -1,18 +1,16 @@
-export const handleBlockWithEnterKey = (
-	e,
-	defaultCallback,
-	shiftKeyCallback
-) => {
+export const handleBlockWithEnterKey = (e, defaultCallback) => {
 	if (e.keyCode !== 13) {
 		return;
 	}
 
-	e.preventDefault();
-
 	if (e.shiftKey) {
-		defaultCallback();
+		//use New Line of Default feature
+		return;
 	} else {
-		shiftKeyCallback();
+		// prevent New Line
+		e.preventDefault();
+		defaultCallback();
+		return;
 	}
 };
 
