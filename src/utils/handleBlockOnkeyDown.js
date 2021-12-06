@@ -1,7 +1,8 @@
 export const handleBlockWithEnterKey = (e, defaultCallback) => {
-	if (e.keyCode !== 13) {
+	if (e.code !== 'Enter') {
 		return;
 	}
+	console.log('Enter', e);
 
 	if (e.shiftKey) {
 		//use New Line of Default feature
@@ -15,7 +16,26 @@ export const handleBlockWithEnterKey = (e, defaultCallback) => {
 };
 
 export const handleBlockWithBackspaceKey = (e, content, callback) => {
-	if (!content && e.keyCode === 8) {
+	if (!content && e.code === 'Backspace') {
+		e.preventDefault();
 		callback();
+		return;
+	}
+	return;
+};
+
+export const handleBlockWithArrowKey = (e, upCallback, downCallback) => {
+	if (e.code === 'ArrowUp') {
+		// ArrowUp
+		e.preventDefault();
+		upCallback();
+		return;
+	}
+
+	if (e.code === 'ArrowDown') {
+		//ArrowDown
+		e.preventDefault();
+		downCallback();
+		return;
 	}
 };

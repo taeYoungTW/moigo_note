@@ -35,7 +35,7 @@ const Block = () => {
 	 *]
 	 */
 	const [_blocks, setBlocks] = useState([]);
-	const [_indexToFocus, setIndexToFocus] = useState(0);
+	const [_indexToFocus, setIndexToFocus] = useState(-1);
 
 	/*
 	 * About focus

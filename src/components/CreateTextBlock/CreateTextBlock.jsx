@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import {
+	handleBlockWithArrowKey,
 	handleBlockWithBackspaceKey,
 	handleBlockWithEnterKey,
 } from '../../utils/handleBlockOnkeyDown';
@@ -34,8 +35,20 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			_deleteBlock(block.id);
 		});
 
-		handleBlockWithEnterKey(e, () =>
-			_addTypeBlock(block.type, undefined, blockIndex + 1)
+		handleBlockWithEnterKey(e, () => {
+			_addTypeBlock(block.type, undefined, blockIndex + 1);
+		});
+
+		handleBlockWithArrowKey(
+			e,
+			() => {
+				_setIndexToFocus(blockIndex - 1);
+				console.log('to', blockIndex - 1, 'up');
+			},
+			() => {
+				_setIndexToFocus(blockIndex + 1);
+				console.log('to', blockIndex + 1, 'down');
+			}
 		);
 	};
 
@@ -62,7 +75,7 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			rows={1}
 			ref={textRef}
 			spellCheck={false}
-			autoFocus={true}
+			// autoFocus={true}
 		/>
 	);
 };
