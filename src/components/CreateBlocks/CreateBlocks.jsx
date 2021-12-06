@@ -1,17 +1,25 @@
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 import CreateBlock from '../CreateBlock/CreateBlock';
 import styles from './CreateBlocks.scss';
 import DragBlockLayer from '../DragBlockLayer/DragBlockLayer';
+import { useEffect } from 'react';
+import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 
 const CreateBlocks = () => {
 	// Global States & Actions --------------------------
-	const { _addTypeBlock } = useAppAction();
+	const { _setIndexToFocus, _resetBlocks, _addTypeBlock } = useAppAction();
 	const { _blocks } = useAppState();
 
-	// Ref
+	// useEffects ----------------------------------------
+	/* "Focus prev block with backspace key" 기능 정보 CleanUp
+	 */
+	useEffect(() => {
+		return () => {
+			_setIndexToFocus(-1);
+			_resetBlocks();
+		};
+	}, [_setIndexToFocus, _resetBlocks]);
 
-	// Hooks -----------------------------------------
 	useAddDefaultBlock(_addTypeBlock, _blocks.length);
 
 	return (
