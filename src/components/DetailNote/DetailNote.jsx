@@ -17,7 +17,7 @@ import PortalConfirm from '../PortalConfirm/PortalConfirm';
 
 const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 	// Global States, Actions ---------------------------------------
-	const { _deleteNote, _setIsCreateNoteFormOn } = useAppAction();
+	const { _deleteNote, _setIsCreateNoteFormOn, _initBlocks } = useAppAction();
 
 	// Hooks ---------------------------------
 
@@ -30,9 +30,10 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 	}, []);
 
 	const handleSetEditBtnOnClick = useCallback(() => {
+		_initBlocks([...note.blocks]);
 		setIsEdit(true);
 		_setIsCreateNoteFormOn(false); // _blocks를 같이 쓰기 때문에, 수정시 CreateNoteForm을 닫아 연동하여 표시될 _blocks를 막습니다.
-	}, [setIsEdit, _setIsCreateNoteFormOn]);
+	}, [_initBlocks, note, setIsEdit, _setIsCreateNoteFormOn]);
 
 	const handleCloseBtnOnClick = useCallback(() => {
 		setIsModalOn(false);
