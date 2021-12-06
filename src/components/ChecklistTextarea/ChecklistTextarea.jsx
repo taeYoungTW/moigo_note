@@ -1,13 +1,14 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { ADD_LIST_TEXT } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
-import useFocusPrevBlock from '../../hooks/useFocusPrevBlock';
+import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
 import {
 	handleBlockWithBackspaceKey,
 	handleBlockWithEnterKey,
 } from '../../utils/handleBlockOnkeyDown';
+import setCaretEnd from '../../utils/setCaretEnd';
 import styles from './ChecklistTextarea.scss';
 const ChecklistTextarea = ({ block, blockIndex }) => {
 	// Global Actions ------------------------------------
@@ -32,19 +33,21 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			_deleteBlock(block.id);
 		});
 
-		handleBlockWithEnterKey(
-			e,
-			() => _updateBlock({ ...block, content: (block.content += '\n') }),
-			() => _addTypeBlock(block.type, undefined, blockIndex + 1)
+		handleBlockWithEnterKey(e, () =>
+			_addTypeBlock(block.type, undefined, blockIndex + 1)
 		);
 	};
 
 	// Ref ---------------------------------------------------
 	const contentRef = useRef(null);
 
-	// hook : textarea auto height -----------------------------
+	// hooks -----------------------------
 	useAutoHeightTextarea(contentRef, block.content);
-	useFocusPrevBlock(blockIndex, _indexToFocus, contentRef.current);
+	useIsPrevBlockToFocus(blockIndex, _indexToFocus, contentRef.current);
+
+	useEffect(() => {
+		setCaretEnd(contentRef.current); // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
+	}, []);
 
 	// Render ------------------------------------------
 	return (
@@ -58,7 +61,6 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			rows={1}
 			ref={contentRef}
 			spellCheck={false}
-			autoFocus
 			style={{
 				textDecoration: block.isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
