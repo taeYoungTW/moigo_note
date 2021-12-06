@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import styles from './CreateTextBlock.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
@@ -8,7 +8,8 @@ import {
 	handleBlockWithBackspaceKey,
 	handleBlockWithEnterKey,
 } from '../../utils/handleBlockOnkeyDown';
-import useFocusPrevBlock from '../../hooks/useFocusPrevBlock';
+import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
+import setCaretEnd from '../../utils/setCaretEnd';
 
 const CreateTextBlock = ({ block, blockIndex }) => {
 	// Global States, Actions ---------------------------------------
@@ -33,10 +34,8 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			_deleteBlock(block.id);
 		});
 
-		handleBlockWithEnterKey(
-			e,
-			() => _updateBlock({ ...block, text: (block.text += '\n') }),
-			() => _addTypeBlock(block.type, undefined, blockIndex + 1)
+		handleBlockWithEnterKey(e, () =>
+			_addTypeBlock(block.type, undefined, blockIndex + 1)
 		);
 	};
 
@@ -45,7 +44,11 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 
 	// hook : textarea auto height -----------------------------
 	useAutoHeightTextarea(textRef, block.text);
-	useFocusPrevBlock(blockIndex, _indexToFocus, textRef.current);
+	useIsPrevBlockToFocus(blockIndex, _indexToFocus, textRef.current);
+
+	useEffect(() => {
+		setCaretEnd(textRef.current); // // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
+	}, []);
 
 	// Render -------------------------------------------------------
 	return (
