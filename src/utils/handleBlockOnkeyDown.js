@@ -2,7 +2,6 @@ export const handleBlockWithEnterKey = (e, defaultCallback) => {
 	if (e.code !== 'Enter') {
 		return;
 	}
-	console.log('Enter', e);
 
 	if (e.shiftKey) {
 		//use New Line of Default feature
@@ -16,7 +15,11 @@ export const handleBlockWithEnterKey = (e, defaultCallback) => {
 };
 
 export const handleBlockWithBackspaceKey = (e, content, callback) => {
-	if (!content && e.code === 'Backspace') {
+	if (e.code !== 'Backspace') {
+		return;
+	}
+
+	if (!content) {
 		e.preventDefault();
 		callback();
 		return;
@@ -25,17 +28,27 @@ export const handleBlockWithBackspaceKey = (e, content, callback) => {
 };
 
 export const handleBlockWithArrowKey = (e, upCallback, downCallback) => {
-	if (e.code === 'ArrowUp') {
+	if (e.code === 'ArrowUp' && e.target.selectionStart === 0) {
 		// ArrowUp
-		e.preventDefault();
 		upCallback();
 		return;
 	}
 
-	if (e.code === 'ArrowDown') {
+	if (
+		e.code === 'ArrowDown' &&
+		e.target.selectionStart === e.target.value.length
+	) {
 		//ArrowDown
-		e.preventDefault();
 		downCallback();
 		return;
+	}
+};
+
+export const handleBlockWithBrackets = (e, callback) => {
+	if (e.target.value !== '[]') {
+		return;
+	}
+	if (e.code === 'Space') {
+		callback();
 	}
 };
