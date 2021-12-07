@@ -2,11 +2,12 @@ import { useCallback, useEffect, useRef } from 'react';
 import styles from './CreateTextBlock.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
-import { WRITE_NOTE_TEXT } from '../../constants/constants';
+import { BlockTypes, WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import {
 	handleBlockWithArrowKey,
 	handleBlockWithBackspaceKey,
+	handleBlockWithBrackets,
 	handleBlockWithEnterKey,
 } from '../../utils/handleBlockOnkeyDown';
 import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
@@ -34,6 +35,14 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 		if (e.nativeEvent.isComposing) {
 			return;
 		}
+		handleBlockWithBrackets(e, () => {
+			_updateBlock({
+				id: block.id,
+				type: BlockTypes.CHECKLIST,
+				isDone: false,
+				content: '',
+			});
+		});
 
 		handleBlockWithBackspaceKey(e, block.text, () => {
 			_setIndexToFocus(blockIndex - 1);
