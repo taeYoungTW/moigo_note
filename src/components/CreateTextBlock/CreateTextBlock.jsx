@@ -57,7 +57,6 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			e,
 			() => {
 				console.log('Arrow Key Function:', blockIndex - 1);
-				console.log(e);
 				_setIndexToFocus(blockIndex - 1);
 			},
 			() => {

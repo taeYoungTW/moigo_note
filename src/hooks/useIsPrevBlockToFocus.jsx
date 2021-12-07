@@ -3,11 +3,10 @@ import { useEffect } from 'react';
 const useIsPrevBlockToFocus = (curIndex, indexToFocus, targetDOM) => {
 	useEffect(() => {
 		if (!targetDOM) {
-			console.log('no DOM');
 			return;
 		}
 		if (curIndex === indexToFocus) {
-			console.log(curIndex, 'focus & selectionEnd');
+			console.log(`index No. ${curIndex} block is focused & selectionEnd`);
 			targetDOM.focus();
 			targetDOM.setSelectionRange(
 				targetDOM.value.length,

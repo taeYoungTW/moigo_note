@@ -40,9 +40,13 @@ const Block = () => {
 	/*
 	 * About focus
 	 */
-	const _setIndexToFocus = useCallback((index) => {
-		setIndexToFocus(index);
-	}, []);
+	const _setIndexToFocus = useCallback(
+		(index) => {
+			console.log('Run _setIndexToFocus');
+			setIndexToFocus(index);
+		},
+		[setIndexToFocus]
+	);
 
 	/*
 	 * ------ Actions: useCallback ------------------
@@ -101,6 +105,9 @@ const Block = () => {
 			}
 
 			function setBlockAtIndex(blockObject, indexToAdd) {
+				if (!blockObject) {
+					return;
+				}
 				setBlocks((blocks) => {
 					const newBlocks = [...blocks];
 					newBlocks.splice(indexToAdd, 0, blockObject);
