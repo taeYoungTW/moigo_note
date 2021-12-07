@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { ADD_LIST_TEXT } from '../../constants/constants';
+import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
@@ -14,8 +14,7 @@ import styles from './ChecklistTextarea.scss';
 const ChecklistTextarea = ({ block, blockIndex }) => {
 	// Global Actions ------------------------------------
 	const { _indexToFocus } = useAppState();
-	const { _addTypeBlock, _updateBlock, _deleteBlock, _setIndexToFocus } =
-		useAppAction();
+	const { _addTypeBlock, _updateBlock, _setIndexToFocus } = useAppAction();
 
 	// Event Handler ------------------------------------
 	const handleChecklistContentOnChange = useCallback(
@@ -34,9 +33,12 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			return;
 		}
 
-		handleBlockWithBackspaceKey(e, block.text, () => {
-			_setIndexToFocus(blockIndex - 1);
-			_deleteBlock(block.id);
+		handleBlockWithBackspaceKey(e, block.content, () => {
+			_updateBlock({
+				id: block.id,
+				type: BlockTypes.TEXT,
+				text: '',
+			});
 		});
 
 		handleBlockWithEnterKey(e, () => {
