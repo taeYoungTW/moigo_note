@@ -5,6 +5,7 @@ import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
 import {
+	handleBlockWithArrowKey,
 	handleBlockWithBackspaceKey,
 	handleBlockWithEnterKey,
 } from '../../utils/handleBlockOnkeyDown';
@@ -28,13 +29,30 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 	);
 
 	const handleOnKeyDown = (e) => {
-		handleBlockWithBackspaceKey(e, block.content, () => {
+		// Solved #6 issue
+		if (e.nativeEvent.isComposing) {
+			return;
+		}
+
+		handleBlockWithBackspaceKey(e, block.text, () => {
 			_setIndexToFocus(blockIndex - 1);
 			_deleteBlock(block.id);
 		});
 
-		handleBlockWithEnterKey(e, () =>
-			_addTypeBlock(block.type, undefined, blockIndex + 1)
+		handleBlockWithEnterKey(e, () => {
+			_addTypeBlock(block.type, undefined, blockIndex + 1);
+		});
+
+		handleBlockWithArrowKey(
+			e,
+			() => {
+				_setIndexToFocus(blockIndex - 1);
+				console.log('to', blockIndex - 1, 'up');
+			},
+			() => {
+				_setIndexToFocus(blockIndex + 1);
+				console.log('to', blockIndex + 1, 'down');
+			}
 		);
 	};
 

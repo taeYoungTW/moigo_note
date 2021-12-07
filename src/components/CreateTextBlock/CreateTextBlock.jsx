@@ -30,6 +30,11 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 	);
 
 	const handleOnKeyDown = (e) => {
+		// Solved #6 issue
+		if (e.nativeEvent.isComposing) {
+			return;
+		}
+
 		handleBlockWithBackspaceKey(e, block.text, () => {
 			_setIndexToFocus(blockIndex - 1);
 			_deleteBlock(block.id);
@@ -42,12 +47,12 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 		handleBlockWithArrowKey(
 			e,
 			() => {
+				console.log('Arrow Key Function:', blockIndex - 1);
+				console.log(e);
 				_setIndexToFocus(blockIndex - 1);
-				console.log('to', blockIndex - 1, 'up');
 			},
 			() => {
 				_setIndexToFocus(blockIndex + 1);
-				console.log('to', blockIndex + 1, 'down');
 			}
 		);
 	};
@@ -60,7 +65,7 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 	useIsPrevBlockToFocus(blockIndex, _indexToFocus, textRef.current);
 
 	useEffect(() => {
-		setCaretEnd(textRef.current); // // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
+		setCaretEnd(textRef.current); // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
 	}, []);
 
 	// Render -------------------------------------------------------
