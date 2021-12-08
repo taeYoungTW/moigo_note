@@ -6,7 +6,6 @@ const useIsPrevBlockToFocus = (curIndex, indexToFocus, targetDOM) => {
 			return;
 		}
 		if (curIndex === indexToFocus) {
-			console.log(`index No. ${curIndex} block is focused & selectionEnd`);
 			targetDOM.focus();
 			targetDOM.setSelectionRange(
 				targetDOM.value.length,
