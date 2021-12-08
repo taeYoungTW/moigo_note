@@ -42,7 +42,6 @@ const Block = () => {
 	 */
 	const _setIndexToFocus = useCallback(
 		(index) => {
-			console.log('Run _setIndexToFocus');
 			setIndexToFocus(index);
 		},
 		[setIndexToFocus]
