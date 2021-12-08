@@ -27,19 +27,30 @@ export const handleBlockWithBackspaceKey = (e, content, callback) => {
 	return;
 };
 
-export const handleBlockWithArrowKey = (e, upCallback, downCallback) => {
-	if (e.code === 'ArrowUp' && e.target.selectionStart === 0) {
-		// ArrowUp
-		upCallback();
+export const handleBlockWithArrowKey = (e, upCallback, downCallback, isImg) => {
+	// ArrowUp
+	if (e.code === 'ArrowUp') {
+		if (isImg) {
+			upCallback();
+			return;
+		}
+		if (e.target.selectionStart === 0) {
+			upCallback();
+			return;
+		}
 		return;
 	}
 
-	if (
-		e.code === 'ArrowDown' &&
-		e.target.selectionStart === e.target.value.length
-	) {
-		//ArrowDown
-		downCallback();
+	//ArrowDown
+	if (e.code === 'ArrowDown') {
+		if (isImg) {
+			downCallback();
+			return;
+		}
+		if (e.target.selectionStart === e.target.value.length) {
+			downCallback();
+			return;
+		}
 		return;
 	}
 };
@@ -49,6 +60,7 @@ export const handleBlockWithBrackets = (e, callback) => {
 		return;
 	}
 	if (e.code === 'Space') {
+		e.preventDefault();
 		callback();
 	}
 };
