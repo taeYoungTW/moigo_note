@@ -25,9 +25,15 @@ const useDnDListBlock = (index, block, moveBlock) => {
 
 			const hoverBoundingRect = currentRef.current?.getBoundingClientRect();
 
-			const { bottom: dropBottom } = hoverBoundingRect;
+			const { bottom: dropBottom, top: dropTop } = hoverBoundingRect;
 			const cursorClientY = monitor.getClientOffset().y;
 
+			// 아래에서 위로 이동하는 경우
+			if (dragIndex > index) {
+				if (cursorClientY > dropTop + blockHeight) {
+					return;
+				}
+			}
 			// 위에서 아래로 이동하는 경우
 			if (dragIndex < index) {
 				if (cursorClientY < dropBottom - blockHeight) {
