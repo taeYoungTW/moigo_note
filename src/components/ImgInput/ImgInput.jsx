@@ -1,4 +1,8 @@
+import styles from './ImgInput.scss';
+
 const ImgInput = ({ children, callback }) => {
+	/* ---- EventHandlers ------------------------ */
+	// onChange
 	const handleImgInputOnChange = (e) => {
 		const {
 			target: { files },
@@ -15,15 +19,20 @@ const ImgInput = ({ children, callback }) => {
 			};
 			reader.readAsDataURL(aFile);
 		}
+
+		// Solved issue #8
+		e.target.value = '';
 	};
+
+	/* ---- Render ------------------------ */
 	return (
 		<label>
 			{children}
 			<input
+				className={styles.imgInput}
 				type="file"
 				accept=".jpg, .png"
 				onChange={handleImgInputOnChange}
-				style={{ display: 'none' }}
 			/>
 		</label>
 	);
