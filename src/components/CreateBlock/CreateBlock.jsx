@@ -32,7 +32,7 @@ const CreateBlock = ({ block, index }) => {
 			case BlockTypes.CHECKLIST:
 				return <CreateChecklistBlock block={block} blockIndex={index} />;
 			case BlockTypes.IMAGE:
-				return <CreateImgBlock block={block} />;
+				return <CreateImgBlock block={block} blockIndex={index} />;
 			default:
 				_setUseError({
 					message: INVALID_BLOCK_TYPE_TEXT,
