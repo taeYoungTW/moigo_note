@@ -12,11 +12,12 @@ import {
 import setCaretEnd from '../../utils/setCaretEnd';
 import styles from './ChecklistTextarea.scss';
 const ChecklistTextarea = ({ block, blockIndex }) => {
-	// Global Actions ------------------------------------
+	/* ---- Global States & Actions ------------------------------ */
 	const { _indexToFocus } = useAppState();
 	const { _addTypeBlock, _updateBlock, _setIndexToFocus } = useAppAction();
 
-	// Event Handler ------------------------------------
+	/* ---- EventHandlers ---------------------------------------- */
+	// onChange
 	const handleChecklistContentOnChange = useCallback(
 		(e) => {
 			const {
@@ -27,6 +28,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 		[_updateBlock, block]
 	);
 
+	// onKeyDown
 	const handleOnKeyDown = (e) => {
 		// Solved #6 issue
 		if (e.nativeEvent.isComposing) {
@@ -49,27 +51,36 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			e,
 			() => {
 				_setIndexToFocus(blockIndex - 1);
-				console.log('to', blockIndex - 1, 'up');
 			},
 			() => {
 				_setIndexToFocus(blockIndex + 1);
-				console.log('to', blockIndex + 1, 'down');
 			}
 		);
 	};
 
-	// Ref ---------------------------------------------------
+	// onBlur
+	/* Solved Issue #5
+	 Clean Up (For Checking a Change in useIsPrevBlockToFocus hook or like useEffect) */
+	const handleOnBlur = (e) => {
+		if (_indexToFocus === -1) {
+			return;
+		}
+		_setIndexToFocus(-1);
+	};
+
+	/* ---- Ref -------------------------------------------------- */
 	const contentRef = useRef(null);
 
-	// hooks -----------------------------
+	/* ---- hooks -------------------------------------------------- */
 	useAutoHeightTextarea(contentRef, block.content);
 	useIsPrevBlockToFocus(blockIndex, _indexToFocus, contentRef.current);
 
+	/* ---- useEffects -------------------------------------------------- */
 	useEffect(() => {
 		setCaretEnd(contentRef.current); // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
 	}, []);
 
-	// Render ------------------------------------------
+	/* ---- Render -------------------------------------------------- */
 	return (
 		<textarea
 			className={styles.checklistBlockTextarea}
@@ -84,6 +95,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			style={{
 				textDecoration: block.isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
+			onBlur={handleOnBlur}
 		/>
 	);
 };
