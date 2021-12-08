@@ -31,6 +31,7 @@ const DragBlockLayer = () => {
 					<div
 						className={styles.dragLayer}
 						style={{
+							opacity: item.blockHeight >= 200 ? 0.8 : 1,
 							transform: `translate(${initialOffset?.x - 501}px, ${
 								currentOffset?.y - item.blockHeight / 2 + 10
 							}px)`,
