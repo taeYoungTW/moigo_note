@@ -2,4 +2,11 @@
 
 .img {
 	max-width: 430px;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+.img:focus {
+	outline: $twinny-orange solid 3px;
+	border-radius: 3px;
 }
