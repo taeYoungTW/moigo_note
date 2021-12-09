@@ -25,7 +25,7 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 		<div className={styles.ctrlBar}>
 			<div className={styles.addBtns}>
 				<ImgInput
-					callback={(dataUrl) => {
+					handleImgUrlCallback={(dataUrl) => {
 						_addTypeBlock(BlockTypes.IMAGE, dataUrl);
 					}}
 				>
