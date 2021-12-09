@@ -8,6 +8,9 @@ const useDnDImgFile = (handleImgUrlCallback) => {
 		async drop(item) {
 			const file = item.files[0];
 			const result = await getImgDataUrlFromFileAsync(file);
+			if (!result) {
+				return;
+			}
 			handleImgUrlCallback(result);
 		},
 	}));
