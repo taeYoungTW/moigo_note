@@ -1,24 +1,16 @@
+import getImgDataUrlFromFileAsync from '../../utils/getImgDataUrlFromFileAsync';
 import styles from './ImgInput.scss';
 
-const ImgInput = ({ children, callback }) => {
+const ImgInput = ({ children, handleImgUrlCallback }) => {
 	/* ---- EventHandlers ------------------------ */
 	// onChange
-	const handleImgInputOnChange = (e) => {
+	const handleImgInputOnChange = async (e) => {
 		const {
 			target: { files },
 		} = e;
 		const aFile = files[0];
-
-		if (aFile) {
-			const reader = new FileReader();
-			reader.onload = (finishedEvent) => {
-				const {
-					currentTarget: { result },
-				} = finishedEvent;
-				callback(result);
-			};
-			reader.readAsDataURL(aFile);
-		}
+		const result = await getImgDataUrlFromFileAsync(aFile);
+		handleImgUrlCallback(result);
 
 		// Solved issue #8
 		e.target.value = '';
