@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { BlockTypes, INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import useDnDImgFile from '../../hooks/useDnDImgFile';
 import useDnDListBlock from '../../hooks/useDnDListBlock';
 import useError from '../../hooks/useError';
 import BlockCtrlBtns from '../BlockCtrlBtns/BlockCtrlBtns';
@@ -12,7 +13,7 @@ import styles from './CreateBlock.scss';
 const CreateBlock = ({ block, index }) => {
 	// Global States & Actions ---------------------------------------
 	const { _blocks } = useAppState();
-	const { _initBlocks } = useAppAction();
+	const { _initBlocks, _addTypeBlock } = useAppAction();
 
 	// Functions ---------------------------------------
 	const moveBlock = useCallback(
@@ -23,6 +24,13 @@ const CreateBlock = ({ block, index }) => {
 			_initBlocks(newBlocks);
 		},
 		[_blocks, _initBlocks]
+	);
+
+	const addImgBlock = useCallback(
+		(result) => {
+			_addTypeBlock(BlockTypes.IMAGE, result, index + 1);
+		},
+		[_addTypeBlock, index]
 	);
 
 	const blockRouter = (BlockType) => {
@@ -51,11 +59,13 @@ const CreateBlock = ({ block, index }) => {
 		moveBlock
 	);
 
+	const fileDropRef = useDnDImgFile(addImgBlock);
+
 	// render ----------------------------
 	return (
 		<div
 			className={styles.createBlock}
-			ref={dropRef}
+			ref={fileDropRef(dropRef)}
 			style={{
 				opacity: isDragging ? 0 : 1,
 			}}
