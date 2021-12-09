@@ -1,4 +1,4 @@
-export const handleBlockWithEnterKey = (e, defaultCallback) => {
+export const handleBlockWithEnterKey = (e, callback) => {
 	if (e.code !== 'Enter') {
 		return;
 	}
@@ -9,7 +9,7 @@ export const handleBlockWithEnterKey = (e, defaultCallback) => {
 	} else {
 		// prevent New Line
 		e.preventDefault();
-		defaultCallback();
+		callback();
 		return;
 	}
 };
