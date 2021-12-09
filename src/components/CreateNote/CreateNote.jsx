@@ -29,7 +29,7 @@ const CreateNote = () => {
 				{WRITE_NOTE_TEXT}
 			</button>
 			<ImgInput
-				callback={(dataUrl) => {
+				handleImgUrlCallback={(dataUrl) => {
 					handleAddBlockBtnOnClick(BlockTypes.IMAGE, dataUrl);
 				}}
 			>
