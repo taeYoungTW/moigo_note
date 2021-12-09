@@ -6,6 +6,7 @@ import {
 	NO_MATCHED_ID_IN_BLOCKS_TEXT,
 } from '../constants/constants';
 import useError from '../hooks/useError';
+// import blockTemplate from '../utils/blockTemplate';
 
 // Manage Global States & Actions
 const Block = () => {
@@ -67,11 +68,16 @@ const Block = () => {
 	const _addTypeBlock = useCallback(
 		(type, dataUrl = '', indexToAdd) => {
 			// _addTypeBlock : Main Logic --------------------------------------------
-			if (indexToAdd) {
-				setBlockAtIndex(blockObjectRouter(type, dataUrl), indexToAdd);
-			} else {
-				setLastBlock(blockObjectRouter(type, dataUrl));
+			setBlock(blockObjectRouter(type, dataUrl), indexToAdd);
+
+			/* // Refactoring case 1) singleTon ?
+			const block = blockTemplate.getBlock(type);
+			block.id = uuid();
+			if (dataUrl) {
+				block.dataUrl = dataUrl;
 			}
+			setBlock(block, indexToAdd); 
+			 */
 
 			// _addTypeBlock : Local functions ----------------------------------------
 			function blockObjectRouter(type, dataUrl) {
@@ -95,22 +101,18 @@ const Block = () => {
 						return undefined;
 				}
 			}
-
-			function setLastBlock(blockObject) {
-				if (!blockObject) {
-					return;
-				}
-				setBlocks((blocks) => [...blocks, blockObject]);
-			}
-
-			function setBlockAtIndex(blockObject, indexToAdd) {
+			function setBlock(blockObject, indexToAdd) {
 				if (!blockObject) {
 					return;
 				}
 				setBlocks((blocks) => {
-					const newBlocks = [...blocks];
-					newBlocks.splice(indexToAdd, 0, blockObject);
-					return newBlocks;
+					if (indexToAdd) {
+						const newBlocks = [...blocks];
+						newBlocks.splice(indexToAdd, 0, blockObject);
+						return newBlocks;
+					} else {
+						return [...blocks, blockObject];
+					}
 				});
 			}
 		},
