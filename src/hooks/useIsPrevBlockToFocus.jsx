@@ -1,18 +1,32 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
-const useIsPrevBlockToFocus = (curIndex, indexToFocus, targetDOM) => {
+const IMG_TAG_NAME = 'IMG';
+
+const useIsPrevBlockToFocus = (
+	curIndex,
+	[_indexToFocus, _setIndexToFocus],
+	ref
+) => {
 	useEffect(() => {
-		if (!targetDOM) {
+		const DOM = ref.current;
+		if (curIndex === _indexToFocus) {
+			DOM.focus();
+			if (DOM.tagName === IMG_TAG_NAME) return;
+			DOM.setSelectionRange(DOM.value.length, DOM.value.length);
+		}
+	}, [curIndex, _indexToFocus, ref]);
+
+	/** initIndexToFocus For Solve Issue #5
+	 *  Connect to onBlur Event
+	 */
+	const initIndexToFocus = useCallback(() => {
+		if (_indexToFocus === -1) {
 			return;
 		}
-		if (curIndex === indexToFocus) {
-			targetDOM.focus();
-			targetDOM.setSelectionRange(
-				targetDOM.value.length,
-				targetDOM.value.length
-			);
-		}
-	}, [curIndex, indexToFocus, targetDOM]);
+		_setIndexToFocus(-1);
+	}, [_indexToFocus, _setIndexToFocus]);
+
+	return { initIndexToFocus };
 };
 
 export default useIsPrevBlockToFocus;
