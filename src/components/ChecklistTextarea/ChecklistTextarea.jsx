@@ -1,20 +1,30 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
-import {
-	handleBlockWithArrowKey,
-	handleBlockWithBackspaceKey,
-	handleBlockWithEnterKey,
-} from '../../utils/handleBlockOnkeyDown';
-import setCaretEnd from '../../utils/setCaretEnd';
+import useSetCaretEnd from '../../hooks/useSetCaretEnd';
+import useShortcuts from '../../hooks/useShortcuts';
 import styles from './ChecklistTextarea.scss';
+
 const ChecklistTextarea = ({ block, blockIndex }) => {
 	/* ---- Global States & Actions ------------------------------ */
 	const { _indexToFocus } = useAppState();
 	const { _addTypeBlock, _updateBlock, _setIndexToFocus } = useAppAction();
+
+	/* ---- Ref -------------------------------------------------- */
+	const contentRef = useRef(null);
+
+	/* ---- hooks -------------------------------------------------- */
+	useAutoHeightTextarea(contentRef, block.content);
+	const { initIndexToFocus: handleOnBlur } = useIsPrevBlockToFocus(
+		blockIndex,
+		[_indexToFocus, _setIndexToFocus],
+		contentRef
+	);
+	useSetCaretEnd(contentRef); // For #4 issue
+	const { handleEnterKey, handleBackspaceKey, handleArrowKey } = useShortcuts();
 
 	/* ---- EventHandlers ---------------------------------------- */
 	// onChange
@@ -35,7 +45,11 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			return;
 		}
 
-		handleBlockWithBackspaceKey(e, block.content, () => {
+		handleEnterKey(e, () => {
+			_addTypeBlock(block.type, undefined, blockIndex + 1);
+		});
+
+		handleBackspaceKey(e, block.content, () => {
 			_updateBlock({
 				id: block.id,
 				type: BlockTypes.TEXT,
@@ -43,11 +57,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			});
 		});
 
-		handleBlockWithEnterKey(e, () => {
-			_addTypeBlock(block.type, undefined, blockIndex + 1);
-		});
-
-		handleBlockWithArrowKey(
+		handleArrowKey(
 			e,
 			() => {
 				_setIndexToFocus(blockIndex - 1);
@@ -57,28 +67,6 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			}
 		);
 	};
-
-	// onBlur
-	/* Solved Issue #5
-	 Clean Up (For Checking a Change in useIsPrevBlockToFocus hook or like useEffect) */
-	const handleOnBlur = (e) => {
-		if (_indexToFocus === -1) {
-			return;
-		}
-		_setIndexToFocus(-1);
-	};
-
-	/* ---- Ref -------------------------------------------------- */
-	const contentRef = useRef(null);
-
-	/* ---- hooks -------------------------------------------------- */
-	useAutoHeightTextarea(contentRef, block.content);
-	useIsPrevBlockToFocus(blockIndex, _indexToFocus, contentRef.current);
-
-	/* ---- useEffects -------------------------------------------------- */
-	useEffect(() => {
-		setCaretEnd(contentRef.current); // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
-	}, []);
 
 	/* ---- Render -------------------------------------------------- */
 	return (
