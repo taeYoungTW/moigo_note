@@ -1,11 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { BlockTypes } from '../../constants/constants';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
-import {
-	handleBlockWithArrowKey,
-	handleBlockWithBackspaceKey,
-	handleBlockWithEnterKey,
-} from '../../utils/handleBlockOnkeyDown';
+import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
+import useShortcuts from '../../hooks/useShortcuts';
 import styles from './CreateImgBlock.scss';
 
 const CreateImgBlock = ({ block, blockIndex }) => {
@@ -16,42 +13,33 @@ const CreateImgBlock = ({ block, blockIndex }) => {
 	/* ---- Ref -------------------------------------------------- */
 	const imgRef = useRef(null);
 
+	/* ---- Hooks -------------------------------------------------- */
+	const { handleArrowKey, handleEnterKey, handleBackspaceKey } = useShortcuts();
+	const { initIndexToFocus: handleOnBlur } = useIsPrevBlockToFocus(
+		blockIndex,
+		[_indexToFocus, _setIndexToFocus],
+		imgRef
+	);
+
 	/* ---- EventHandlers ---------------------------------------- */
 	// onKeyDown
 	const handleOnKeyDown = (e) => {
-		handleBlockWithEnterKey(e, () => {
+		handleEnterKey(e, () => {
 			_addTypeBlock(BlockTypes.TEXT, undefined, blockIndex + 1);
 		});
 
-		handleBlockWithBackspaceKey(e, '', () => {
+		handleBackspaceKey(e, '', () => {
 			_setIndexToFocus(blockIndex - 1);
 			_deleteBlock(block.id);
 		});
 
-		handleBlockWithArrowKey(
+		handleArrowKey(
 			e,
 			() => _setIndexToFocus(blockIndex - 1),
 			() => _setIndexToFocus(blockIndex + 1),
 			true
 		);
 	};
-
-	// onBlur
-	// Clean Up (For Checking a Change in useIsPrevBlockToFocus hook or like useEffect)
-	const handleOnBlur = () => {
-		if (_indexToFocus === -1) {
-			return;
-		}
-		_setIndexToFocus(-1);
-	};
-
-	/* ---- useEffects ---------------------------------------- */
-	// For focusing with ArrowKey
-	useEffect(() => {
-		if (blockIndex === _indexToFocus) {
-			imgRef.current.focus();
-		}
-	}, [blockIndex, _indexToFocus]);
 
 	// For focusing when it was mounted at first
 	useEffect(() => {
