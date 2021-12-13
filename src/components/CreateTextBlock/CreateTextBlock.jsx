@@ -1,17 +1,12 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import styles from './CreateTextBlock.scss';
 import { useAppAction, useAppState } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import { BlockTypes, WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
-import {
-	handleBlockWithArrowKey,
-	handleBlockWithBackspaceKey,
-	handleBlockWithBrackets,
-	handleBlockWithEnterKey,
-} from '../../utils/handleBlockOnkeyDown';
 import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
-import setCaretEnd from '../../utils/setCaretEnd';
+import useShortcuts from '../../hooks/useShortcuts';
+import useSetCaretEnd from '../../hooks/useSetCaretEnd';
 
 const CreateTextBlock = ({ block, blockIndex }) => {
 	/* ---- Global States & Actions ------------------------------ */
@@ -19,8 +14,23 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 		useAppAction();
 	const { _indexToFocus } = useAppState();
 
-	// Ref --------------------------------------------------------
+	/* ---- Ref -------------------------------------------------------- */
 	const textRef = useRef(null);
+
+	/* ---- hooks ---------------------------------------- */
+	useAutoHeightTextarea(textRef, block.text);
+	const { initIndexToFocus: handleOnBlur } = useIsPrevBlockToFocus(
+		blockIndex,
+		[_indexToFocus, _setIndexToFocus],
+		textRef
+	);
+	useSetCaretEnd(textRef); // For #4 issue
+	const {
+		handleEnterKey,
+		handleBackspaceKey,
+		handleBracketsKey,
+		handleArrowKey,
+	} = useShortcuts();
 
 	/* ---- EventHandlers ---------------------------------------- */
 	// onChange
@@ -40,7 +50,11 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 		if (e.nativeEvent.isComposing) {
 			return;
 		}
-		handleBlockWithBrackets(e, () => {
+		handleEnterKey(e, () => {
+			_addTypeBlock(block.type, undefined, blockIndex + 1);
+		});
+
+		handleBracketsKey(e, () => {
 			_updateBlock({
 				id: block.id,
 				type: BlockTypes.CHECKLIST,
@@ -49,16 +63,12 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			});
 		});
 
-		handleBlockWithBackspaceKey(e, block.text, () => {
+		handleBackspaceKey(e, block.text, () => {
 			_setIndexToFocus(blockIndex - 1);
 			_deleteBlock(block.id);
 		});
 
-		handleBlockWithEnterKey(e, () => {
-			_addTypeBlock(block.type, undefined, blockIndex + 1);
-		});
-
-		handleBlockWithArrowKey(
+		handleArrowKey(
 			e,
 			() => {
 				_setIndexToFocus(blockIndex - 1);
@@ -68,25 +78,6 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			}
 		);
 	};
-
-	// onBlur
-	/* Solved Issue #5
-	 Clean Up (For Checking a Change in useIsPrevBlockToFocus hook or like useEffect) */
-	const handleOnBlur = (e) => {
-		if (_indexToFocus === -1) {
-			return;
-		}
-		_setIndexToFocus(-1);
-	};
-
-	/* ---- hooks ---------------------------------------- */
-	useAutoHeightTextarea(textRef, block.text);
-	useIsPrevBlockToFocus(blockIndex, _indexToFocus, textRef.current);
-
-	/* ---- useEffects ---------------------------------------- */
-	useEffect(() => {
-		setCaretEnd(textRef.current); // hook으로 만들어 버리면, DOM이 생겨나는 것을 감지하지 못함
-	}, []);
 
 	/* ---- Render ---------------------------------------- */
 	return (
