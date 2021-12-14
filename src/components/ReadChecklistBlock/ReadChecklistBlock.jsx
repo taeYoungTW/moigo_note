@@ -11,7 +11,7 @@ const ReadChecklistBlock = ({ block, noteId, blockIndex }) => {
 
 	// Event Handler ----------------------------------------------
 
-	const handleCheckBoxOnChange = useCallback(
+	const handleCheckBoxChange = useCallback(
 		(e) => {
 			const {
 				target: { checked },
@@ -42,10 +42,7 @@ const ReadChecklistBlock = ({ block, noteId, blockIndex }) => {
 				}}
 				className={styles.stopPropagation}
 			>
-				<CheckBoxInput
-					isDone={block.isDone}
-					handleCheckBoxOnChange={handleCheckBoxOnChange}
-				/>
+				<CheckBoxInput isDone={block.isDone} onChange={handleCheckBoxChange} />
 			</div>
 			<ChecklistContent isDone={block.isDone} content={block.content} />
 		</div>
