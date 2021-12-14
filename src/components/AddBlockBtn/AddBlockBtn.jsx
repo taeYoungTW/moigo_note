@@ -2,9 +2,10 @@ import styles from './AddBlockBtn.scss';
 import PropTypes from 'prop-types';
 import { ADD_BLOCK_BTN_ICON_STYLE } from '../../constants/iconStyles';
 
-const AddBlockBtn = ({ Icon, eventHandler }) => {
+const AddBlockBtn = ({ Icon, onClick }) => {
+	/* ---- render ------------------------------ */
 	return (
-		<div className={styles.iconContainer} onClick={eventHandler}>
+		<div className={styles.iconContainer} onClick={onClick}>
 			<Icon sx={ADD_BLOCK_BTN_ICON_STYLE} />
 		</div>
 	);
