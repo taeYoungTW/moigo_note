@@ -10,7 +10,7 @@ const Main = () => {
 
 	// Event Handler ----------------------------------------------
 
-	const handleMainOnClick = useCallback(() => {
+	const handleMainClick = useCallback(() => {
 		if (!_isCreateNoteFormOn) {
 			return;
 		}
@@ -26,7 +26,7 @@ const Main = () => {
 
 	// Render -----------------------------------------------------
 	return (
-		<main className={styles.main} onClick={handleMainOnClick}>
+		<main className={styles.main} onClick={handleMainClick}>
 			<CreateNoteArea />
 			<ReadAllNotes />
 		</main>
