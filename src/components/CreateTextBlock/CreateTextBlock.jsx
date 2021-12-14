@@ -19,7 +19,7 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 
 	/* ---- hooks ---------------------------------------- */
 	useAutoHeightTextarea(textRef, block.text);
-	const { initIndexToFocus: handleOnBlur } = useIsPrevBlockToFocus(
+	const { initIndexToFocus: handleBlur } = useIsPrevBlockToFocus(
 		blockIndex,
 		[_indexToFocus, _setIndexToFocus],
 		textRef
@@ -34,7 +34,7 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 
 	/* ---- EventHandlers ---------------------------------------- */
 	// onChange
-	const handleTextOnChange = useCallback(
+	const handleTextChange = useCallback(
 		(e) => {
 			const {
 				target: { value },
@@ -45,7 +45,7 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 	);
 
 	// onKeyDown
-	const handleOnKeyDown = (e) => {
+	const handleKeyDown = (e) => {
 		// Solved #6 issue
 		if (e.nativeEvent.isComposing) {
 			return;
@@ -85,13 +85,13 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 			className={styles.textBlockTextarea}
 			type="text"
 			value={block.text}
-			onKeyDown={handleOnKeyDown}
-			onChange={handleTextOnChange}
+			onKeyDown={handleKeyDown}
+			onChange={handleTextChange}
 			placeholder={WRITE_NOTE_TEXT}
 			rows={1}
 			ref={textRef}
 			spellCheck={false}
-			onBlur={handleOnBlur}
+			onBlur={handleBlur}
 		/>
 	);
 };
