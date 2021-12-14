@@ -8,7 +8,7 @@ import { useAppAction } from '../../contexts/AppStateContext';
 import styles from './CreateCtrlBar.scss';
 import { BlockTypes } from '../../constants/constants';
 
-const CreateCtrlBar = ({ handleSubmitBtnClick, submitBtnName }) => {
+const CreateCtrlBar = ({ onSubmitBtnClick, submitBtnName }) => {
 	// Global States & Actions --------------------------
 	const { _addTypeBlock } = useAppAction();
 
@@ -46,7 +46,7 @@ const CreateCtrlBar = ({ handleSubmitBtnClick, submitBtnName }) => {
 			</div>
 			<button
 				type="button"
-				onClick={handleSubmitBtnClick}
+				onClick={onSubmitBtnClick}
 				className={styles.submitBtn}
 			>
 				{submitBtnName}
