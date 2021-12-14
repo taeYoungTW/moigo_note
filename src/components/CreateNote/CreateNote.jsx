@@ -12,7 +12,7 @@ const CreateNote = () => {
 
 	// Event Handler --------------------------
 
-	const handleAddBlockBtnOnClick = (type, dataUrl) => {
+	const handleAddBlockBtnClick = (type, dataUrl) => {
 		_addTypeBlock(type, dataUrl);
 		_setIsCreateNoteFormOn(true);
 	};
@@ -23,22 +23,22 @@ const CreateNote = () => {
 			<button
 				className={styles.addTextBtn}
 				onClick={() => {
-					handleAddBlockBtnOnClick(BlockTypes.TEXT);
+					handleAddBlockBtnClick(BlockTypes.TEXT);
 				}}
 			>
 				{WRITE_NOTE_TEXT}
 			</button>
 			<ImgInput
 				handleImgUrlCallback={(dataUrl) => {
-					handleAddBlockBtnOnClick(BlockTypes.IMAGE, dataUrl);
+					handleAddBlockBtnClick(BlockTypes.IMAGE, dataUrl);
 				}}
 			>
 				<AddBlockBtn Icon={InsertPhotoIcon} />
 			</ImgInput>
 			<AddBlockBtn
 				Icon={FormatListBulletedIcon}
-				eventHandler={() => {
-					handleAddBlockBtnOnClick(BlockTypes.CHECKLIST);
+				onClick={() => {
+					handleAddBlockBtnClick(BlockTypes.CHECKLIST);
 				}}
 			/>
 		</div>
