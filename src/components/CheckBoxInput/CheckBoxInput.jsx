@@ -3,7 +3,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import styles from './CheckBoxInput.scss';
 import { CHECKBOX_ICON_STYLE } from '../../constants/iconStyles';
 
-const CheckBoxInput = ({ isDone, handleCheckBoxOnChange }) => {
+const CheckBoxInput = ({ isDone, onChange }) => {
 	return (
 		<label className={styles.checkboxLabel}>
 			{isDone ? (
@@ -15,7 +15,7 @@ const CheckBoxInput = ({ isDone, handleCheckBoxOnChange }) => {
 				type="checkbox"
 				className={styles.checkboxInput}
 				checked={isDone}
-				onChange={handleCheckBoxOnChange}
+				onChange={onChange}
 			/>
 		</label>
 	);
