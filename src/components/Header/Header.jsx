@@ -13,7 +13,7 @@ const Header = () => {
 	// Global States, Actions ---------------------------------------
 	const { _setSearchInput } = useAppAction();
 	// Render -------------------------------------------------------
-	const handleSearchInputOnChange = useCallback(
+	const handleSearchInputChange = useCallback(
 		(e) => {
 			const {
 				target: { value },
@@ -35,7 +35,7 @@ const Header = () => {
 						className={styles.searchInput}
 						type="text"
 						placeholder={SEARCH_TEXT}
-						onChange={handleSearchInputOnChange}
+						onChange={handleSearchInputChange}
 					/>
 				</div>
 			</div>
