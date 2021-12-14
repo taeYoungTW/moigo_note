@@ -17,18 +17,18 @@ const UpdateNote = ({ note, setIsModalOn }) => {
 	const [updateNote, setUpdateNote] = useState(note);
 
 	// Event Handler ----------------------------------------------
-	const handleUpdateNoteBtnOnClick = useCallback(() => {
+	const handleUpdateNoteBtnClick = useCallback(() => {
 		const filteredBlocks = emptyTextBlockFilter(_blocks);
 		_updateNote({ ...updateNote, blocks: [...filteredBlocks] });
 		setIsModalOn(false);
 	}, [_updateNote, updateNote, _blocks, setIsModalOn]);
 
-	const handleTitleInputOnChange = useCallback((e) => {
+	const handleTitleInputChange = useCallback((e) => {
 		const { value } = e.target;
 		setUpdateNote((note) => ({ ...note, title: value }));
 	}, []);
 
-	const handleCloseBtnOnClick = useCallback(() => {
+	const handleCloseBtnClick = useCallback(() => {
 		setIsModalOn(false);
 	}, [setIsModalOn]);
 
@@ -41,15 +41,15 @@ const UpdateNote = ({ note, setIsModalOn }) => {
 						className={styles.titleInput}
 						value={updateNote.title}
 						placeholder={TITLE_TEXT}
-						onChange={handleTitleInputOnChange}
+						onChange={handleTitleInputChange}
 					/>
-					<button className={styles.closeBtn} onClick={handleCloseBtnOnClick}>
+					<button className={styles.closeBtn} onClick={handleCloseBtnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
 				<CreateBlocks />
 				<CreateCtrlBar
-					handleSubmitBtnOnClick={handleUpdateNoteBtnOnClick}
+					onSubmitBtnClick={handleUpdateNoteBtnClick}
 					submitBtnName={COMPLETE_TEXT}
 				/>
 			</div>
