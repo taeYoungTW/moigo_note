@@ -13,7 +13,7 @@ const CreateChecklistBlock = ({ block, blockIndex }) => {
 	/* handleCheckBoxOnChange가 외부에서 전달하는 이유
 	 * CheckBoxInput의 경우 Read와 Create 모두 사용하기 때문에 onChange에 대한 이벤트 핸들러 로직이 다릅니다.
 	 */
-	const handleCheckBoxOnChange = useCallback(
+	const handleCheckBoxChange = useCallback(
 		(e) => {
 			const {
 				target: { checked },
@@ -29,10 +29,7 @@ const CreateChecklistBlock = ({ block, blockIndex }) => {
 	// Render ------------------------------------------
 	return (
 		<div className={styles.checklist}>
-			<CheckBoxInput
-				isDone={block.isDone}
-				handleCheckBoxOnChange={handleCheckBoxOnChange}
-			/>
+			<CheckBoxInput isDone={block.isDone} onChange={handleCheckBoxChange} />
 			<ChecklistTextarea block={block} blockIndex={blockIndex} />
 		</div>
 	);
