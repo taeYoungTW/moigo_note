@@ -22,7 +22,7 @@ const SelectedHeader = () => {
 	const [isConfirmOn, setIsConfirmOn] = useState(false);
 
 	// Event Handler ----------------------------------------------
-	const handleDeleteBtnOnClick = useCallback(() => {
+	const handleDeleteBtnClick = useCallback(() => {
 		setIsConfirmOn(true);
 	}, []);
 
@@ -45,7 +45,7 @@ const SelectedHeader = () => {
 			</div>
 			<DeleteBtn
 				className={styles.deleteBtn}
-				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+				onClick={handleDeleteBtnClick}
 				style={HEADER_DELETE_ICON_STYLE}
 			/>
 			<PortalConfirm
