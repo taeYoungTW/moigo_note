@@ -15,7 +15,7 @@ const CreateImgBlock = ({ block, blockIndex }) => {
 
 	/* ---- Hooks -------------------------------------------------- */
 	const { handleArrowKey, handleEnterKey, handleBackspaceKey } = useShortcuts();
-	const { initIndexToFocus: handleOnBlur } = useIsPrevBlockToFocus(
+	const { initIndexToFocus: handleBlur } = useIsPrevBlockToFocus(
 		blockIndex,
 		[_indexToFocus, _setIndexToFocus],
 		imgRef
@@ -23,7 +23,7 @@ const CreateImgBlock = ({ block, blockIndex }) => {
 
 	/* ---- EventHandlers ---------------------------------------- */
 	// onKeyDown
-	const handleOnKeyDown = (e) => {
+	const handleKeyDown = (e) => {
 		handleEnterKey(e, () => {
 			_addTypeBlock(BlockTypes.TEXT, undefined, blockIndex + 1);
 		});
@@ -54,8 +54,8 @@ const CreateImgBlock = ({ block, blockIndex }) => {
 			src={block.dataUrl}
 			alt="img_block"
 			className={styles.img}
-			onKeyDown={handleOnKeyDown}
-			onBlur={handleOnBlur}
+			onKeyDown={handleKeyDown}
+			onBlur={handleBlur}
 		/>
 	);
 };
