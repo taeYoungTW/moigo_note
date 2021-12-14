@@ -80,7 +80,7 @@ const Note = () => {
 
 	const _moveBlockToBottomOfNote = useCallback(
 		(noteId, targetBlockIndex) => {
-			_allNotes.map((note) => {
+			const newNotes = _allNotes.map((note) => {
 				if (note.id === noteId) {
 					const newNote = { ...note };
 					const [movedItem] = newNote.blocks.splice(targetBlockIndex, 1);
@@ -89,6 +89,7 @@ const Note = () => {
 				}
 				return note;
 			});
+			setAllNotes(newNotes);
 		},
 		[_allNotes]
 	);
