@@ -4,7 +4,7 @@ import styles from './ImgInput.scss';
 const ImgInput = ({ children, handleImgUrlCallback }) => {
 	/* ---- EventHandlers ------------------------ */
 	// onChange
-	const handleImgInputOnChange = async (e) => {
+	const handleImgInputChange = async (e) => {
 		const {
 			target: { files },
 		} = e;
@@ -24,7 +24,7 @@ const ImgInput = ({ children, handleImgUrlCallback }) => {
 				className={styles.imgInput}
 				type="file"
 				accept=".jpg, .png"
-				onChange={handleImgInputOnChange}
+				onChange={handleImgInputChange}
 			/>
 		</label>
 	);
