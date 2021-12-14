@@ -25,17 +25,17 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 	const [isConfirmOn, setIsConfirmOn] = useState(false);
 
 	// Event Handler ----------------------------------------------
-	const handleDeleteBtnOnClick = useCallback(() => {
+	const handleDeleteBtnClick = useCallback(() => {
 		setIsConfirmOn(true);
 	}, []);
 
-	const handleSetEditBtnOnClick = useCallback(() => {
+	const handleEditBtnClick = useCallback(() => {
 		_initBlocks([...note.blocks]);
 		setIsEdit(true);
 		_setIsCreateNoteFormOn(false); // _blocks를 같이 쓰기 때문에, 수정시 CreateNoteForm을 닫아 연동하여 표시될 _blocks를 막습니다.
 	}, [_initBlocks, note, setIsEdit, _setIsCreateNoteFormOn]);
 
-	const handleCloseBtnOnClick = useCallback(() => {
+	const handleCloseBtnClick = useCallback(() => {
 		setIsModalOn(false);
 	}, [setIsModalOn]);
 
@@ -50,7 +50,7 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 			<div className={styles.detailNote}>
 				<div className={styles.titleContainer}>
 					<h1 className={styles.title}>{note.title}</h1>
-					<button className={styles.closeBtn} onClick={handleCloseBtnOnClick}>
+					<button className={styles.closeBtn} onClick={handleCloseBtnClick}>
 						<CloseIcon sx={MODAL_NOTE_CLOSE_ICON_STYLE} />
 					</button>
 				</div>
@@ -62,12 +62,12 @@ const DetailNote = ({ setIsEdit, note, setIsModalOn }) => {
 				<div className={styles.ctrlBar}>
 					<DeleteBtn
 						className={styles.deleteBtn}
-						handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+						onClick={handleDeleteBtnClick}
 						style={DETAIL_NOTE_DELETE_ICON_STYLE}
 					/>
 					<button
 						type="button"
-						onClick={handleSetEditBtnOnClick}
+						onClick={handleEditBtnClick}
 						className={styles.editBtn}
 					>
 						{EDIT_TEXT}
