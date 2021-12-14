@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import { CANCEL_TEXT, CONFIRM_TEXT } from '../../constants/constants';
-import './PortalConfirm.scss';
+import styles from './PortalConfirm.scss';
 
 const PortalConfirm = ({
 	question,
@@ -9,11 +9,11 @@ const PortalConfirm = ({
 	confirmCallback,
 }) => {
 	// Event Handler -----------------------
-	const handleCancelBtnOnClick = () => {
+	const handleCancelBtnClick = () => {
 		setIsConfirmOn(false);
 	};
 
-	const handleConfirmBtnOnClick = () => {
+	const handleConfirmBtnClick = () => {
 		confirmCallback();
 		setIsConfirmOn(false);
 	};
@@ -23,18 +23,18 @@ const PortalConfirm = ({
 	return ReactDOM.createPortal(
 		isConfirmOn ? (
 			<div
-				className="confirm-container"
+				className={styles.confirmContainer}
 				onClick={(e) => {
 					e.stopPropagation();
 				}}
 			>
-				<div className="confirm">
-					<h1 className="question">{question}</h1>
-					<div className="btns">
-						<button type="button" onClick={handleCancelBtnOnClick}>
+				<div className={styles.confirm}>
+					<h1 className={styles.question}>{question}</h1>
+					<div className={styles.btns}>
+						<button type={styles.button} onClick={handleCancelBtnClick}>
 							{CANCEL_TEXT}
 						</button>
-						<button type="button" onClick={handleConfirmBtnOnClick}>
+						<button type={styles.button} onClick={handleConfirmBtnClick}>
 							{CONFIRM_TEXT}
 						</button>
 					</div>
