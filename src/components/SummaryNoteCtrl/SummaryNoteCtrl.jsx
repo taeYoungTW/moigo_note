@@ -16,7 +16,7 @@ const SummaryNoteCtrl = ({ note }) => {
 	const [isConfirmOn, setIsConfirmOn] = useState(false);
 
 	// Event Handler ----------------------------------------------
-	const handleDeleteBtnOnClick = useCallback((e) => {
+	const handleDeleteBtnClick = useCallback((e) => {
 		e.stopPropagation();
 		setIsConfirmOn(true);
 	}, []);
@@ -34,7 +34,7 @@ const SummaryNoteCtrl = ({ note }) => {
 		<div className={hoverStyles.summaryNoteCtrlBar}>
 			<DeleteBtn
 				className={hoverStyles.deleteBtn}
-				handleDeleteBtnOnClick={handleDeleteBtnOnClick}
+				onClick={handleDeleteBtnClick}
 				style={SUMMARY_NOTE_DELETE_ICON_STYLE}
 			/>
 			<SummaryNoteSelector noteId={note.id} />
