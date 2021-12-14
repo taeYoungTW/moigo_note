@@ -13,12 +13,12 @@ const SummaryNoteSelector = ({ noteId }) => {
 		_selectedNoteIds.includes(noteId)
 	);
 
-	const handleSelectBtnOnClick = useCallback(() => {
+	const handleSelectBtnClick = useCallback(() => {
 		setIsSelected(true);
 		_addSelectedNoteId(noteId);
 	}, [_addSelectedNoteId, noteId]);
 
-	const handleUnselectBtnOnClick = useCallback(() => {
+	const handleUnselectBtnClick = useCallback(() => {
 		setIsSelected(false);
 		_deleteSelectedNoteId(noteId);
 	}, [_deleteSelectedNoteId, noteId]);
@@ -41,7 +41,7 @@ const SummaryNoteSelector = ({ noteId }) => {
 				<>
 					<button
 						className={hoverStyles.unselectBtn}
-						onClick={handleUnselectBtnOnClick}
+						onClick={handleUnselectBtnClick}
 					>
 						<CheckCircleIcon sx={SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE} />
 					</button>
@@ -56,7 +56,7 @@ const SummaryNoteSelector = ({ noteId }) => {
 			) : (
 				<button
 					className={hoverStyles.selectBtn}
-					onClick={handleSelectBtnOnClick}
+					onClick={handleSelectBtnClick}
 				>
 					<CheckCircleOutlineIcon sx={SUMMARY_NOTE_CHECK_CIRCLE_ICON_STYLE} />
 				</button>
