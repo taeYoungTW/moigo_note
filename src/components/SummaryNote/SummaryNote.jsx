@@ -31,13 +31,17 @@ const SummaryNote = ({ note, index }) => {
 	// Local State
 	const [isModalOn, setIsModalOn] = useState(false);
 
+	/* ---- Event Handler ------------------------------ */
+
+	const handleSummaryNoteClick = () => {
+		setIsModalOn(true);
+	};
+
 	// Render -------------------------------------------
 	return (
 		<article
 			className={styles.summaryNote}
-			onClick={() => {
-				setIsModalOn(true);
-			}}
+			onClick={handleSummaryNoteClick}
 			style={{ opacity: isDragging ? 0 : 1, display: isDisplay ? '' : 'none' }}
 			ref={dndRef}
 		>
