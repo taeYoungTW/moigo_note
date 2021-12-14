@@ -16,13 +16,13 @@ const CreateNoteForm = () => {
 	const [title, setTitle] = useState('');
 
 	// Event Handler ----------------------------------
-	const handleCreateNoteBtnOnClick = () => {
+	const handleCreateNoteBtnClick = () => {
 		const filteredBlocks = emptyTextBlockFilter(_blocks);
 		_addNote({ title, id: uuid(), blocks: [...filteredBlocks] });
 		_setIsCreateNoteFormOn(false);
 	};
 
-	const handleTitleInputOnChange = (e) => {
+	const handleTitleInputChange = (e) => {
 		const { value } = e.target;
 		setTitle(value);
 	};
@@ -35,13 +35,13 @@ const CreateNoteForm = () => {
 					className={styles.titleInput}
 					type="text"
 					placeholder={TITLE_TEXT}
-					onChange={handleTitleInputOnChange}
+					onChange={handleTitleInputChange}
 					value={title}
 				/>
 			</div>
 			<CreateBlocks />
 			<CreateCtrlBar
-				handleSubmitBtnOnClick={handleCreateNoteBtnOnClick}
+				onSubmitBtnClick={handleCreateNoteBtnClick}
 				submitBtnName={COMPLETE_TEXT}
 			/>
 		</section>
