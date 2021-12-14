@@ -8,12 +8,12 @@ import { useAppAction } from '../../contexts/AppStateContext';
 import styles from './CreateCtrlBar.scss';
 import { BlockTypes } from '../../constants/constants';
 
-const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
+const CreateCtrlBar = ({ handleSubmitBtnClick, submitBtnName }) => {
 	// Global States & Actions --------------------------
 	const { _addTypeBlock } = useAppAction();
 
 	// Event Handler ----------------------------------
-	const handleAddBlockBtnOnClick = useCallback(
+	const handleAddBlockBtnClick = useCallback(
 		(type, dataUrl) => {
 			_addTypeBlock(type, dataUrl);
 		},
@@ -33,20 +33,20 @@ const CreateCtrlBar = ({ handleSubmitBtnOnClick, submitBtnName }) => {
 				</ImgInput>
 				<AddBlockBtn
 					Icon={FormatListBulletedIcon}
-					eventHandler={() => {
-						handleAddBlockBtnOnClick(BlockTypes.CHECKLIST);
+					onClick={() => {
+						handleAddBlockBtnClick(BlockTypes.CHECKLIST);
 					}}
 				/>
 				<AddBlockBtn
 					Icon={TextFieldsIcon}
-					eventHandler={() => {
-						handleAddBlockBtnOnClick(BlockTypes.TEXT);
+					onClick={() => {
+						handleAddBlockBtnClick(BlockTypes.TEXT);
 					}}
 				/>
 			</div>
 			<button
 				type="button"
-				onClick={handleSubmitBtnOnClick}
+				onClick={handleSubmitBtnClick}
 				className={styles.submitBtn}
 			>
 				{submitBtnName}
