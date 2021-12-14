@@ -18,7 +18,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 
 	/* ---- hooks -------------------------------------------------- */
 	useAutoHeightTextarea(contentRef, block.content);
-	const { initIndexToFocus: handleOnBlur } = useIsPrevBlockToFocus(
+	const { initIndexToFocus: handleBlur } = useIsPrevBlockToFocus(
 		blockIndex,
 		[_indexToFocus, _setIndexToFocus],
 		contentRef
@@ -38,8 +38,8 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 		[_updateBlock, block]
 	);
 
-	// onKeyDown
-	const handleOnKeyDown = (e) => {
+	// keyDown
+	const handleKeyDown = (e) => {
 		// Solved #6 issue
 		if (e.nativeEvent.isComposing) {
 			return;
@@ -75,7 +75,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			type="text"
 			value={block.content}
 			onChange={handleChecklistContentOnChange}
-			onKeyDown={handleOnKeyDown}
+			onKeyDown={handleKeyDown}
 			placeholder={ADD_LIST_TEXT}
 			rows={1}
 			ref={contentRef}
@@ -83,7 +83,7 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 			style={{
 				textDecoration: block.isDone && CHECKLIST_CONTENT_DECORATION_VALUE,
 			}}
-			onBlur={handleOnBlur}
+			onBlur={handleBlur}
 		/>
 	);
 };
