@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { ADD_LIST_TEXT, BlockTypes } from '../../constants/constants';
 import { CHECKLIST_CONTENT_DECORATION_VALUE } from '../../constants/iconStyles';
-import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import { useAppAction } from '../../contexts/AppStateContext';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
 import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
 import useSetCaretEnd from '../../hooks/useSetCaretEnd';
@@ -10,7 +10,6 @@ import styles from './ChecklistTextarea.scss';
 
 const ChecklistTextarea = ({ block, blockIndex }) => {
 	/* ---- Global States & Actions ------------------------------ */
-	const { _indexToFocus } = useAppState();
 	const { _addTypeBlock, _updateBlock, _setIndexToFocus } = useAppAction();
 
 	/* ---- Ref -------------------------------------------------- */
@@ -20,8 +19,8 @@ const ChecklistTextarea = ({ block, blockIndex }) => {
 	useAutoHeightTextarea(contentRef, block.content);
 	const { initIndexToFocus: handleBlur } = useIsPrevBlockToFocus(
 		blockIndex,
-		[_indexToFocus, _setIndexToFocus],
-		contentRef
+		contentRef,
+		useAppAction
 	);
 	useSetCaretEnd(contentRef); // For #4 issue
 	const { handleEnterKey, handleBackspaceKey, handleArrowKey } = useShortcuts();
