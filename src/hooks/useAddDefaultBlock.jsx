@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { BlockTypes } from '../constants/constants';
 
-const useAddDefaultBlock = (addTypeBlockAction, blocksLength) => {
+const useAddDefaultBlock = (blocksLength, useAppAction) => {
+	const { _addTypeBlock } = useAppAction();
 	useEffect(() => {
 		if (blocksLength === 0) {
-			addTypeBlockAction(BlockTypes.TEXT);
+			_addTypeBlock(BlockTypes.TEXT);
 		}
-	}, [blocksLength, addTypeBlockAction]);
+	}, [blocksLength, _addTypeBlock]);
 };
 export default useAddDefaultBlock;
