@@ -1,10 +1,21 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../constants/constants';
 
-const useDnDGridNote = (index, note, moveNote) => {
+const useDnDGridNote = (index, note, useAppAction) => {
+	const { _allNotes, _setNotes } = useAppAction();
 	const noteRef = useRef(null);
+
+	const moveNote = useCallback(
+		(dragIndex, hoverIndex) => {
+			const newNotes = [..._allNotes];
+			const [draggedNote] = newNotes.splice(dragIndex, 1);
+			newNotes.splice(hoverIndex, 0, draggedNote);
+			_setNotes(newNotes);
+		},
+		[_allNotes, _setNotes]
+	);
 
 	// React-dnd Hooks -------------------------------
 	const [, drop] = useDrop({
