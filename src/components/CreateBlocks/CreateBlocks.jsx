@@ -7,7 +7,7 @@ import useAddDefaultBlock from '../../hooks/useAddDefaultBlock';
 
 const CreateBlocks = () => {
 	// Global States & Actions --------------------------
-	const { _setIndexToFocus, _resetBlocks, _addTypeBlock } = useAppAction();
+	const { _setIndexToFocus, _resetBlocks } = useAppAction();
 	const { _blocks } = useAppState();
 
 	// useEffects ----------------------------------------
@@ -20,7 +20,7 @@ const CreateBlocks = () => {
 		};
 	}, [_setIndexToFocus, _resetBlocks]);
 
-	useAddDefaultBlock(_addTypeBlock, _blocks.length);
+	useAddDefaultBlock(_blocks.length, useAppAction);
 
 	return (
 		<div className={styles.createBlocks}>
