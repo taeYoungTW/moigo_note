@@ -7,7 +7,7 @@ import ReadTextBlock from '../ReadTextBlock/ReadTextBlock';
 import styles from './ReadBlock.scss';
 
 const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
-	const _setUseError = useError();
+	const setError = useError();
 
 	const blockRouter = (blockType) => {
 		switch (blockType) {
@@ -28,7 +28,7 @@ const ReadBlock = ({ block, noteId, isSummaryNote, blockIndex }) => {
 				}
 				return <ReadImgBlock block={block} key={block.id} />;
 			default:
-				_setUseError({
+				setError({
 					message: INVALID_BLOCK_TYPE_TEXT,
 					location: 'DetailNote/ReadBlock/DetailBlockRouter',
 				});

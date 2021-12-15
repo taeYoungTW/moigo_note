@@ -10,7 +10,7 @@ import useError from '../hooks/useError';
 
 // Manage Global States & Actions
 const Block = () => {
-	const _setUseError = useError();
+	const setError = useError();
 	/*
 	 * ------ Init States : useState ------------------
 	 * Use for Creating or Updating Blocks of Note
@@ -94,7 +94,7 @@ const Block = () => {
 					case BlockTypes.IMAGE:
 						return { id: uuid(), type, dataUrl };
 					default:
-						_setUseError({
+						setError({
 							message: `${INVALID_BLOCK_TYPE_TEXT}, A wrong input: ${type}`,
 							location: '_addTypeBlock',
 						});
@@ -116,7 +116,7 @@ const Block = () => {
 				});
 			}
 		},
-		[_setUseError]
+		[setError]
 	);
 
 	const _deleteBlock = useCallback((blockId) => {
@@ -136,13 +136,13 @@ const Block = () => {
 					})
 				);
 			} else {
-				_setUseError({
+				setError({
 					message: NO_MATCHED_ID_IN_BLOCKS_TEXT,
 					location: 'Block/_updateBlock',
 				});
 			}
 		},
-		[_blocks, _setUseError]
+		[_blocks, setError]
 	);
 
 	const _moveBlockToBottom = useCallback(
