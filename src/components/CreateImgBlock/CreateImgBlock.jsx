@@ -1,13 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { BlockTypes } from '../../constants/constants';
-import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import { useAppAction } from '../../contexts/AppStateContext';
 import useIsPrevBlockToFocus from '../../hooks/useIsPrevBlockToFocus';
 import useShortcuts from '../../hooks/useShortcuts';
 import styles from './CreateImgBlock.scss';
 
 const CreateImgBlock = ({ block, blockIndex }) => {
 	/* ---- Global States & Actions ------------------------------ */
-	const { _indexToFocus } = useAppState();
 	const { _deleteBlock, _setIndexToFocus, _addTypeBlock } = useAppAction();
 
 	/* ---- Ref -------------------------------------------------- */
@@ -17,8 +16,8 @@ const CreateImgBlock = ({ block, blockIndex }) => {
 	const { handleArrowKey, handleEnterKey, handleBackspaceKey } = useShortcuts();
 	const { initIndexToFocus: handleBlur } = useIsPrevBlockToFocus(
 		blockIndex,
-		[_indexToFocus, _setIndexToFocus],
-		imgRef
+		imgRef,
+		useAppAction
 	);
 
 	/* ---- EventHandlers ---------------------------------------- */
