@@ -1,12 +1,28 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../constants/constants';
 
-const useDnDListBlock = (index, block, moveBlock) => {
+const useDnDListBlock = (index, block, useAppAction) => {
+	/* ---- Global States & Actions ----------------------- */
+	const { _blocks, _initBlocks } = useAppAction();
+
+	/* ---- Refs ----------------------- */
 	const currentRef = useRef(null);
 
-	// React-Dnd Hooks
+	/* ---- Functions ----------------------- */
+	const moveBlock = useCallback(
+		(dragIndex, hoverIndex) => {
+			const newBlocks = [..._blocks];
+			const [draggedBlock] = newBlocks.splice(dragIndex, 1);
+			newBlocks.splice(hoverIndex, 0, draggedBlock);
+			_initBlocks(newBlocks);
+		},
+		[_blocks, _initBlocks]
+	);
+
+	/* React-Dnd Hooks
+	 * ----- useDrop ------------------------------------ */
 	const [, drop] = useDrop({
 		accept: ItemTypes.BLOCK,
 		collect: (monitor) => {
@@ -46,6 +62,7 @@ const useDnDListBlock = (index, block, moveBlock) => {
 		},
 	});
 
+	/* ---- useDrag ------------------------------------------------------- */
 	const [{ isDragging }, drag, preview] = useDrag({
 		type: ItemTypes.BLOCK,
 		item: () => ({
@@ -59,6 +76,8 @@ const useDnDListBlock = (index, block, moveBlock) => {
 	});
 
 	preview(getEmptyImage());
+
+	/* ---- Return ------------------------------------------------------- */
 	return { dropRef: drop(currentRef), dragRef: drag, isDragging };
 };
 
