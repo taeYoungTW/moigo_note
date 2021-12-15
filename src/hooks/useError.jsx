@@ -1,23 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useError = () => {
-	const [_errorState, setErrorState] = useState({
+	const [error, setError] = useState({
 		message: '',
 		code: '',
 		location: '',
 	});
 
-	const _setUseError = useCallback((error) => {
-		setErrorState(error);
-	}, []);
-
 	useEffect(() => {
-		if (_errorState.message || _errorState.code || _errorState.location) {
-			console.error(`Error: ${_errorState.message} `, _errorState);
+		if (error.message || error.code || error.location) {
+			console.error(`Error: ${error.message} `, error);
 		}
-	}, [_errorState]);
+	}, [error]);
 
-	return _setUseError;
+	return setError;
 };
 
 export default useError;
