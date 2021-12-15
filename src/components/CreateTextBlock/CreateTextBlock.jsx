@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 import styles from './CreateTextBlock.scss';
-import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import { useAppAction } from '../../contexts/AppStateContext';
 import PropTypes from 'prop-types';
 import { BlockTypes, WRITE_NOTE_TEXT } from '../../constants/constants';
 import useAutoHeightTextarea from '../../hooks/useAutoHeightTextarea';
@@ -12,19 +12,21 @@ const CreateTextBlock = ({ block, blockIndex }) => {
 	/* ---- Global States & Actions ------------------------------ */
 	const { _updateBlock, _deleteBlock, _setIndexToFocus, _addTypeBlock } =
 		useAppAction();
-	const { _indexToFocus } = useAppState();
 
 	/* ---- Ref -------------------------------------------------------- */
 	const textRef = useRef(null);
 
 	/* ---- hooks ---------------------------------------- */
 	useAutoHeightTextarea(textRef, block.text);
+
 	const { initIndexToFocus: handleBlur } = useIsPrevBlockToFocus(
 		blockIndex,
-		[_indexToFocus, _setIndexToFocus],
-		textRef
+		textRef,
+		useAppAction
 	);
+
 	useSetCaretEnd(textRef); // For #4 issue
+
 	const {
 		handleEnterKey,
 		handleBackspaceKey,
