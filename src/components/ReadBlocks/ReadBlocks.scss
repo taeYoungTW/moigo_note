@@ -1,7 +1,7 @@
 @import '../../styles/_variables.scss';
 
 .detail-note {
-	flex-grow: 1;
+	min-height: 45px;
 	padding: 10px 15px;
 	max-height: $content-max-height;
 	overflow: hidden;
