@@ -1,6 +1,5 @@
-import { useCallback } from 'react';
 import { BlockTypes, INVALID_BLOCK_TYPE_TEXT } from '../../constants/constants';
-import { useAppAction, useAppState } from '../../contexts/AppStateContext';
+import { useAppAction } from '../../contexts/AppStateContext';
 import useDnDImgFile from '../../hooks/useDnDImgFile';
 import useDnDListBlock from '../../hooks/useDnDListBlock';
 import useError from '../../hooks/useError';
@@ -11,28 +10,18 @@ import CreateTextBlock from '../CreateTextBlock/CreateTextBlock';
 import styles from './CreateBlock.scss';
 
 const CreateBlock = ({ block, index }) => {
-	// Global States & Actions ---------------------------------------
-	const { _blocks } = useAppState();
-	const { _initBlocks, _addTypeBlock } = useAppAction();
+	/* ---- Hooks ---------------------------- */
+	const setError = useError();
 
-	// Functions ---------------------------------------
-	const moveBlock = useCallback(
-		(dragIndex, hoverIndex) => {
-			const newBlocks = [..._blocks];
-			const [draggedBlock] = newBlocks.splice(dragIndex, 1);
-			newBlocks.splice(hoverIndex, 0, draggedBlock);
-			_initBlocks(newBlocks);
-		},
-		[_blocks, _initBlocks]
+	const { dropRef, dragRef, isDragging } = useDnDListBlock(
+		index,
+		block,
+		useAppAction
 	);
 
-	const addImgBlock = useCallback(
-		(result) => {
-			_addTypeBlock(BlockTypes.IMAGE, result, index + 1);
-		},
-		[_addTypeBlock, index]
-	);
+	const fileDropRef = useDnDImgFile(index, useAppAction);
 
+	/* ---- Functions --------------------------------------- */
 	const blockRouter = (BlockType) => {
 		switch (BlockType) {
 			case BlockTypes.TEXT:
@@ -42,7 +31,7 @@ const CreateBlock = ({ block, index }) => {
 			case BlockTypes.IMAGE:
 				return <CreateImgBlock block={block} blockIndex={index} />;
 			default:
-				_setUseError({
+				setError({
 					message: INVALID_BLOCK_TYPE_TEXT,
 					location: 'CreateBlock',
 				});
@@ -50,18 +39,7 @@ const CreateBlock = ({ block, index }) => {
 		}
 	};
 
-	/* Hooks ---------------------------- */
-	const _setUseError = useError();
-
-	const { dropRef, dragRef, isDragging } = useDnDListBlock(
-		index,
-		block,
-		moveBlock
-	);
-
-	const fileDropRef = useDnDImgFile(addImgBlock);
-
-	// render ----------------------------
+	/* ---- Render ---------------------------- */
 	return (
 		<div
 			className={styles.createBlock}
