@@ -2,11 +2,8 @@ import { useCallback, useEffect } from 'react';
 
 const IMG_TAG_NAME = 'IMG';
 
-const useIsPrevBlockToFocus = (
-	curIndex,
-	[_indexToFocus, _setIndexToFocus],
-	ref
-) => {
+const useIsPrevBlockToFocus = (curIndex, ref, useAppAction) => {
+	const { _indexToFocus, _setIndexToFocus } = useAppAction();
 	useEffect(() => {
 		const DOM = ref.current;
 		if (curIndex === _indexToFocus) {
